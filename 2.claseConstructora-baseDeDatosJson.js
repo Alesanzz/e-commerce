@@ -40,55 +40,28 @@ class ProductManager {
     return newId;
   }
   #verificationProducts(newP) {
-    if (
-      //validando el titulo
-      !newP.title ||
-      newP.title === null ||
-      newP.title === undefined ||
-      newP.title === ""
-    ) {
+    //validando el titulo
+    if (!newP.title || newP.title === "") {
       throw new Error("The tittle must be completed");
     }
-    if (
-      //validando la descripcion
-      !newP.description ||
-      newP.description === null ||
-      newP.description === undefined ||
-      newP.description === ""
-    ) {
+    //validando la descripcion
+    if (!newP.description || newP.description === "") {
       throw new Error("The description must be completed");
     }
-    if (
-      //validando el precio
-      !newP.price ||
-      newP.price === null ||
-      newP.price === undefined ||
-      newP.price === ""
-    ) {
+    //validando el precio
+    if (!newP.price || newP.price === "") {
       throw new Error("The price must be completed");
     }
-    if (
-      //validando el thumbnail
-      !newP.thumbnail ||
-      newP.thumbnail === null ||
-      newP.thumbnail === undefined ||
-      newP.thumbnail === ""
-    ) {
+    //validando el thumbnail
+    if (!newP.thumbnail || newP.thumbnail === "") {
       throw new Error("The thumbnail must be completed");
     }
-    if (
-      //validando el codigo
-      !newP.code ||
-      newP.code === null ||
-      newP.code === undefined ||
-      newP.code === ""
-    ) {
+    //validando el codigo
+    if (!newP.code || newP.code === "") {
       throw new Error("The code must be completed");
     }
-    if (
-      //validando que el codigo no se repita con otro producto
-      this.products.find((prod) => prod.code == newP.code)
-    ) {
+    //validando que el codigo no se repita con otro producto
+    if (this.products.find((prod) => prod.code == newP.code)) {
       throw new Error(
         "The code: " +
           newP.code +
@@ -97,13 +70,8 @@ class ProductManager {
           " already exist"
       );
     }
-    if (
-      //validando el stock
-      !newP.stock ||
-      newP.stock === null ||
-      newP.stock === undefined ||
-      newP.stock === ""
-    ) {
+    //validando el stock
+    if (!newP.stock || newP.stock === "") {
       throw new Error("The stock must be completed");
     }
   }
@@ -147,8 +115,9 @@ class ProductManager {
     };
 
     //probando las validaciones
-    this.#verificationProducts(newProduct);
-    const exist = notUpdated.find((elements) => elements.code == prod.code);
+    const exist = notUpdated.find(
+      (elements) => elements.code === productToUpdate.code
+    );
     if (exist) {
       throw new Error(
         "The code: " +
@@ -200,12 +169,14 @@ const programa = new ProductManager();
 
 //probando el funcionamiento
 // programa.addProduct({
-//   title: "coma2",
+//   title: "coma1",
 //   description: "Este producto es una prueba",
 //   price: 100,
 //   thumbnail: "www",
-//   code: "ass14",
+//   code: "sdca3",
 //   stock: 100,
 // });
 
-//console.log(programa.updateProduct(3, { title: "alfin", stock: 200,  price: 200,  }));
+// console.log(
+//   programa.updateProduct(6, {title:"holaaa"})
+// );

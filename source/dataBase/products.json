@@ -1,0 +1,101 @@
+[
+  {
+    "id": 1,
+    "title": "coma1",
+    "description": "Este producto es una prueba",
+    "price": 100,
+    "thumbnail": "www",
+    "code": "qwe",
+    "stock": 100
+  },
+  {
+    "id": 2,
+    "title": "pantalon",
+    "description": "color verde / talla chico",
+    "price": 200,
+    "thumbnail": "www",
+    "code": "zxc",
+    "stock": 150
+  },
+  {
+    "id": 3,
+    "title": "camisa",
+    "description": "color azul / talla grande",
+    "price": 250,
+    "thumbnail": "www",
+    "code": "asd",
+    "stock": 175
+  },
+  {
+    "id": 4,
+    "title": "short",
+    "description": "color blanco / talla mediano",
+    "price": 200,
+    "thumbnail": "www",
+    "code": "wer",
+    "stock": 199
+  },
+  {
+    "id": 5,
+    "title": "zapatos",
+    "description": "color verde / talla grande",
+    "price": 190,
+    "thumbnail": "www",
+    "code": "rty",
+    "stock": 120
+  },
+  {
+    "id": 6,
+    "title": "gorra",
+    "description": "color plateado / talla mediana",
+    "price": 115,
+    "thumbnail": "www",
+    "code": "xcv",
+    "stock": 200
+  },
+  {
+    "id": 7,
+    "title": "reloj",
+    "description": "color dorado / talla chico",
+    "price": 400,
+    "thumbnail": "www",
+    "code": "mnb",
+    "stock": 220
+  },
+  {
+    "id": 8,
+    "title": "pulcera",
+    "description": "color variada / talla unica",
+    "price": 100,
+    "thumbnail": "www",
+    "code": "dfg",
+    "stock": 120
+  },
+  {
+    "id": 9,
+    "title": "guardacamisa",
+    "description": "color beige / talla extra grande",
+    "price": 210,
+    "thumbnail": "www",
+    "code": "lkj",
+    "stock": 270
+  },
+  {
+    "id": 10,
+    "title": "jogger",
+    "description": "color marron / talla extra chico",
+    "price": 290,
+    "thumbnail": "www",
+    "code": "iuy",
+    "stock": 200
+  },
+  {
+    "id": 11,
+    "title": "blue jean",
+    "description": "color azul marino / talla mediano",
+    "price": 190,
+    "thumbnail": "www",
+    "code": "ghd",
+    "stock": 260
+  }
+]

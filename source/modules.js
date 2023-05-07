@@ -4,7 +4,7 @@ const path = require("path");
 class ProductManager {
   constructor() {
     this.products = [];
-    this.filePath = path.resolve(__dirname, "./products.json");
+    this.filePath = path.resolve(__dirname, "./dataBase/products.json");
 
     //comprobando si ya existe la base de datos o no existe
     if (!fs.existsSync(this.filePath)) {
@@ -151,32 +151,9 @@ class ProductManager {
     } else {
       throw new Error("The id: " + id + " was not found");
     }
-    //otra forma de hacerlo
-    //   let index = this.products.findIndex((elements) => elements.id == id);
-    //   if (index !== -1) {
-    //     this.products.splice(index, 1);
-
-    //     const productAString = JSON.stringify(this.products, null, 2);
-    //     fs.writeFileSync(this.filePath, productAString);
-    //     return console.log("The id: " + id + " was deleted");
-    //   } else {
-    //     throw new Error("The id: " + id + " was not found");
-    //   }
   }
 }
 
 const programa = new ProductManager();
 
-//probando el funcionamiento
-// programa.addProduct({
-//   title: "coma1",
-//   description: "Este producto es una prueba",
-//   price: 100,
-//   thumbnail: "www",
-//   code: "sdca3",
-//   stock: 100,
-// });
-
-// console.log(
-//   programa.updateProduct(6, {title:"holaaa"})
-// );
+module.exports = programa

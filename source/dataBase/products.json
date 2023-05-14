@@ -3,99 +3,132 @@
     "id": 1,
     "title": "coma1",
     "description": "Este producto es una prueba",
+    "category": "articulos de hogar",
     "price": 100,
     "thumbnail": "www",
     "code": "qwe",
-    "stock": 100
+    "stock": 100,
+    "status": true
   },
   {
     "id": 2,
     "title": "pantalon",
     "description": "color verde / talla chico",
+    "category": "articulos de hogar",
     "price": 200,
     "thumbnail": "www",
     "code": "zxc",
-    "stock": 150
+    "stock": 150,
+    "status": true
   },
   {
     "id": 3,
     "title": "camisa",
     "description": "color azul / talla grande",
+    "category": "articulos de hogar",
     "price": 250,
     "thumbnail": "www",
     "code": "asd",
-    "stock": 175
+    "stock": 175,
+    "status": true
   },
   {
     "id": 4,
     "title": "short",
     "description": "color blanco / talla mediano",
+    "category": "articulos de hogar",
     "price": 200,
     "thumbnail": "www",
     "code": "wer",
-    "stock": 199
+    "stock": 199,
+    "status": true
   },
   {
     "id": 5,
     "title": "zapatos",
     "description": "color verde / talla grande",
+    "category": "articulos de hogar",
     "price": 190,
     "thumbnail": "www",
     "code": "rty",
-    "stock": 120
+    "stock": 120,
+    "status": true
   },
   {
     "id": 6,
     "title": "gorra",
     "description": "color plateado / talla mediana",
+    "category": "articulos de hogar",
     "price": 115,
     "thumbnail": "www",
     "code": "xcv",
-    "stock": 200
+    "stock": 200,
+    "status": true
   },
   {
     "id": 7,
     "title": "reloj",
     "description": "color dorado / talla chico",
+    "category": "articulos de hogar",
     "price": 400,
     "thumbnail": "www",
     "code": "mnb",
-    "stock": 220
+    "stock": 220,
+    "status": true
   },
   {
     "id": 8,
     "title": "pulcera",
     "description": "color variada / talla unica",
+    "category": "articulos de hogar",
     "price": 100,
     "thumbnail": "www",
     "code": "dfg",
-    "stock": 120
+    "stock": 120,
+    "status": true
   },
   {
     "id": 9,
     "title": "guardacamisa",
     "description": "color beige / talla extra grande",
+    "category": "articulos de hogar",
     "price": 210,
     "thumbnail": "www",
     "code": "lkj",
-    "stock": 270
+    "stock": 270,
+    "status": true
   },
   {
     "id": 10,
     "title": "jogger",
     "description": "color marron / talla extra chico",
+    "category": "articulos de hogar",
     "price": 290,
     "thumbnail": "www",
     "code": "iuy",
-    "stock": 200
+    "stock": 200,
+    "status": true
   },
   {
     "id": 11,
     "title": "blue jean",
     "description": "color azul marino / talla mediano",
+    "category": "articulos de hogar",
     "price": 190,
     "thumbnail": "www",
     "code": "ghd",
-    "stock": 260
+    "stock": 260,
+    "status": true
+  },
+  {
+    "id": 12,
+    "title": "telefono",
+    "description": "iphone 13",
+    "category": "producto nuevo",
+    "price": 99,
+    "thumbnail": "www",
+    "code": "jfh",
+    "stock": 99,
+    "status": true
   }
 ]

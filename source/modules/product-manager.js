@@ -1,10 +1,11 @@
-const fs = require("fs");
-const path = require("path");
+import fs from "fs";
+import path from "path";
+import { __dirname } from "../middlewares/dirname.js";
 
 class ProductManager {
   constructor() {
     this.products = [];
-    this.filePath = path.resolve(__dirname, "./dataBase/products.json");
+    this.filePath = path.resolve(__dirname, "../dataBase/products.json");
 
     //comprobando si ya existe la base de datos o no existe
     if (!fs.existsSync(this.filePath)) {
@@ -154,6 +155,4 @@ class ProductManager {
   }
 }
 
-const programa = new ProductManager();
-
-module.exports = programa
+export const productManager = new ProductManager();

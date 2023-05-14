@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "main": "app.js",
+  "__ATENCIONNNN__": "la linea de abajo, se tiene que colocar para poder trabajar con export e import",
+  "type": "module",
+
   "scripts": {
     "start": "nodemon source/app.js"
   },
@@ -11,7 +14,7 @@
     "url": "git+https://github.com/Alesanzz/productManager.git"
   },
   "keywords": [],
-  "author": "",
+  "author": "Alejandro Sanz",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/Alesanzz/productManager/issues"

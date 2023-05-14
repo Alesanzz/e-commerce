@@ -1,10 +1,10 @@
 //requiriendo express basico y configurandolo
-const express = require("express");
+import express from "express";
 const server = express();
 const port = 8080;
 
 //configuracion de rutas
-const path = require("path");
+import path from "path";
 
 //la siguiente linea es para poder usar mejor el req.query, extendiendo las opciones
 server.use(express.urlencoded({ extended: true }));
@@ -12,8 +12,8 @@ server.use(express.urlencoded({ extended: true }));
 server.use(express.json());
 
 //importando las funciones de la clase product manager
-const productsController = require("./modules")
-const products = productsController.getProducts()
+import { productManager } from "./modules/product-manager.js"
+const products = productManager.getProducts()
 
 //home
 server.get("/", (req, res) => {

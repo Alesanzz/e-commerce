@@ -37,8 +37,7 @@ routerCarts.get("/:id_cart", (req, res) => {
 
 //crear un carrito de compras nuevo
 routerCarts.post("/", (req, res) => {
-  const newCart = req.body;
-  cartsManager.addCart(newCart);
+  cartsManager.addCart();
 
   return res.status(201).json({
     status: "Success",

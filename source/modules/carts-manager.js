@@ -56,7 +56,7 @@ class CartManager {
     return newId;
   }
 
-  addCart(dato) {
+  addCart() {
     let newCart = {
       idCart: this.#newId(),
       products: [],

@@ -50,10 +50,11 @@ routerCarts.post("/", (req, res) => {
 //agregar un producto al carrito de compras
 routerCarts.post("/:id_cart/product/:id_product", (req, res) => {
   const idCart = req.params.id_cart;
-  let cartUpdated = carts.find((c) => c.idCart == idCart);
   const idProduct = req.params.id_product;
-  const quantity = req.body;
-  cartsManager.addProductToCart(idCart, idProduct, quantity);
+  const body = req.body;
+  cartsManager.addProductToCart(idCart, idProduct, body);
+
+  let cartUpdated = cartsManager.getCartsById(idCart)
 
   return res.status(201).json({
     status: "Success",

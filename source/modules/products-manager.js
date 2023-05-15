@@ -9,14 +9,17 @@ import {
 class ProductManager {
   constructor() {
     this.products = [];
-    this.filePath = path.resolve(__dirname, "../dataBase/products.json");
+    this.productsFilePath = path.resolve(
+      __dirname,
+      "../dataBase/products.json"
+    );
 
     //comprobando si ya existe la base de datos o no existe
-    if (!fs.existsSync(this.filePath)) {
-      fs.writeFileSync(this.filePath, "");
+    if (!fs.existsSync(this.productsFilePath)) {
+      fs.writeFileSync(this.productsFilePath, [""]);
     } else {
       //leyendo la base de datos
-      let datos = fs.readFileSync(this.filePath, "utf-8");
+      let datos = fs.readFileSync(this.productsFilePath, "utf-8");
       //para devolver el string a su formato original
       const productsAObject = JSON.parse(datos);
       this.products = productsAObject;
@@ -76,7 +79,7 @@ class ProductManager {
 
     //En la linea justo de abajo, se utiliza para convertir los datos en formato de string, y se coloca el segundo parametro (null) y el tercer paremetro (numero de tabulaciones que se desea), para que el archivo json en la base de datos se vea de forma mas ordenado, estos dos parametros son opcionales.
     const productAString = JSON.stringify(this.products, null, 2);
-    fs.writeFileSync(this.filePath, productAString);
+    fs.writeFileSync(this.productsFilePath, productAString);
   }
 
   updateProduct(id, prod) {
@@ -118,10 +121,9 @@ class ProductManager {
       this.products = [productToUpdate, ...notUpdated];
     }
 
-    this.products = [productToUpdate, ...notUpdated];
     //En la linea justo de abajo, se utiliza para convertir los datos en formato de string, y se coloca el segundo parametro (null) y el tercer paremetro (numero de tabulaciones que se desea), para que el archivo json en la base de datos se vea de forma mas ordenado, estos dos parametros son opcionales.
     const productAString = JSON.stringify(this.products, null, 2);
-    fs.writeFileSync(this.filePath, productAString);
+    fs.writeFileSync(this.productsFilePath, productAString);
   }
 
   deleteProduct(id) {
@@ -133,7 +135,7 @@ class ProductManager {
     if (productToDelete) {
       //En la linea justo de abajo, se utiliza para convertir los datos en formato de string, y se coloca el segundo parametro (null) y el tercer paremetro (numero de tabulaciones que se desea), para que el archivo json en la base de datos se vea de forma mas ordenado, estos dos parametros son opcionales.
       const productAString = JSON.stringify(notDeleted, null, 2);
-      fs.writeFileSync(this.filePath, productAString);
+      fs.writeFileSync(this.productsFilePath, productAString);
       return console.log("The id: " + id + " was deleted");
     } else {
       throw new Error("The id: " + id + " was not found");

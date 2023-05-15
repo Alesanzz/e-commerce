@@ -5,17 +5,32 @@ import { __dirname } from "../middlewares/dirname.js";
 class CartManager {
   constructor() {
     this.carts = [];
-    this.filePath = path.resolve(__dirname, "../dataBase/carts.json");
+    this.cartsFilePath = path.resolve(__dirname, "../dataBase/carts.json");
+    this.productsFilePath = path.resolve(
+      __dirname,
+      "../dataBase/products.json"
+    );
 
     //comprobando si ya existe la base de datos o no existe
-    if (!fs.existsSync(this.filePath)) {
-      fs.writeFileSync(this.filePath, []);
+    if (!fs.existsSync(this.cartsFilePath)) {
+      fs.writeFileSync(this.cartsFilePath, [""]);
     } else {
       //leyendo la base de datos
-      let datos = fs.readFileSync(this.filePath, "utf-8");
+      let cartsDatos = fs.readFileSync(this.cartsFilePath, "utf-8");
       //para devolver el string a su formato original
-      const cartsAObject = JSON.parse(datos);
+      const cartsAObject = JSON.parse(cartsDatos);
       this.carts = cartsAObject;
+    }
+
+    //importando la base de datos de los productos
+    if (!fs.existsSync(this.productsFilePath)) {
+      fs.writeFileSync(this.productsFilePath, [""]);
+    } else {
+      //leyendo la base de datos
+      let productsDatos = fs.readFileSync(this.productsFilePath, "utf-8");
+      //para devolver el string a su formato original
+      const productsAObject = JSON.parse(productsDatos);
+      this.products = productsAObject;
     }
   }
 
@@ -24,7 +39,7 @@ class CartManager {
   }
 
   getCartsById(id) {
-    const encontrado = this.carts.find((elements) => elements.id == id);
+    const encontrado = this.carts.find((elements) => elements.idCart == id);
     if (encontrado) {
       return encontrado;
     } else {
@@ -51,74 +66,53 @@ class CartManager {
 
     //En la linea justo de abajo, se utiliza para convertir los datos en formato de string, y se coloca el segundo parametro (null) y el tercer paremetro (numero de tabulaciones que se desea), para que el archivo json en la base de datos se vea de forma mas ordenado, estos dos parametros son opcionales.
     const cartAString = JSON.stringify(this.carts, null, 2);
-    fs.writeFileSync(this.filePath, cartAString);
+    fs.writeFileSync(this.cartsFilePath, cartAString);
   }
 
-  addProductToCart(idCart, idProduct, quantity){
+  addProductToCart(idCart, idProduct, body) {
+    //se busca el indice del carrito
+    const indexCart = this.carts.findIndex((cart) => cart.idCart == idCart);
 
+    if (indexCart !== -1) {
+      //si el carrito existe, se busca si ya existe el producto que se quiere agregar dentro del carrito
+      const indexProduct = this.carts[indexCart].products.findIndex(
+        (product) => product.idProduct == idProduct
+      );
 
+      if (indexProduct !== -1) {
+        //como el producto ya existe en el carrito, le sumamos la cantidad
+        this.carts[indexCart].products[indexProduct].quantity += body.quantity;
+
+        const cartAString = JSON.stringify(this.carts, null, 2);
+        fs.writeFileSync(this.cartsFilePath, cartAString);
+      } else {
+        //si no existe el producto a agregar en el carrito, buscamos el producto en la base de datos
+        const productToAdd = this.products.find(
+          (product) => product.id == idProduct
+        );
+        
+        //una vez el producto en una variable, lo agregamos al carrito
+        if (productToAdd) {
+          this.carts[indexCart].products.push({
+            idProduct: productToAdd.id,
+            nameOfTheProduct: productToAdd.title,
+            quantity: body.quantity,
+          });
+
+          const cartAString = JSON.stringify(this.carts, null, 2);
+          fs.writeFileSync(this.cartsFilePath, cartAString);
+        } else {
+          throw new Error(
+            //si el producto en realidad no existe
+            "The id: " + idProduct + " of the product was not found"
+          );
+        }
+      }
+    } else {
+      //si el carrito no existe
+      throw new Error("The id: " + idCart + " of the cart was not found");
+    }
   }
-
-  //   updateProduct(id, prod) {
-  //     let productToUpdate = this.getProductsById(id);
-  //     let notUpdated = this.products.filter(function (elemento) {
-  //       return elemento.id != id;
-  //     });
-
-  //     productToUpdate = {
-  //       id: productToUpdate.id,
-  //       title: prod.title || productToUpdate.title,
-  //       description: prod.description || productToUpdate.description,
-  //       category: prod.category || productToUpdate.category,
-  //       price: prod.price || productToUpdate.price,
-  //       thumbnail: prod.thumbnail || productToUpdate.thumbnail,
-  //       code: prod.code || productToUpdate.code,
-  //       stock: prod.stock || productToUpdate.stock,
-  //       status: prod.status || productToUpdate.status,
-  //     };
-
-  //     //probando las validaciones
-  //     verificationTypeOfProducts(productToUpdate);
-  //     verificationDataOfProducts(productToUpdate);
-  //     const exist = notUpdated.find(
-  //       (elements) => elements.code === productToUpdate.code
-  //     );
-  //     if (exist) {
-  //       throw new Error(
-  //         "The code: " +
-  //           productToUpdate.code +
-  //           " of the product title: " +
-  //           productToUpdate.title +
-  //           " already exist"
-  //       );
-  //     } else {
-  //       console.log(
-  //         "Successful update of the product title: " + productToUpdate.title
-  //       );
-  //       this.products = [productToUpdate, ...notUpdated];
-  //     }
-
-  //     this.products = [productToUpdate, ...notUpdated];
-  //     //En la linea justo de abajo, se utiliza para convertir los datos en formato de string, y se coloca el segundo parametro (null) y el tercer paremetro (numero de tabulaciones que se desea), para que el archivo json en la base de datos se vea de forma mas ordenado, estos dos parametros son opcionales.
-  //     const cartAString = JSON.stringify(this.products, null, 2);
-  //     fs.writeFileSync(this.filePath, cartAString);
-  //   }
-
-  //   deleteProduct(id) {
-  //     let productToDelete = this.getProductsById(id);
-  //     let notDeleted = this.products.filter(function (elemento) {
-  //       return elemento.id != id;
-  //     });
-
-  //     if (productToDelete) {
-  //       //En la linea justo de abajo, se utiliza para convertir los datos en formato de string, y se coloca el segundo parametro (null) y el tercer paremetro (numero de tabulaciones que se desea), para que el archivo json en la base de datos se vea de forma mas ordenado, estos dos parametros son opcionales.
-  //       const cartAString = JSON.stringify(notDeleted, null, 2);
-  //       fs.writeFileSync(this.filePath, cartAString);
-  //       return console.log("The id: " + id + " was deleted");
-  //     } else {
-  //       throw new Error("The id: " + id + " was not found");
-  //     }
-  //   }
 }
 
 export const cartsManager = new CartManager();

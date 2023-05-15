@@ -1,14 +1,32 @@
 [
   {
     "idCart": 1,
-    "products": []
+    "products": [
+      {
+        "idProduct": 1,
+        "nameOfTheProduct": "coma1",
+        "quantity": 900
+      },
+      {
+        "idProduct": 10,
+        "nameOfTheProduct": "jogger",
+        "quantity": 2700
+      },
+      {
+        "idProduct": 11,
+        "nameOfTheProduct": "blue jean",
+        "quantity": 2700
+      }
+    ]
   },
   {
     "idCart": 2,
-    "products": []
-  },
-  {
-    "idCart": 3,
-    "products": []
+    "products": [
+      {
+        "idProduct": 11,
+        "nameOfTheProduct": "blue jean",
+        "quantity": 900
+      }
+    ]
   }
 ]

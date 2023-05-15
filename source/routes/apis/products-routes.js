@@ -1,7 +1,7 @@
 import express from "express";
 
 //importando las funciones de la clase product manager
-import { productManager } from "../../modules/product-manager.js";
+import { productManager } from "../../modules/products-manager.js";
 const products = productManager.getProducts();
 
 export const routerProducts = express.Router();

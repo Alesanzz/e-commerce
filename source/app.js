@@ -11,10 +11,12 @@ server.use(express.json());
 //importando las rutas de las apis
 import {routerHome} from "./routes/apis/home-routes.js"
 import {routerProducts} from "./routes/apis/products-routes.js"
+import {routerCarts} from "./routes/apis/carts-routes.js"
 
 //endpoint tipo api (crudos en json)
 server.use("/api", routerHome)
 server.use("/api/products", routerProducts)
+server.use("/api/carts", routerCarts)
 
 
 //cuando la ruta no existe

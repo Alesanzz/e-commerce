@@ -7,7 +7,7 @@ const products = productManager.getProducts();
 export const routerApiProducts = express.Router();
 
 //todos los productos
-routerProducts.get("/", (req, res) => {
+routerApiProducts.get("/", (req, res) => {
   const limit = req.query.limit;
 
   if (req.query && limit && limit <= products.length) {
@@ -30,7 +30,7 @@ routerProducts.get("/", (req, res) => {
 });
 
 //un solo producto
-routerProducts.get("/:id", (req, res) => {
+routerApiProducts.get("/:id", (req, res) => {
   const id = req.params.id;
   const product = products.find((p) => p.id == id);
 
@@ -50,7 +50,7 @@ routerProducts.get("/:id", (req, res) => {
 });
 
 //crear un producto
-routerProducts.post("/", (req, res) => {
+routerApiProducts.post("/", (req, res) => {
   const newProduct = req.body;
   productManager.addProduct(newProduct);
 
@@ -71,7 +71,7 @@ routerProducts.post("/", (req, res) => {
 });
 
 //modificar un profucto
-routerProducts.put("/:id", (req, res) => {
+routerApiProducts.put("/:id", (req, res) => {
   const id = req.params.id;
   const dataToUpdate = req.body;
   const index = products.findIndex((p) => p.id == id);
@@ -94,7 +94,7 @@ routerProducts.put("/:id", (req, res) => {
 });
 
 //eliminar un producto
-routerProducts.delete("/:id", (req, res) => {
+routerApiProducts.delete("/:id", (req, res) => {
     const id = req.params.id;
     productManager.deleteProduct(id)
   

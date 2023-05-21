@@ -7,7 +7,7 @@ const carts = cartsManager.getCarts();
 export const routerApiCarts = express.Router();
 
 //todos los carritos de compra
-routerCarts.get("/", (req, res) => {
+routerApiCarts.get("/", (req, res) => {
   return res.json({
     status: "Success",
     msg: "Mostrando todos los carritos encontrados con exito",
@@ -16,7 +16,7 @@ routerCarts.get("/", (req, res) => {
 });
 
 //un solo carrito de compra
-routerCarts.get("/:id_cart", (req, res) => {
+routerApiCarts.get("/:id_cart", (req, res) => {
   const idCart = req.params.id_cart;
   let cart = carts.find((c) => c.idCart == idCart);
 
@@ -36,7 +36,7 @@ routerCarts.get("/:id_cart", (req, res) => {
 });
 
 //crear un carrito de compras nuevo
-routerCarts.post("/", (req, res) => {
+routerApiCarts.post("/", (req, res) => {
   cartsManager.addCart();
 
   return res.status(201).json({
@@ -47,7 +47,7 @@ routerCarts.post("/", (req, res) => {
 });
 
 //agregar un producto al carrito de compras
-routerCarts.post("/:id_cart/product/:id_product", (req, res) => {
+routerApiCarts.post("/:id_cart/product/:id_product", (req, res) => {
   const idCart = req.params.id_cart;
   const idProduct = req.params.id_product;
   const body = req.body;

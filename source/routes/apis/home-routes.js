@@ -1,6 +1,6 @@
 import express from "express";
 
-export const routerHome = express.Router();
+export const routerApiHome = express.Router();
 
 routerApiHome.get("/", (req, res) => {
   return res.status(200).json({

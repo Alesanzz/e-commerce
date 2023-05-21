@@ -4,7 +4,7 @@ import express from "express";
 import { productManager } from "../../modules/products-manager.js";
 const products = productManager.getProducts();
 
-export const routerProducts = express.Router();
+export const routerApiProducts = express.Router();
 
 //todos los productos
 routerProducts.get("/", (req, res) => {

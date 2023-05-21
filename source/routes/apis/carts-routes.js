@@ -4,7 +4,7 @@ import express from "express";
 import { cartsManager } from "../../modules/carts-manager.js";
 const carts = cartsManager.getCarts();
 
-export const routerCarts = express.Router();
+export const routerApiCarts = express.Router();
 
 //todos los carritos de compra
 routerCarts.get("/", (req, res) => {

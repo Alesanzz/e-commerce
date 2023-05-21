@@ -8,12 +8,12 @@ import { sourceDirname } from "./middlewares/dirname.js";
 
 //para configurar el motor de handlebars (las 4 lineas)
 import handlebars from "express-handlebars";
-app.engine("handlebars", handlebars.engine());
-app.set("views", sourceDirname + "/views");
-app.set("view engine", "handlebars");
+server.engine("handlebars", handlebars.engine());
+server.set("views", sourceDirname + "/views");
+server.set("view engine", "handlebars");
 
 //para configurar archivos como publicos
-app.use(express.static("public"));
+server.use(express.static("public"));
 
 //la siguiente linea es para poder usar mejor el req.query, extendiendo las opciones
 server.use(express.urlencoded({ extended: true }));
@@ -31,10 +31,10 @@ server.use("/api/products", routerApiProducts);
 server.use("/api/carts", routerApiCarts);
 
 //importando las rutas de los views
-
+import { routerProducts } from "./routes/products/products-v-routes.js";
 
 //endpoint de views
-
+server.use("/products", routerProducts);
 
 //importando las rutas de los views en real time (socket.io)
 

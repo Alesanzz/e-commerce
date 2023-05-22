@@ -1,0 +1,37 @@
+<h1 id="titulo">Bienvenido al stock de productos en tiempo real</h1>
+
+<div>
+<h2>Creador de productos:</h2>
+
+<input id="input-title" type="text" value="" placeholder="Nombre">
+<input id="input-description" type="text" value="" placeholder="Descripcion">
+<input id="input-category" type="text" value="" placeholder="Categoria">
+<input id="input-price" type="number" value="" placeholder="Precio">
+<input id="input-thumbnail" type="text" value="" placeholder="Direccion de imagen">
+<input id="input-code" type="text" value="" placeholder="Codigo">
+<input id="input-stock" type="number" value="" placeholder="Stock">
+<hr />
+<button id="button-send" type="button">Agregar producto</button>
+<button id="button-reset" type="button">Borrar datos</button>
+
+</div>
+
+<div>
+    <h2>Listado de los productos:</h2>
+  {{#each products}}
+    <p>Nombre del producto: {{this.title}}</p>
+    <p>Descripcion: {{this.description}}</p>
+    <p>Categoria: {{this.category}}</p>
+    <p>Precio: {{this.price}}</p>
+    <p>Direccion de imagen: {{this.thumbnail}}</p>
+    <p>Codigo: {{this.code}}</p>
+    <p>Stock actual: {{this.stock}}</p>
+    <button class="button-delete" type="button" value="{{this.id}}">Borrar este producto</button>
+    <hr />
+  {{/each}}
+</div>
+<div id="div-new-product">
+</div>
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="/js/products-realtime.js"></script>

@@ -2,9 +2,10 @@
 import { productManager } from "../modules/products-manager.js";
 const products = productManager.getProducts();
 
-export const productController = {
+export const productRealtimeController = {
     index: function(req, res) {
+        console.log("cliente conectado")
         let products = productManager.getProducts();
-        return res.render("products-views/products-list", { products });
+        return res.render("real-time-products", { products });
     },
 }

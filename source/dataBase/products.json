@@ -1,11 +1,11 @@
 [
   {
     "id": 1,
-    "title": "coma1",
-    "description": "Este producto es una prueba",
+    "title": "termo",
+    "description": "metalico mate",
     "category": "articulos de hogar",
     "price": 100,
-    "thumbnail": "www",
+    "thumbnail": "/images/realtimes/www.png",
     "code": "qwe",
     "stock": 100,
     "status": true
@@ -13,10 +13,10 @@
   {
     "id": 2,
     "title": "pantalon",
-    "description": "color verde / talla chico",
+    "description": "color verde / t. chico",
     "category": "articulos de hogar",
     "price": 200,
-    "thumbnail": "www",
+    "thumbnail": "/images/realtimes/www.png",
     "code": "zxc",
     "stock": 150,
     "status": true
@@ -24,10 +24,10 @@
   {
     "id": 3,
     "title": "camisa",
-    "description": "color azul / talla grande",
+    "description": "color azul / t. grande",
     "category": "articulos de hogar",
     "price": 250,
-    "thumbnail": "www",
+    "thumbnail": "/images/realtimes/www.png",
     "code": "asd",
     "stock": 175,
     "status": true
@@ -35,10 +35,10 @@
   {
     "id": 4,
     "title": "short",
-    "description": "color blanco / talla mediano",
+    "description": "color gris / t. mediano",
     "category": "articulos de hogar",
     "price": 200,
-    "thumbnail": "www",
+    "thumbnail": "/images/realtimes/www.png",
     "code": "wer",
     "stock": 199,
     "status": true
@@ -46,10 +46,10 @@
   {
     "id": 5,
     "title": "zapatos",
-    "description": "color verde / talla grande",
+    "description": "color verde / t. grande",
     "category": "articulos de hogar",
     "price": 190,
-    "thumbnail": "www",
+    "thumbnail": "/images/realtimes/www.png",
     "code": "rty",
     "stock": 120,
     "status": true
@@ -57,10 +57,10 @@
   {
     "id": 6,
     "title": "gorra",
-    "description": "color plateado / talla mediana",
+    "description": "color rosa / t. mediana",
     "category": "articulos de hogar",
     "price": 115,
-    "thumbnail": "www",
+    "thumbnail": "/images/realtimes/www.png",
     "code": "xcv",
     "stock": 200,
     "status": true
@@ -68,10 +68,10 @@
   {
     "id": 7,
     "title": "reloj",
-    "description": "color dorado / talla chico",
+    "description": "color dorado / t. chico",
     "category": "articulos de hogar",
     "price": 400,
-    "thumbnail": "www",
+    "thumbnail": "/images/realtimes/www.png",
     "code": "mnb",
     "stock": 220,
     "status": true
@@ -79,10 +79,10 @@
   {
     "id": 8,
     "title": "pulcera",
-    "description": "color variada / talla unica",
+    "description": "color variada / t. unica",
     "category": "articulos de hogar",
     "price": 100,
-    "thumbnail": "www",
+    "thumbnail": "/images/realtimes/www.png",
     "code": "dfg",
     "stock": 120,
     "status": true
@@ -90,10 +90,10 @@
   {
     "id": 9,
     "title": "guardacamisa",
-    "description": "color beige / talla extra grande",
+    "description": "color beige / t. extra grande",
     "category": "articulos de hogar",
     "price": 210,
-    "thumbnail": "www",
+    "thumbnail": "/images/realtimes/www.png",
     "code": "lkj",
     "stock": 270,
     "status": true
@@ -101,10 +101,10 @@
   {
     "id": 10,
     "title": "jogger",
-    "description": "color marron / talla extra chico",
+    "description": "color marron / t. extra chico",
     "category": "articulos de hogar",
     "price": 290,
-    "thumbnail": "www",
+    "thumbnail": "/images/realtimes/www.png",
     "code": "iuy",
     "stock": 200,
     "status": true
@@ -112,10 +112,10 @@
   {
     "id": 11,
     "title": "blue jean",
-    "description": "color azul marino / talla mediano",
+    "description": "color azul marino / t. mediano",
     "category": "articulos de hogar",
     "price": 190,
-    "thumbnail": "www",
+    "thumbnail": "/images/realtimes/www.png",
     "code": "ghd",
     "stock": 260,
     "status": true
@@ -126,7 +126,7 @@
     "description": "iphone 13",
     "category": "producto nuevo",
     "price": 99,
-    "thumbnail": "www",
+    "thumbnail": "/images/realtimes/www.png",
     "code": "jfh",
     "stock": 99,
     "status": true

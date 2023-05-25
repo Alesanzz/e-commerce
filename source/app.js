@@ -69,17 +69,25 @@ import { productManager } from "./modules/products-manager.js";
 //segundo parametro = un objeto que se manda al front
 
 socketServer.on("connection", (socket) => {
-  socket.on("new-product-created", (newProduct) => {
-    productManager.addProduct(newProduct);
-
-    let allProducts = productManager.getProducts();
-    socketServer.emit("all-the-products", allProducts);
+  socket.on("new-product-created", async (newProduct) => {
+    try {
+      await productManager.addProduct(newProduct);
+      
+      let allProducts = await productManager.getProducts();
+      socketServer.emit("all-the-products", allProducts);
+    } catch (error) {
+      console.log(error);
+    }
   });
-
-  socket.on("delete-product", (iidd) => {
-    productManager.deleteProduct(iidd);
-
-    let allProducts = productManager.getProducts();
-    socketServer.emit("all-the-products", allProducts);
+  
+  socket.on("delete-product", async (iidd) => {
+    try {
+      await productManager.deleteProduct(iidd);
+  
+      let allProducts = await productManager.getProducts();
+      socketServer.emit("all-the-products", allProducts);
+    } catch (error) {
+      console.log(error);
+    }
   });
-});
+}); 

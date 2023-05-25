@@ -1,0 +1,3 @@
+{
+    "ignore": ["source/dataBase/products.json", "source/dataBase/carts.json"]
+}

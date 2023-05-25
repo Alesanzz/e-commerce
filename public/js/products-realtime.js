@@ -1,18 +1,20 @@
 const socket = io();
 
-const title = document.getElementById("input-title");
-const description = document.getElementById("input-description");
-const category = document.getElementById("input-category");
-const price = document.getElementById("input-price");
-const thumbnail = document.getElementById("input-thumbnail");
-const code = document.getElementById("input-code");
-const stock = document.getElementById("input-stock");
-const divNewProduct = document.getElementById("div-new-product");
-const botonSend = document.getElementById("button-send");
-const botonReset = document.getElementById("button-reset");
-const deleteButtons = document.getElementsByClassName("button-delete");
+const formProducts = document.getElementById("form-products");
+const title = document.getElementById("form-title");
+const description = document.getElementById("form-description");
+const category = document.getElementById("form-category");
+const price = document.getElementById("form-price");
+const thumbnail = document.getElementById("form-thumbnail");
+const code = document.getElementById("form-code");
+const stock = document.getElementById("form-stock");
 
-botonSend.addEventListener("click", function () {
+
+const deleteButtons = document.querySelectorAll('.button-delete');
+
+// crear un producto
+formProducts.addEventListener("submit", (e) => {
+  e.preventDefault();
   let newProduct = {
     title: title.value,
     description: description.value,
@@ -29,43 +31,51 @@ botonSend.addEventListener("click", function () {
   //segundo parametro = el objeto que se envia al back
   socket.emit("new-product-created", newProduct);
   (title.value = ""),
-    (description.value = ""),
-    (category.value = ""),
-    (price.value = ""),
-    (thumbnail.value = ""),
-    (code.value = ""),
-    (stock.value = "");
+  (description.value = ""),
+  (category.value = ""),
+  (price.value = ""),
+  (thumbnail.value = ""),
+  (code.value = ""),
+  (stock.value = "");
 });
 
-//para enviar el id del producto que quiero eliminar
-for (let i = 0; i < deleteButtons.length; i++) {
-    deleteButtons[i].addEventListener("click", function () {
-      let iidd = Number(deleteButtons[i].value);
-  
-      socket.emit("delete-product", iidd);
-    });
+// eliminar un producto
+const tableP = document.getElementById("tableP");
+tableP.addEventListener('click', event => {
+  if (event.target.classList.contains('button-delete')) {
+    const iidd = Number(event.target.value);
+    console.log('Botón presionado. Valor:', iidd);
+    socket.emit("delete-product", iidd);
   }
+});
 
 
-// socket.on("all-the-products", (newProduct) => {
-//    divNewProduct.innerHTML = `
-//   <p>Nombre del producto: ${newProduct.title}</p>
-//   <p>Descripcion: ${newProduct.description}</p>
-//   <p>Categoria: ${newProduct.category}</p>
-//   <p>Precio: ${newProduct.price}</p>
-//   <p>Direccion de imagen: ${newProduct.thumbnail}</p>
-//   <p>Codigo: ${newProduct.code}</p>
-//   <p>Stock actual: ${newProduct.stock}</p>
-//   <hr />`;
-// });
 
+// actualizar la vista
+socket.on("all-the-products", (allProducts) => {
+  tableP.innerHTML = "";
+  let contenido = "";
 
-botonReset.addEventListener("click", function () {
-  (title.value = ""),
-    (description.value = ""),
-    (category.value = ""),
-    (price.value = ""),
-    (thumbnail.value = ""),
-    (code.value = ""),
-    (stock.value = "");
+  for (let i = 0; i < allProducts.length; i++) {
+    contenido += `
+    <tr>
+    <th scope="row">${allProducts[i].id}</th>
+    <td>${allProducts[i].title}</td>
+    <td>${allProducts[i].description}</td>
+    <td>${allProducts[i].category}</td>
+    <td>${allProducts[i].price}</td>
+    <td>${allProducts[i].code}</td>
+    <td>${allProducts[i].stock}</td>   
+    <td>
+      <img
+      src="${allProducts[i].thumbnail}"
+      style="width: 50px; min-height:100%; max-height: 50px;"/>
+    </td>
+    <td>
+      <button class="button-delete" type="button" value="${allProducts[i].id}">Borrar</button>
+    </td>
+    </tr> 
+    `;
+  }
+  tableP.innerHTML = contenido;
 });

@@ -5,7 +5,7 @@
     "description": "Este producto es una prueba",
     "category": "articulos de hogar",
     "price": 100,
-    "thumbnail": "www",
+    "thumbnail": "/images/realtimes/www.png",
     "code": "qwe",
     "stock": 100,
     "status": true
@@ -16,7 +16,7 @@
     "description": "color verde / talla chico",
     "category": "articulos de hogar",
     "price": 200,
-    "thumbnail": "www",
+    "thumbnail": "/images/realtimes/www.png",
     "code": "zxc",
     "stock": 150,
     "status": true
@@ -27,7 +27,7 @@
     "description": "color azul / talla grande",
     "category": "articulos de hogar",
     "price": 250,
-    "thumbnail": "www",
+    "thumbnail": "/images/realtimes/www.png",
     "code": "asd",
     "stock": 175,
     "status": true
@@ -38,7 +38,7 @@
     "description": "color blanco / talla mediano",
     "category": "articulos de hogar",
     "price": 200,
-    "thumbnail": "www",
+    "thumbnail": "/images/realtimes/www.png",
     "code": "wer",
     "stock": 199,
     "status": true
@@ -49,7 +49,7 @@
     "description": "color verde / talla grande",
     "category": "articulos de hogar",
     "price": 190,
-    "thumbnail": "www",
+    "thumbnail": "/images/realtimes/www.png",
     "code": "rty",
     "stock": 120,
     "status": true
@@ -60,7 +60,7 @@
     "description": "color plateado / talla mediana",
     "category": "articulos de hogar",
     "price": 115,
-    "thumbnail": "www",
+    "thumbnail": "/images/realtimes/www.png",
     "code": "xcv",
     "stock": 200,
     "status": true
@@ -71,7 +71,7 @@
     "description": "color dorado / talla chico",
     "category": "articulos de hogar",
     "price": 400,
-    "thumbnail": "www",
+    "thumbnail": "/images/realtimes/www.png",
     "code": "mnb",
     "stock": 220,
     "status": true
@@ -82,7 +82,7 @@
     "description": "color variada / talla unica",
     "category": "articulos de hogar",
     "price": 100,
-    "thumbnail": "www",
+    "thumbnail": "/images/realtimes/www.png",
     "code": "dfg",
     "stock": 120,
     "status": true
@@ -93,7 +93,7 @@
     "description": "color beige / talla extra grande",
     "category": "articulos de hogar",
     "price": 210,
-    "thumbnail": "www",
+    "thumbnail": "/images/realtimes/www.png",
     "code": "lkj",
     "stock": 270,
     "status": true
@@ -104,7 +104,7 @@
     "description": "color marron / talla extra chico",
     "category": "articulos de hogar",
     "price": 290,
-    "thumbnail": "www",
+    "thumbnail": "/images/realtimes/www.png",
     "code": "iuy",
     "stock": 200,
     "status": true
@@ -115,7 +115,7 @@
     "description": "color azul marino / talla mediano",
     "category": "articulos de hogar",
     "price": 190,
-    "thumbnail": "www",
+    "thumbnail": "/images/realtimes/www.png",
     "code": "ghd",
     "stock": 260,
     "status": true
@@ -126,7 +126,7 @@
     "description": "iphone 13",
     "category": "producto nuevo",
     "price": 99,
-    "thumbnail": "www",
+    "thumbnail": "/images/realtimes/www.png",
     "code": "jfh",
     "stock": 99,
     "status": true

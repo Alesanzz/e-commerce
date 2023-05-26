@@ -51,7 +51,7 @@ export function verificationDataOfProducts(newP) {
     throw new Error("The code must be completed");
   }
   //validando el stock
-  if (!newP.stock || newP.stock === "") {
+  if (newP.stock === undefined || newP.stock === null || newP.stock === "") {
     throw new Error("The stock must be completed");
   }
 }

@@ -133,8 +133,9 @@ class ProductManager {
     });
 
     if (productToDelete) {
+      this.products = notDeleted
       //En la linea justo de abajo, se utiliza para convertir los datos en formato de string, y se coloca el segundo parametro (null) y el tercer paremetro (numero de tabulaciones que se desea), para que el archivo json en la base de datos se vea de forma mas ordenado, estos dos parametros son opcionales.
-      const productAString = JSON.stringify(notDeleted, null, 2);
+      const productAString = JSON.stringify(this.products, null, 2);
       fs.writeFileSync(this.productsFilePath, productAString);
       return console.log("The id: " + id + " was deleted");
     } else {

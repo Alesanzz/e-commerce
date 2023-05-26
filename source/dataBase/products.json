@@ -1,8 +1,8 @@
 [
   {
     "id": 1,
-    "title": "termo",
-    "description": "metalico mate",
+    "title": "coma1",
+    "description": "Este producto es una prueba",
     "category": "articulos de hogar",
     "price": 100,
     "thumbnail": "/images/realtimes/www.png",
@@ -13,7 +13,7 @@
   {
     "id": 2,
     "title": "pantalon",
-    "description": "color verde / t. chico",
+    "description": "color verde / talla chico",
     "category": "articulos de hogar",
     "price": 200,
     "thumbnail": "/images/realtimes/www.png",
@@ -24,7 +24,7 @@
   {
     "id": 3,
     "title": "camisa",
-    "description": "color azul / t. grande",
+    "description": "color azul / talla grande",
     "category": "articulos de hogar",
     "price": 250,
     "thumbnail": "/images/realtimes/www.png",
@@ -35,7 +35,7 @@
   {
     "id": 4,
     "title": "short",
-    "description": "color gris / t. mediano",
+    "description": "color blanco / talla mediano",
     "category": "articulos de hogar",
     "price": 200,
     "thumbnail": "/images/realtimes/www.png",
@@ -46,7 +46,7 @@
   {
     "id": 5,
     "title": "zapatos",
-    "description": "color verde / t. grande",
+    "description": "color verde / talla grande",
     "category": "articulos de hogar",
     "price": 190,
     "thumbnail": "/images/realtimes/www.png",
@@ -57,7 +57,7 @@
   {
     "id": 6,
     "title": "gorra",
-    "description": "color rosa / t. mediana",
+    "description": "color plateado / talla mediana",
     "category": "articulos de hogar",
     "price": 115,
     "thumbnail": "/images/realtimes/www.png",
@@ -68,7 +68,7 @@
   {
     "id": 7,
     "title": "reloj",
-    "description": "color dorado / t. chico",
+    "description": "color dorado / talla chico",
     "category": "articulos de hogar",
     "price": 400,
     "thumbnail": "/images/realtimes/www.png",
@@ -79,7 +79,7 @@
   {
     "id": 8,
     "title": "pulcera",
-    "description": "color variada / t. unica",
+    "description": "color variada / talla unica",
     "category": "articulos de hogar",
     "price": 100,
     "thumbnail": "/images/realtimes/www.png",
@@ -90,7 +90,7 @@
   {
     "id": 9,
     "title": "guardacamisa",
-    "description": "color beige / t. extra grande",
+    "description": "color beige / talla extra grande",
     "category": "articulos de hogar",
     "price": 210,
     "thumbnail": "/images/realtimes/www.png",
@@ -101,7 +101,7 @@
   {
     "id": 10,
     "title": "jogger",
-    "description": "color marron / t. extra chico",
+    "description": "color marron / talla extra chico",
     "category": "articulos de hogar",
     "price": 290,
     "thumbnail": "/images/realtimes/www.png",
@@ -112,7 +112,7 @@
   {
     "id": 11,
     "title": "blue jean",
-    "description": "color azul marino / t. mediano",
+    "description": "color azul marino / talla mediano",
     "category": "articulos de hogar",
     "price": 190,
     "thumbnail": "/images/realtimes/www.png",

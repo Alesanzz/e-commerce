@@ -69,7 +69,7 @@ class CartManager {
     fs.writeFileSync(this.cartsFilePath, cartAString);
   }
 
-  addProductToCart(idCart, idProduct, body) {
+  addProductToCart(idCart, idProduct) {
     //se busca el indice del carrito
     const indexCart = this.carts.findIndex((cart) => cart.idCart == idCart);
 
@@ -81,7 +81,7 @@ class CartManager {
 
       if (indexProduct !== -1) {
         //como el producto ya existe en el carrito, le sumamos la cantidad
-        this.carts[indexCart].products[indexProduct].quantity += body.quantity;
+        this.carts[indexCart].products[indexProduct].quantity += 1;
 
         const cartAString = JSON.stringify(this.carts, null, 2);
         fs.writeFileSync(this.cartsFilePath, cartAString);
@@ -96,7 +96,7 @@ class CartManager {
           this.carts[indexCart].products.push({
             idProduct: productToAdd.id,
             nameOfTheProduct: productToAdd.title,
-            quantity: body.quantity,
+            quantity: 1,
           });
 
           const cartAString = JSON.stringify(this.carts, null, 2);

@@ -28,5 +28,29 @@
         "quantity": 900
       }
     ]
+  },
+  {
+    "idCart": 3,
+    "products": []
+  },
+  {
+    "idCart": 4,
+    "products": [
+      {
+        "idProduct": 12,
+        "nameOfTheProduct": "telefono",
+        "quantity": 3
+      },
+      {
+        "idProduct": 10,
+        "nameOfTheProduct": "jogger",
+        "quantity": 7
+      },
+      {
+        "idProduct": 1,
+        "nameOfTheProduct": "coma1",
+        "quantity": 2
+      }
+    ]
   }
 ]

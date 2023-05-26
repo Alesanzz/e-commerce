@@ -42,7 +42,7 @@ routerApiCarts.post("/", (req, res) => {
   return res.status(201).json({
     status: "Success",
     msg: "Carrito de compras creado con exito",
-    data: newCart,
+    data: {},
   });
 });
 
@@ -50,8 +50,7 @@ routerApiCarts.post("/", (req, res) => {
 routerApiCarts.post("/:id_cart/product/:id_product", (req, res) => {
   const idCart = req.params.id_cart;
   const idProduct = req.params.id_product;
-  const body = req.body;
-  cartsManager.addProductToCart(idCart, idProduct, body);
+  cartsManager.addProductToCart(idCart, idProduct);
 
   let cartUpdated = cartsManager.getCartsById(idCart)
 

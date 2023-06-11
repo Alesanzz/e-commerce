@@ -1,62 +1,13 @@
 import express from "express";
-
-//importando las funciones de la clase carts manager
-import { cartsManager } from "../../modules/carts-manager.js";
-const carts = cartsManager.getCarts();
+import { cartsApiController } from "../../controller/apis/carts-api-controller.js";
 
 export const routerApiCarts = express.Router();
 
 //todos los carritos de compra
-routerApiCarts.get("/", (req, res) => {
-  return res.json({
-    status: "Success",
-    msg: "Mostrando todos los carritos encontrados con exito",
-    data: carts,
-  });
-});
-
+routerApiCarts.get("/", cartsApiController.getAllCarts)
 //un solo carrito de compra
-routerApiCarts.get("/:id_cart", (req, res) => {
-  const idCart = req.params.id_cart;
-  let cart = carts.find((c) => c.idCart == idCart);
-
-  if (cart) {
-    return res.status(200).json({
-      status: "Success",
-      msg: "Carrito de compras encontrado con exito",
-      data: cart,
-    });
-  } else {
-    return res.status(404).json({
-      status: "Error",
-      msg: "Carrito de compras no encontrado",
-      data: {},
-    });
-  }
-});
-
+routerApiCarts.get("/:id_cart", cartsApiController.showOneCart)
 //crear un carrito de compras nuevo
-routerApiCarts.post("/", (req, res) => {
-  cartsManager.addCart();
-
-  return res.status(201).json({
-    status: "Success",
-    msg: "Carrito de compras creado con exito",
-    data: {},
-  });
-});
-
+routerApiCarts.post("/", cartsApiController.createOneCart)
 //agregar un producto al carrito de compras
-routerApiCarts.post("/:id_cart/product/:id_product", (req, res) => {
-  const idCart = req.params.id_cart;
-  const idProduct = req.params.id_product;
-  cartsManager.addProductToCart(idCart, idProduct);
-
-  let cartUpdated = cartsManager.getCartsById(idCart)
-
-  return res.status(201).json({
-    status: "Success",
-    msg: "Productos agregados al carrito de compras exitosamente",
-    data: cartUpdated,
-  });
-});
+routerApiCarts.post("/:id_cart/product/:id_product", cartsApiController.addProductToACart)

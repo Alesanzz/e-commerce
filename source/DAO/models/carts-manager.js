@@ -1,19 +1,19 @@
 import fs from "fs";
 import path from "path";
-import { __dirname } from "../middlewares/dirname.js";
+import { __dirname } from "../../middlewares/dirname.js";
 
 class CartManager {
   constructor() {
     this.carts = [];
-    this.cartsFilePath = path.resolve(__dirname, "../dataBase/carts.json");
+    this.cartsFilePath = path.resolve(__dirname, "../DAO/dataBase/carts.json");
     this.productsFilePath = path.resolve(
       __dirname,
-      "../dataBase/products.json"
+      "../DAO/dataBase/products.json"
     );
 
     //comprobando si ya existe la base de datos o no existe
-    if (!fs.existsSync(this.cartsFilePath)) {
-      fs.writeFileSync(this.cartsFilePath, [""]);
+    if (!fs.existsSync(this.cartsFilePath)) { 
+      fs.writeFileSync(this.cartsFilePath, "");
     } else {
       //leyendo la base de datos
       let cartsDatos = fs.readFileSync(this.cartsFilePath, "utf-8");
@@ -115,4 +115,4 @@ class CartManager {
   }
 }
 
-export const cartsManager = new CartManager();
+export const cartManager = new CartManager();

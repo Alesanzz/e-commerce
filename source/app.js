@@ -24,17 +24,15 @@ server.use(express.urlencoded({ extended: true }));
 server.use(express.json());
 
 //importando las rutas de las apis
-import { routerApiHome } from "./routes/apis/home-routes.js";
 import { routerApiProducts } from "./routes/apis/products-routes.js";
 import { routerApiCarts } from "./routes/apis/carts-routes.js";
 
 //endpoint tipo api (crudos en json)
-server.use("/api", routerApiHome);
 server.use("/api/products", routerApiProducts);
 server.use("/api/carts", routerApiCarts);
 
 //importando las rutas de los views
-import { routerProducts } from "./routes/products/products-v-routes.js";
+import { routerProducts } from "./routes/products/products-routes.js";
 
 //endpoint de views
 server.use("/products", routerProducts);
@@ -58,7 +56,7 @@ const httpServer = server.listen(port, () => {
 });
 const socketServer = new Server(httpServer);
 
-import { productManager } from "./modules/products-manager.js";
+import { productManager } from "./DAO/models/products-manager.js";
 
 //socket.on = es para configurar que se debe estar pendiente de escuchar cuando envien el primer parametro del front
 //primer parametro = nombre del parametro a escuchar

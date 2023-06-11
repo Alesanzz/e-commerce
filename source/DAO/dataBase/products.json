@@ -1,24 +1,24 @@
 [
   {
     "id": 1,
-    "title": "coma1",
-    "description": "Este producto es una prueba",
-    "category": "articulos de hogar",
-    "price": 100,
-    "thumbnail": "/images/realtimes/www.png",
-    "code": "qwe",
-    "stock": 100,
+    "title": "jarra de agua",
+    "description": "de un litro",
+    "category": "articulo de cocina",
+    "price": 240,
+    "thumbnail": "www",
+    "code": "mxm",
+    "stock": 818,
     "status": true
   },
   {
     "id": 2,
-    "title": "pantalon",
-    "description": "color verde / talla chico",
-    "category": "articulos de hogar",
-    "price": 200,
-    "thumbnail": "/images/realtimes/www.png",
-    "code": "zxc",
-    "stock": 150,
+    "title": "cuaderno",
+    "description": "de rayas azules",
+    "category": "producto el colegio",
+    "price": 110,
+    "thumbnail": "www",
+    "code": "x1o",
+    "stock": 218,
     "status": true
   },
   {

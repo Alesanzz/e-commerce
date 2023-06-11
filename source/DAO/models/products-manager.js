@@ -1,22 +1,22 @@
 import fs from "fs";
 import path from "path";
-import { __dirname } from "../middlewares/dirname.js";
+import { __dirname } from "../../middlewares/dirname.js";
 import {
   verificationTypeOfProducts,
   verificationDataOfProducts,
-} from "../validations/products-validations.js";
+} from "../../middlewares/validations/products-validations.js";
 
 class ProductManager {
-  constructor() {
+  constructor() { 
     this.products = [];
     this.productsFilePath = path.resolve(
       __dirname,
-      "../dataBase/products.json"
+      "../DAO/dataBase/products.json"
     );
 
     //comprobando si ya existe la base de datos o no existe
     if (!fs.existsSync(this.productsFilePath)) {
-      fs.writeFileSync(this.productsFilePath, [""]);
+      fs.writeFileSync(this.productsFilePath, "");
     } else {
       //leyendo la base de datos
       let datos = fs.readFileSync(this.productsFilePath, "utf-8");
@@ -62,7 +62,7 @@ class ProductManager {
     };
 
     //probando las validaciones
-    verificationTypeOfProducts(newProduct);
+    verificationTypeOfProducts(newProduct); 
     verificationDataOfProducts(newProduct);
     if (this.products.find((prod) => prod.code == newProduct.code)) {
       throw new Error(

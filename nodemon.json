@@ -1,3 +1,3 @@
 {
-    "ignore": ["source/dataBase/products.json", "source/dataBase/carts.json"]
+    "ignore": ["source/DAO/dataBase/products.json", "source/DAO/dataBase/carts.json"]
 }

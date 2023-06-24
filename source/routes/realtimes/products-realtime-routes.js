@@ -3,5 +3,5 @@ import { productRealtimeController } from "../../controller/realtime/products-re
 
 export const routerRealTimeProducts = express.Router();
 
-//todos los productos
+//ver todos los productos
 routerRealTimeProducts.get("/", productRealtimeController.index)

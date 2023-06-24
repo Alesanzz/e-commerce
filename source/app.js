@@ -41,9 +41,11 @@ server.use("/products", routerProducts);
 
 //importando las rutas de los views en realtime (servidor socket.io)
 import { routerRealTimeProducts } from "./routes/realtimes/products-realtime-routes.js";
+import { routerViewChat } from "./routes/realtimes/chat-view-router.js";
 
 //endpoint de views en real time (servidor socket.io)
 server.use("/realtimeproducts", routerRealTimeProducts);
+server.use("/chatsocket", routerViewChat);
 
 //cuando la ruta no existe
 server.get("*", (req, res) => {

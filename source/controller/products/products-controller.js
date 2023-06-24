@@ -1,10 +1,11 @@
+//@ts-check
 //importando las funciones de la carpeta services
-import { productService } from "../../services/products/products-service.js";
+import { productApiService } from "../../services/apis/products-api-service.js";
 
 export const productController = {
   getAllProducts: async function (req, res) {
     try {
-      const products = await productService.getAllProducts();
+      const products = await productApiService.getAllProducts();
 
       return res.render("products-views/products-list", {
         title: "Lista de productos",

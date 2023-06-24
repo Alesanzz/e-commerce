@@ -1,5 +1,5 @@
 //importando las funciones de la clase product manager
-import { productManager } from "../../DAO/models/products-manager.js";
+import { productManager } from "../../DAO/products-manager.js";
 
 class ProductRealtimeService {
   async getAllProducts() {

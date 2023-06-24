@@ -1,3 +1,4 @@
+//@ts-check
 //importando las funciones de la carpeta services
 import { productApiService } from "../../services/apis/products-api-service.js";
 
@@ -46,7 +47,7 @@ export const productsApiController = {
     } catch (error) {
       return res.status(404).json({
         status: "error",
-        msg: "product could not be find",
+        msg: "product could not be found",
         data: { error },
       });
     }

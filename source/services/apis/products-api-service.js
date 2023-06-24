@@ -1,29 +1,33 @@
+//@ts-check
 //importando las funciones de la clase product manager
-import { productManager } from "../../DAO/models/products-manager.js";
+import { ProductModel } from "../../DAO/models/products-model.js";
 
 class ProductApiService {
   async getAllProducts() {
-    const products = await productManager.getProducts();
+    const products = await ProductModel.find({});
     return products;
   }
 
-  async getOneProduct(id) {
-    const product = await productManager.getProductsById(id);
+  async getOneProduct(_id) {
+    const product = await ProductModel.findOne({ _id: _id })
     return product;
   }
 
   async addProduct(newInfo) {
-    const newProduct = await productManager.addProduct(newInfo);
+    //this.valitationProduct(newInfo)
+    const newProduct = await ProductModel.create(newInfo);
     return newProduct;
   }
 
-  async updateProduct(id, dataToUpdate) {
-    const productUpdated = await productManager.updateProduct(id, dataToUpdate);
-    return productUpdated;
+  async updateProduct(_id, dataToUpdate) {
+    //this.valitationProduct(newInfo)
+    const productUpdated = await ProductModel.updateOne({_id: _id}, dataToUpdate);
+    return productUpdated; 
   }
 
-  async deleteProduct(id) {
-    await productManager.deleteProduct(id);
+  async deleteProduct(_id) {
+    const deleted = await ProductModel.deleteOne({ _id: _id });
+    return deleted
   }
 }
 

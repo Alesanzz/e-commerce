@@ -1,4 +1,5 @@
 import { Server } from "socket.io";
+import { MenssageModel } from '../DAO/models/messages-model.js';
 import { productManager } from "../DAO/products-manager.js";
 
 export function connectSocket(httpServer) {
@@ -11,6 +12,14 @@ export function connectSocket(httpServer) {
   //socketServer.emit = es para realizar un envio de informacion del back al front a todos los canales/usuarios con el front (recordemos que existe un canal socket de front por cada chat/usuario que acceda a nuestra pagina)
   //primer parametro = nombre del parametro a enviar
   //segundo parametro = un objeto que se manda al front
+
+  socketServer.on('connection', (socket) => {
+    socket.on('msg_front_to_back', async (msg) => {
+      const msgCreated = await MenssageModel.create(msg);
+      const msgs = await MenssageModel.find({}); 
+      socketServer.emit('msg_back_to_front', msgs);
+    });
+  });
 
   socketServer.on("connection", (socket) => {
     socket.on("new-product-created", async (newProduct) => {

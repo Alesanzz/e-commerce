@@ -4,10 +4,10 @@ import { productRealtimeService } from "../../services/realtime/products-realtim
 export const productRealtimeController = {
   index: async function (req, res) {
     try {
-      console.log("cliente conectado");
+      console.log("cliente conectado a la lista de productos");
       const products = await productRealtimeService.getAllProducts();
 
-      return res.render("real-time-products", { title: "Lista de productos", products: products });
+      return res.render("realtime-views/real-time-products", { title: "Lista de productos", products: products });
 
     } catch (error) {
       return res

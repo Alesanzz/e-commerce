@@ -6,7 +6,7 @@ export const MenssageModel = model(
 
   new Schema({
     user: { type: String, required: true, max: 100, index: true },
-    message: { type: String, required: true, max: 1000 },
+    msg: { type: String, required: true, max: 1000 },
   })
 );
 

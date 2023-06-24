@@ -5,7 +5,7 @@
     "description": "de un litro",
     "category": "articulo de cocina",
     "price": 240,
-    "thumbnail": "www",
+    "thumbnail": "/images/realtimes/www.png",
     "code": "mxm",
     "stock": 818,
     "status": true
@@ -16,7 +16,7 @@
     "description": "de rayas azules",
     "category": "producto el colegio",
     "price": 110,
-    "thumbnail": "www",
+    "thumbnail": "/images/realtimes/www.png",
     "code": "x1o",
     "stock": 218,
     "status": true

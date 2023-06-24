@@ -1,10 +1,10 @@
 import fs from "fs";
 import path from "path";
-import { __dirname } from "../../middlewares/dirname.js";
+import { __dirname } from "../utils/dirname.js";
 import {
   verificationTypeOfProducts,
   verificationDataOfProducts,
-} from "../../middlewares/validations/products-validations.js";
+} from "../middlewares/validations/products-validations.js";
 
 class ProductManager {
   constructor() { 

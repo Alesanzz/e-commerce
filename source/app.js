@@ -3,14 +3,15 @@ import express from "express";
 const server = express();
 const port = 8080;
 
-//requiriendo el npm de socket para poder usar este tipo de servidores
-import { Server } from "socket.io";
+//requiriendo y definiendo a mongoDB como base de datos del proyecto
+import { connectMongo } from "./utils/connections.js";
+connectMongo();
 
 //para configurar archivos como publicos
 server.use(express.static("public"));
 
 //importando dirname
-import { sourceDirname } from "./middlewares/dirname.js";
+import { sourceDirname } from "./utils/dirname.js";
 
 //para configurar el motor de handlebars (las 4 lineas)
 import handlebars from "express-handlebars";
@@ -23,6 +24,7 @@ server.use(express.urlencoded({ extended: true }));
 //para configurar de que el servidor siempre responda devolviendo archivos en formato json
 server.use(express.json());
 
+//--------------------------------------------------------------------------------------------------
 //importando las rutas de las apis
 import { routerApiProducts } from "./routes/apis/products-routes.js";
 import { routerApiCarts } from "./routes/apis/carts-routes.js";
@@ -49,43 +51,12 @@ server.get("*", (req, res) => {
     .status(404)
     .json({ status: "Error", msg: "La ruta no existe", data: {} });
 });
+//--------------------------------------------------------------------------------------------------
 
-//para confirgurar el servidor socket hay que guardar el servidor http en una variable y luego ejecurtar el "Server" de socket.io sobre nuestro servidor http
+
+//para confirgurar el servidor socket hay que importar el archivo donde se encuentra toda la logica del socket server, luego guardar el servidor http en una variable y por ultimo ejecurtar el "servidor" de socket.io sobre nuestro servidor http
+import { connectSocket } from "./utils/socket-server.js";
 const httpServer = server.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
-const socketServer = new Server(httpServer);
-
-import { productManager } from "./DAO/models/products-manager.js";
-
-//socket.on = es para configurar que se debe estar pendiente de escuchar cuando envien el primer parametro del front
-//primer parametro = nombre del parametro a escuchar
-//segundo parametro = un objeto que se recibe del front
-
-//socketServer.emit = es para realizar un envio de informacion del back al front a todos los canales/usuarios con el front (recordemos que existe un canal socket de front por cada chat/usuario que acceda a nuestra pagina)
-//primer parametro = nombre del parametro a enviar
-//segundo parametro = un objeto que se manda al front
-
-socketServer.on("connection", (socket) => {
-  socket.on("new-product-created", async (newProduct) => {
-    try {
-      await productManager.addProduct(newProduct);
-      
-      let allProducts = await productManager.getProducts();
-      socketServer.emit("all-the-products", allProducts);
-    } catch (error) {
-      console.log(error);
-    }
-  });
-  
-  socket.on("delete-product", async (iidd) => {
-    try {
-      await productManager.deleteProduct(iidd);
-  
-      let allProducts = await productManager.getProducts();
-      socketServer.emit("all-the-products", allProducts);
-    } catch (error) {
-      console.log(error);
-    }
-  });
-}); 
+connectSocket(httpServer);

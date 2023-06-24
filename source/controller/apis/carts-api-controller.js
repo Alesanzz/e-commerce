@@ -5,12 +5,25 @@ export const cartsApiController = {
   getAllCarts: async function (req, res) {
     try {
       const carts = await cartApiService.getAllCarts();
+      const limit = req.query.limit;
 
-      return res.json({
-        status: "Success",
-        msg: "Mostrando todos los carritos encontrados con exito",
-        data: carts,
-      });
+      if (req.query && limit && limit <= carts.length) {
+        const cartsLimited = carts.slice(0, limit);
+        return res.status(200).json({
+          status: "Success",
+          msg:
+            "Mostrando la cantidad de los primeros " +
+            limit +
+            " carritos de compra de la base datos",
+          data: cartsLimited,
+        });
+      } else {
+        return res.json({
+          status: "Success",
+          msg: "Mostrando todos los carritos de compra encontrados con exito",
+          data: carts,
+        });
+      }
     } catch (error) {
       return res.status(500).json({
         status: "error",
@@ -33,7 +46,7 @@ export const cartsApiController = {
     } catch (error) {
       return res.status(404).json({
         status: "error",
-        msg: "cart could not be find",
+        msg: "cart could not be found",
         data: { error },
       });
     }
@@ -42,16 +55,17 @@ export const cartsApiController = {
   createOneCart: async function (req, res) {
     try {
       await cartApiService.addCart();
+      const carts = await cartApiService.getAllCarts();
 
       return res.status(201).json({
         status: "Success",
         msg: "Carrito de compras creado con exito",
-        data: {},
+        data: carts[carts.length - 1],
       });
     } catch (error) {
       return res.status(404).json({
         status: "error",
-        msg: "cart could not be find",
+        msg: "cart could not be created",
         data: { error },
       });
     }
@@ -67,13 +81,51 @@ export const cartsApiController = {
 
       return res.status(201).json({
         status: "Success",
-        msg: "Productos agregados al carrito de compras exitosamente",
+        msg: "Producto agregado al carrito de compras exitosamente",
         data: cartUpdated,
       });
     } catch (error) {
       return res.status(404).json({
         status: "error",
-        msg: "cart could not be find",
+        msg: "cart or the product could not be found",
+        data: { error },
+      });
+    }
+  },
+
+  clearOneCart: async function (req, res) {
+    try {
+      const id = req.params.id_cart;
+      await cartApiService.clearCart(id);
+
+      return res.status(200).json({
+        status: "Success",
+        msg: "Se vacio el carrito de compras con el id " + id,
+        data: {},
+      });
+    } catch (error) {
+      return res.status(404).json({
+        status: "error",
+        msg: "the cart could not be cleared",
+        data: { error },
+      });
+    }
+  },
+
+  deleteOneCart: async function (req, res) {
+    try {
+      const id = req.params.id;
+      await cartApiService.deleteCart(id);
+
+      return res.status(200).json({
+        status: "Success",
+        msg: "Se elimino el carrito de compras con el id " + id,
+        data: {},
+      });
+    } catch (error) {
+      return res.status(404).json({
+        status: "error",
+        msg: "the cart could not be deleted",
         data: { error },
       });
     }

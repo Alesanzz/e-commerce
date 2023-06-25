@@ -7,7 +7,7 @@ export const productsApiController = {
     try {
       const products = await productApiService.getAllProducts();
       const limit = req.query.limit;
-
+      
       if (req.query && limit && limit <= products.length) {
         const productsLimited = products.slice(0, limit);
         return res.status(200).json({
@@ -19,10 +19,11 @@ export const productsApiController = {
           data: productsLimited,
         });
       } else {
+        const productsDefaultLimited = products.slice(0, 10);
         return res.json({
           status: "Success",
           msg: "Mostrando todos los productos encontrados con exito",
-          data: products,
+          data: productsDefaultLimited,
         });
       }
     } catch (error) {

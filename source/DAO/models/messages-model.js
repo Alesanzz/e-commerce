@@ -1,13 +1,17 @@
 //@ts-check
 import { Schema, model } from "mongoose";
+import mongoosePaginate from "mongoose-paginate-v2";
 
-export const MenssageModel = model(
-  "menssages" /* nombre de la coleccion donde se va hacer el crud */,
+const messageSchema = new Schema({
+  user: { type: String, required: true, max: 100, index: true },
+  msg: { type: String, required: true, max: 1000 },
+});
 
-  new Schema({
-    user: { type: String, required: true, max: 100, index: true },
-    msg: { type: String, required: true, max: 1000 },
-  })
+messageSchema.plugin(mongoosePaginate);
+
+export const MessageModel = model(
+  "messages" /* nombre de la colección donde se va a realizar el CRUD */,
+  messageSchema
 );
 
 /* La propiedad "index: true" es para crear un indice de ese esa propiedad y asi la base de datos lo pueda buscar mas rapido */

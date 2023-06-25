@@ -7,17 +7,25 @@ export const productRealtimeController = {
     try {
       console.log("cliente conectado a la lista de productos");
       const products = await productApiService.getAllProducts();
-      return res.render("realtime-views/real-time-products", { title: "Lista de productos", products: {products} });
 
+      return res.render("realtime-views/real-time-products", {
+        title: "Lista de productos",
+        products: products.map((product) => ({
+          id: product._id,
+          title: product.title,
+          description: product.description,
+          category: product.category,
+          price: product.price,
+          stock: product.stock,
+          code: product.code,
+        })),
+      });
     } catch (error) {
-      return res
-        .status(500)
-        .json({
-          status: "error",
-          msg: "something went wrong",
-          data: { error },
-        });
+      return res.status(500).json({
+        status: "error",
+        msg: "something went wrong",
+        data: { error },
+      });
     }
   },
 };
-

@@ -17,7 +17,7 @@ export async function connectMongo() {
     /* //para crear base de datos de productos falsos con faker
     (async () => {
       const products = [];
-      for (let i = 0; i < 10; i++) {
+      for (let i = 0; i < 100; i++) {
         products.push({
           title: faker.commerce.productName(),
           description: faker.commerce.productDescription(),

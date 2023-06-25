@@ -7,18 +7,22 @@ export const productController = {
     try {
       const products = await productApiService.getAllProducts();
 
-      return res.render("products-views/products-list", {
+      return res.status(200).render("products-views/products-list", {
         title: "Lista de productos",
-        products: products,
+        products: products.map((product) => ({
+          title: product.title,
+          description: product.description,
+          category: product.category,
+          price: product.price,
+          stock: product.stock,
+        })),
       });
     } catch (error) {
-      return res
-        .status(500)
-        .json({
-          status: "error",
-          msg: "something went wrong",
-          data: { error },
-        });
+      return res.status(500).json({
+        status: "error",
+        msg: "something went wrong",
+        data: { error },
+      });
     }
   },
 };

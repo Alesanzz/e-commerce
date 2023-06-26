@@ -1,29 +1,18 @@
+//@ts-check
 //importando las funciones de la carpeta services
 import { cartApiService } from "../../services/apis/carts-api-service.js";
 
 export const cartsApiController = {
   getAllCarts: async function (req, res) {
     try {
-      const carts = await cartApiService.getAllCarts();
-      const limit = req.query.limit;
+      let { limit, page, query, sort } = req.query;
+      const carts = await cartApiService.getCarts(limit, page, query, sort);
 
-      if (req.query && limit && limit <= carts.length) {
-        const cartsLimited = carts.slice(0, limit);
-        return res.status(200).json({
-          status: "Success",
-          msg:
-            "Mostrando la cantidad de los primeros " +
-            limit +
-            " carritos de compra de la base datos",
-          data: cartsLimited,
-        });
-      } else {
-        return res.json({
-          status: "Success",
-          msg: "Mostrando todos los carritos de compra encontrados con exito",
-          data: carts,
-        });
-      }
+      return res.json({
+        status: "Success",
+        msg: "Mostrando todos los carritos de compra encontrados con exito",
+        data: carts,
+      });
     } catch (error) {
       return res.status(500).json({
         status: "error",
@@ -76,7 +65,7 @@ export const cartsApiController = {
       const idCart = req.params.id_cart;
       const idProduct = req.params.id_product;
       await cartApiService.addProductToCart(idCart, idProduct);
-     
+
       let cartUpdated = await cartApiService.getOneCart(idCart);
 
       return res.status(201).json({
@@ -93,15 +82,60 @@ export const cartsApiController = {
     }
   },
 
+  updateProductQuantity: async function (req, res) {
+    try {
+      const idCart = req.params.id_cart;
+      const idProduct = req.params.id_product;
+      const quantity = parseInt(req.body.quantity)
+      await cartApiService.updateProductQuantity(idCart, idProduct, quantity);
+
+      let cartUpdated = await cartApiService.getOneCart(idCart);
+
+      return res.status(201).json({
+        status: "Success",
+        msg: "Actualizado la cantidad de productos deseado en el carrito de compras",
+        data: cartUpdated,
+      });
+    } catch (error) {
+      return res.status(404).json({
+        status: "error",
+        msg: "cart or the product could not be updated",
+        data: { error },
+      });
+    }
+  },
+
+  removeProductFromCart: async function (req, res) {
+    try {
+      const idCart = req.params.id_cart;
+      const idProduct = req.params.id_product;
+      await cartApiService.removeProductFromCart(idCart, idProduct);
+
+      let cartUpdated = await cartApiService.getOneCart(idCart);
+
+      return res.status(201).json({
+        status: "Success",
+        msg: "Productos eliminado del carrito de compras",
+        data: cartUpdated,
+      });
+    } catch (error) {
+      return res.status(404).json({
+        status: "error",
+        msg: "cart or the product could not be found",
+        data: { error },
+      });
+    }
+  },
+
   clearOneCart: async function (req, res) {
     try {
       const id = req.params.id_cart;
-      await cartApiService.clearCart(id);
+      const cart = await cartApiService.clearCart(id);
 
       return res.status(200).json({
         status: "Success",
         msg: "Se vacio el carrito de compras con el id " + id,
-        data: {},
+        data: { cart },
       });
     } catch (error) {
       return res.status(404).json({

@@ -11,7 +11,11 @@ routerApiCarts.get("/:id_cart", cartsApiController.showOneCart)
 routerApiCarts.post("/", cartsApiController.createOneCart)
 //agregar un producto al carrito de compras
 routerApiCarts.post("/:id_cart/product/:id_product", cartsApiController.addProductToACart)
+//modifica la cantidad de un producto en el carrito de compras
+routerApiCarts.post("/:id_cart/products/:id_product", cartsApiController.updateProductQuantity)
+//elimina un producto del carrito de compras
+routerApiCarts.delete("/:id_cart/products/:id_product", cartsApiController.removeProductFromCart)
 //vaciar por completo un carrito de compras
-routerApiCarts.post("/:id_cart", cartsApiController.clearOneCart)
+routerApiCarts.delete("/:id_cart", cartsApiController.clearOneCart)
 //eliminar un carrito de compras
 routerApiCarts.delete("/:id", cartsApiController.deleteOneCart)

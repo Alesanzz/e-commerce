@@ -3,6 +3,21 @@
 import { ProductModel } from "../../DAO/models/products-model.js";
 
 class ProductApiService {
+  async getProducts(limit, page, query, sort) {
+
+    const filter = query ? { title: { $regex: query, $options: 'i' } } : {};
+    const sortOption = sort == "asc" ? { price: 1 } : { price: -1 };
+    
+    const options = {
+      limit: limit || 10,
+      page: page || 1,
+      sort: sortOption
+    };
+
+    const products = await ProductModel.paginate(filter, options);
+    return products;
+  }
+
   async getAllProducts() {
     const products = await ProductModel.find({});
     return products;

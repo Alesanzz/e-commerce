@@ -13,7 +13,7 @@ export const productsApiController = {
         sort
       );
 
-      return res.json({
+      return res.status(200).json({
         status: "Success",
         msg: "Mostrando todos los productos encontrados con exito",
         data: products,

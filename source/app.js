@@ -35,9 +35,11 @@ server.use("/api/carts", routerApiCarts);
 
 //importando las rutas de los views
 import { routerProducts } from "./routes/products/products-routes.js";
+import { routerCarts } from "./routes/carts/carts-routes.js";
 
 //endpoint de views
 server.use("/products", routerProducts);
+server.use("/carts", routerCarts);
 
 //importando las rutas de los views en realtime (servidor socket.io)
 import { routerRealTimeProducts } from "./routes/realtimes/products-realtime-routes.js";

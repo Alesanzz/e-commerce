@@ -1,9 +1,22 @@
-// @ts-nocheck
 //importando las funciones de la clase product manager
 import { CartModel } from "../../DAO/models/carts-model.js";
 import { ProductModel } from "../../DAO/models/products-model.js";
 
 class CartApiService {
+  async getCarts(limit, page, query, sort) {
+    const filter = query ? { title: { $regex: query, $options: "i" } } : {};
+    const sortOption = sort == "asc" ? { price: 1 } : { price: -1 };
+
+    const options = {
+      limit: limit || 5,
+      page: page || 1,
+      sort: sortOption,
+    };
+
+    const carts = await CartModel.paginate(filter, options);
+    return carts;
+  }
+
   async getAllCarts() {
     const carts = await CartModel.find({});
     return carts;
@@ -48,10 +61,47 @@ class CartApiService {
     }
   }
 
-  async clearCart(idCart) {
+  async updateProductQuantity(idCart, idProduct, quantity) {
+    // Buscar el carrito en la base de datos
     const cart = await CartModel.findOne({ _id: idCart });
+  
+    if (cart) {
+      // Buscar el producto en el carrito
+      const product = cart.products.find(
+        (product) => product.product.toString() === idProduct
+      );
+        if (product) {
+        // Actualizar la cantidad del producto en el carrito
+        product.quantity = quantity;
+      }
+        // Guardar los cambios en el carrito en la base de datos
+      await cart.save();
+    }
+  }
+  
+  async removeProductFromCart(idCart, idProduct) {
+    // Buscar el carrito en la base de datos
+    const cart = await CartModel.findOne({ _id: idCart });
+
+    if (cart) {
+      // Verificar si el producto existe en el carrito
+      const productIndex = cart.products.findIndex(
+        (product) => product.product.toString() === idProduct
+      );
+      if (productIndex !== -1) {
+        // El producto existe en el carrito, eliminarlo
+        cart.products.splice(productIndex, 1);
+      }
+      // Guardar los cambios en el carrito en la base de datos
+      await cart.save();
+    }
+  }
+
+  async clearCart(idCart) {
+    let cart = await CartModel.findOne({ _id: idCart });
     cart.products = [];
-    await cart.save();
+    cart = await cart.save();
+    return cart;
   }
 
   async deleteCart(_id) {

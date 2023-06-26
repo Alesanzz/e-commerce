@@ -5,27 +5,19 @@ import { productApiService } from "../../services/apis/products-api-service.js";
 export const productsApiController = {
   getAllProducts: async function (req, res) {
     try {
-      const products = await productApiService.getAllProducts();
-      const limit = req.query.limit;
-      
-      if (req.query && limit && limit <= products.length) {
-        const productsLimited = products.slice(0, limit);
-        return res.status(200).json({
-          status: "Success",
-          msg:
-            "Mostrando la cantidad de los primeros " +
-            limit +
-            " productos de la base datos",
-          data: productsLimited,
-        });
-      } else {
-        const productsDefaultLimited = products.slice(0, 10);
-        return res.json({
-          status: "Success",
-          msg: "Mostrando todos los productos encontrados con exito",
-          data: productsDefaultLimited,
-        });
-      }
+      let { limit, page, query, sort } = req.query;
+      const products = await productApiService.getProducts(
+        limit,
+        page,
+        query,
+        sort
+      );
+
+      return res.json({
+        status: "Success",
+        msg: "Mostrando todos los productos encontrados con exito",
+        data: products,
+      });
     } catch (error) {
       return res.status(500).json({
         status: "error",

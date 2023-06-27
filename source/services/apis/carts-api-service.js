@@ -23,7 +23,7 @@ class CartApiService {
   }
 
   async getOneCart(idCart) {
-    const cart = await CartModel.findOne({ _id: idCart });
+    const cart = await CartModel.findOne({ _id: idCart }).populate("products.product");
     return cart;
   }
 

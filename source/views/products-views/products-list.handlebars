@@ -1,4 +1,21 @@
 <div>
+  {{#if user.name}}
+    <p>Bienvenido, {{user.name}} {{user.surname}}!</p>
+    <p>Email: {{user.email}}</p>
+
+    {{#if user.admin}}
+      <p>Rol: Admin</p>
+    {{else}}
+      <p>Rol: Usuario</p>
+    {{/if}}
+
+    <a href="/users/logout">Cerrar sesión</a>
+  {{/if}}
+</div>
+<hr />
+
+
+<div>
     <h1>Listado de los productos</h1>
 
   {{#each products}}

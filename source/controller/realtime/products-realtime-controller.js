@@ -10,6 +10,7 @@ export const productRealtimeController = {
 
       return res.render("realtime-views/real-time-products", {
         title: "Lista de productos",
+        
         products: products.map((product) => ({
           id: product._id.toString(),
           title: product.title,

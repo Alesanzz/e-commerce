@@ -64,3 +64,15 @@ body {
     transition: background-color 0.3s ease;
   }
   
+  #githubbutton {
+    display: block;
+    width: 20%;
+    padding: 10px;
+    margin-top: 20px;
+    margin: "center";
+    color: #fff;
+    background-color: #337ab7;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }

@@ -30,7 +30,7 @@ import { sourceDirname } from "./utils/dirname.js";
 
 //configurando el uso de passport
 import passport from "passport";
-import { iniPassport } from "./config/local-passport.config.js";
+import { iniPassport } from "./config/passport-config.js";
 
 iniPassport();
 server.use(passport.initialize());

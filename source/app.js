@@ -4,28 +4,40 @@ const server = express();
 const port = 8080;
 
 //session y cookies
-import cookieParser from 'cookie-parser';
-import session from 'express-session';
+import cookieParser from "cookie-parser";
+import session from "express-session";
 
 //requiriendo y definiendo a mongoDB como base de datos del proyecto
 import { connectMongo } from "./utils/connections.js";
-import MongoStore from 'connect-mongo';
+import MongoStore from "connect-mongo";
 connectMongo();
 //para guardar las session en la base de datos en mongodb, de forma que si se apaga el servidor, las session siguen existiendo - (el ttl: es el tiempo de duracion de la session)
 server.use(
   session({
-    store: MongoStore.create({ mongoUrl: "mongodb+srv://alejandrosanz:9TJnFW2eCrWdNaxK@ecommerce.anbm0y3.mongodb.net/ecommerce?retryWrites=true&w=majority", ttl: 86400 * 2 }),
-    secret: 'un-re-secreto',
+    store: MongoStore.create({
+      mongoUrl:
+        "mongodb+srv://alejandrosanz:9TJnFW2eCrWdNaxK@ecommerce.anbm0y3.mongodb.net/ecommerce?retryWrites=true&w=majority",
+      ttl: 86400 * 2,
+    }),
+    secret: "un-re-secreto",
     resave: true,
     saveUninitialized: true,
   })
 );
 
-//para configurar archivos como publicos
-server.use(express.static("public"));
-
 //importando dirname
 import { sourceDirname } from "./utils/dirname.js";
+
+//configurando el uso de passport
+import passport from "passport";
+import { iniPassport } from "./config/local-passport.config.js";
+
+iniPassport();
+server.use(passport.initialize());
+server.use(passport.session());
+
+//para configurar archivos como publicos
+server.use(express.static("public"));
 
 //para configurar el motor de handlebars (las 4 lineas)
 import handlebars from "express-handlebars";
@@ -50,12 +62,12 @@ server.use("/api/carts", routerApiCarts);
 //importando las rutas de los views
 import { routerProducts } from "./routes/products/products-routes.js";
 import { routerCarts } from "./routes/carts/carts-routes.js";
-import { routerUsers } from "./routes/users/users-routes.js"
+import { routerUsers } from "./routes/users/users-routes.js";
 
 //endpoint de views
 server.use("/products", routerProducts);
 server.use("/carts", routerCarts);
-server.use("/users", routerUsers)
+server.use("/users", routerUsers);
 
 //importando las rutas de los views en realtime (servidor socket.io)
 import { routerRealTimeProducts } from "./routes/realtimes/products-realtime-routes.js";
@@ -72,7 +84,6 @@ server.get("*", (req, res) => {
     .json({ status: "Error", msg: "La ruta no existe", data: {} });
 });
 //--------------------------------------------------------------------------------------------------
-
 
 //para confirgurar el servidor socket hay que importar el archivo donde se encuentra toda la logica del socket server, luego guardar el servidor http en una variable y por ultimo ejecurtar el "servidor" de socket.io sobre nuestro servidor http
 import { connectSocket } from "./utils/socket-server.js";

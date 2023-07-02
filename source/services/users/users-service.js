@@ -1,6 +1,6 @@
 //@ts-check
-//importando las funciones de la clase product manager
 import { UserModel } from "../../DAO/models/users-model.js";
+import {createHashPassword, checkPassword} from "../../utils/bcrypt.js"
 
 class UserService {
   async createNewUser(infoOfBody) {
@@ -10,7 +10,7 @@ class UserService {
       age: infoOfBody.age,
       country: infoOfBody.country,
       email: infoOfBody.email,
-      password: infoOfBody.password,
+      password: createHashPassword(infoOfBody.password),
     });
 
     return newUser;

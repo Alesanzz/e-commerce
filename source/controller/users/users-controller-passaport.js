@@ -70,6 +70,31 @@ export const userController = {
     }
   },
 
+  githubLogin: async function (req, res) {
+   if (!req.user) {
+      return res.status(400).render("users-views/error-page", {
+        status: "error",
+        msg: "faltan completar datos",
+        data: { error },
+      });
+    }
+console.log(req.user)
+    try {
+      req.session.name = req.user.name;
+      req.session.surname = req.user.surname;
+      req.session.email = req.user.email;
+      req.session.admin = req.user.admin;
+
+      return res.status(200).redirect("/products");
+    } catch (error) {
+      return res.status(400).render("users-views/error-page", {
+        status: "error",
+        msg: "El email o contraseña incorrecta",
+        data: { error },
+      });
+    }
+  },
+
   logout: async function (req, res) {
     req.session.destroy((error) => {
       if (error) {

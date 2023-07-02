@@ -1,5 +1,6 @@
 //importando las funciones de la carpeta services
 import { userService } from "../../services/users/users-service.js";
+import {createHashPassword, checkPassword} from "../../utils/bcrypt.js"
 
 export const userController = {
   register: async function (req, res) {
@@ -60,7 +61,7 @@ export const userController = {
     try {
       const userToEnter = await userService.findAUser(infoOfBody.email);
 
-      if (userToEnter && userToEnter.password === infoOfBody.password) {
+      if (userToEnter && checkPassword(infoOfBody.password, userToEnter.password)) {
         req.session.name = userToEnter.name;
         req.session.surname = userToEnter.surname;
         req.session.email = userToEnter.email;

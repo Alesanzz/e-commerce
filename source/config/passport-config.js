@@ -52,8 +52,8 @@ export function iniPassport() {
           }
 
           let newUser = await UserModel.create({
-            name: infoOfBody.name,
-            surname: infoOfBody.surname,
+            first_name: infoOfBody.first_name,
+            last_name: infoOfBody.last_name,
             age: infoOfBody.age,
             country: infoOfBody.country,
             email: infoOfBody.email,
@@ -71,7 +71,7 @@ export function iniPassport() {
     )
   );
 
-  passport.use(
+  /* passport.use(
     'github',
     new GitHubStrategy(
       {
@@ -101,8 +101,8 @@ export function iniPassport() {
           let user = await UserModel.findOne({ email: profile.email });
           if (!user) {
             let userCreated = await UserModel.create({
-              name: profile._json.name || profile._json.login || "no-name",
-              surname: "no-surnname",
+              first_name: profile._json.first_name || profile._json.login || "no-first_name",
+              last_name: "no-last_name",
               age: 1,
               country: "no-country",
               email: profile.email,
@@ -121,7 +121,7 @@ export function iniPassport() {
         }
       }
     )
-  );
+  ); */
 
   //el siguiente metodo siempre es igual y nunca cambia
   passport.serializeUser((user, done) => {

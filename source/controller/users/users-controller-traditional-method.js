@@ -62,8 +62,8 @@ export const userController = {
       const userToEnter = await userService.findAUser(infoOfBody.email);
 
       if (userToEnter && checkPassword(infoOfBody.password, userToEnter.password)) {
-        req.session.name = userToEnter.name;
-        req.session.surname = userToEnter.surname;
+        req.session.first_name = userToEnter.first_name;
+        req.session.last_name = userToEnter.last_name;
         req.session.email = userToEnter.email;
         req.session.admin = userToEnter.admin;
 

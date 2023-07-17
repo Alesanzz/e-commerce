@@ -55,8 +55,8 @@ export const userController = {
     }
 
     try {
-      req.session.name = req.user.name;
-      req.session.surname = req.user.surname;
+      req.session.first_name = req.user.first_name;
+      req.session.last_name = req.user.last_name;
       req.session.email = req.user.email;
       req.session.admin = req.user.admin;
 
@@ -80,8 +80,8 @@ export const userController = {
     }
 console.log(req.user)
     try {
-      req.session.name = req.user.name;
-      req.session.surname = req.user.surname;
+      req.session.first_name = req.user.first_name;
+      req.session.last_name = req.user.last_name;
       req.session.email = req.user.email;
       req.session.admin = req.user.admin;
 

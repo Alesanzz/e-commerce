@@ -4,8 +4,8 @@ import { productApiService } from "../../services/apis/products-api-service.js";
 export const productController = {
   getAllProducts: async function (req, res) {
     let user = {}
-    if (req.session && req.session.email) {
-      user = req.session;
+    if (req.session && req.session.user) {
+      user = req.session.user;
     }else{
       user = {}
     }

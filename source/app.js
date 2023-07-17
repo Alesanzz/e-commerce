@@ -54,10 +54,12 @@ server.use(express.json());
 //importando las rutas de las apis
 import { routerApiProducts } from "./routes/apis/products-routes.js";
 import { routerApiCarts } from "./routes/apis/carts-routes.js";
+import { routerApiSessions } from "./routes/apis/sessions-routes.js";
 
 //endpoint tipo api (crudos en json)
 server.use("/api/products", routerApiProducts);
 server.use("/api/carts", routerApiCarts);
+server.use("/api/sessions", routerApiSessions);
 
 //importando las rutas de los views
 import { routerProducts } from "./routes/products/products-routes.js";

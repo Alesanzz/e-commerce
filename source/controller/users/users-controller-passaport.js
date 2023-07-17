@@ -45,6 +45,7 @@ export const userController = {
   },
 
   access: async function (req, res) {
+    try {
     const infoOfBody = req.body;
     if (!infoOfBody.email || !infoOfBody.password) {
       return res.status(400).render("users-views/error-page", {
@@ -53,12 +54,12 @@ export const userController = {
         data: { error },
       });
     }
-
-    try {
-      req.session.first_name = req.user.first_name;
-      req.session.last_name = req.user.last_name;
-      req.session.email = req.user.email;
-      req.session.admin = req.user.admin;
+    req.session.user = {
+      first_name: req.user.first_name,
+      last_name: req.user.last_name,
+      email: req.user.email,
+      admin: req.user.admin,
+    }
 
       return res.status(200).redirect("/products");
     } catch (error) {
@@ -71,19 +72,21 @@ export const userController = {
   },
 
   githubLogin: async function (req, res) {
-   if (!req.user) {
+    if (!req.user) {
       return res.status(400).render("users-views/error-page", {
         status: "error",
         msg: "faltan completar datos",
         data: { error },
       });
     }
-console.log(req.user)
+    console.log(req.user);
     try {
-      req.session.first_name = req.user.first_name;
-      req.session.last_name = req.user.last_name;
-      req.session.email = req.user.email;
-      req.session.admin = req.user.admin;
+      req.session.user = {
+        first_name: req.user.first_name,
+        last_name: req.user.last_name,
+        email: req.user.email,
+        admin: req.user.admin,
+      }
 
       return res.status(200).redirect("/products");
     } catch (error) {

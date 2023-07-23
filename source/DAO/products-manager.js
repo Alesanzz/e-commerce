@@ -1,6 +1,6 @@
 import fs from "fs";
 import path from "path";
-import { __dirname } from "../utils/dirname.js";
+import { __dirname } from "../config/dirname.js";
 import {
   verificationTypeOfProducts,
   verificationDataOfProducts,

@@ -4,6 +4,7 @@ import local from "passport-local";
 import GitHubStrategy from 'passport-github2';
 import { UserModel } from "../DAO/models/users-model.js";
 import { createHashPassword, checkPassword } from "../utils/bcrypt.js";
+import { entorno } from "./env-config.js";
 
 const LocalStrategy = local.Strategy;
 
@@ -71,14 +72,14 @@ export function iniPassport() {
     )
   );
 
-  /* passport.use(
+  passport.use(
     'github',
     new GitHubStrategy(
       {
         //aqui abajo van los datos de identificacion de la app de github (son datos sensibles, no se publican)
-        clientID: '',
-        clientSecret: '',
-        callbackURL: '',
+        clientID: entorno.clientId,
+        clientSecret: entorno.clientSecret,
+        callbackURL: entorno.callbackUrl,
       },
       async (accesToken, _, profile, done) => {
         //console.log(profile);
@@ -121,7 +122,7 @@ export function iniPassport() {
         }
       }
     )
-  ); */
+  );
 
   //el siguiente metodo siempre es igual y nunca cambia
   passport.serializeUser((user, done) => {

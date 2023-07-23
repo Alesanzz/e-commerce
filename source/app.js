@@ -1,22 +1,25 @@
+//configurando el entorno
+import { entorno } from "./config/env-config.js";
+console.log(entorno);
+
 //requiriendo y configurando express
 import express from "express";
 const server = express();
-const port = 8080;
+const port = entorno.port;
 
 //session y cookies
 import cookieParser from "cookie-parser";
 import session from "express-session";
 
 //requiriendo y definiendo a mongoDB como base de datos del proyecto
-import { connectMongo } from "./utils/connections.js";
+import { connectMongo } from "./config/connections.js";
 import MongoStore from "connect-mongo";
 connectMongo();
 //para guardar las session en la base de datos en mongodb, de forma que si se apaga el servidor, las session siguen existiendo - (el ttl: es el tiempo de duracion de la session)
 server.use(
   session({
     store: MongoStore.create({
-      mongoUrl:
-        "mongodb+srv://alejandrosanz:9TJnFW2eCrWdNaxK@ecommerce.anbm0y3.mongodb.net/ecommerce?retryWrites=true&w=majority",
+      mongoUrl: entorno.mongoUrl,
       ttl: 86400 * 2,
     }),
     secret: "un-re-secreto",
@@ -26,7 +29,7 @@ server.use(
 );
 
 //importando dirname
-import { sourceDirname } from "./utils/dirname.js";
+import { sourceDirname } from "./config/dirname.js";
 
 //configurando el uso de passport
 import passport from "passport";

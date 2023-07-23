@@ -1,19 +1,17 @@
 //@ts-check
 import { connect } from "mongoose";
-
+import { entorno } from "./env-config.js";
 
 import faker from "faker";
 import { ProductModel } from "../DAO/models/products-model.js";
 
-export async function connectMongo() {
+export async function connectMongo(connectionUrl) {
   try {
-    await connect(
-      "mongodb+srv://alejandrosanz:9TJnFW2eCrWdNaxK@ecommerce.anbm0y3.mongodb.net/ecommerce?retryWrites=true&w=majority"
-    );
+    connectionUrl = entorno.mongoUrl;
+    await connect(connectionUrl);
+    
     console.log("plug to mongo!");
-    
-    
-    
+
     /* //para crear base de datos de productos falsos con faker
     (async () => {
       const products = [];
@@ -36,7 +34,6 @@ export async function connectMongo() {
         console.error("Error en insert many:", error);
       }
     })(); */
-    
   } catch (e) {
     console.log(e);
     throw "can not connect to the database";

@@ -43,8 +43,8 @@ formProducts.addEventListener("submit", (e) => {
 const tableP = document.getElementById("tableP");
 tableP.addEventListener('click', event => {
   if (event.target.classList.contains('button-delete')) {
-    const iidd = Number(event.target.value);
-    console.log('Botón presionado. Valor:', iidd);
+    const iidd = event.target.value;
+    console.log('Valor del botón presionado: ', iidd);
     socket.emit("delete-product", iidd);
   }
 });
@@ -55,11 +55,11 @@ tableP.addEventListener('click', event => {
 socket.on("all-the-products", (allProducts) => {
   tableP.innerHTML = "";
   let contenido = "";
-
+  console.log(allProducts)
   for (let i = 0; i < allProducts.length; i++) {
     contenido += `
     <tr>
-    <th scope="row">${allProducts[i].id}</th>
+    <th scope="row">${allProducts[i]._id}</th>
     <td>${allProducts[i].title}</td>
     <td>${allProducts[i].description}</td>
     <td>${allProducts[i].category}</td>
@@ -72,7 +72,7 @@ socket.on("all-the-products", (allProducts) => {
       style="width: 50px; min-height:100%; max-height: 50px;"/>
     </td>
     <td>
-      <button class="button-delete" type="button" value="${allProducts[i].id}">Borrar</button>
+      <button class="button-delete" type="button" value="${allProducts[i]._id}">Borrar</button>
     </td>
     </tr> 
     `;

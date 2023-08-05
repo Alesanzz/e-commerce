@@ -17,8 +17,9 @@ export const productRealtimeController = {
           description: product.description,
           category: product.category,
           price: product.price,
-          stock: product.stock,
           code: product.code,
+          stock: product.stock,
+          thumbnail: product.thumbnail,
         })),
       });
     } catch (error) {

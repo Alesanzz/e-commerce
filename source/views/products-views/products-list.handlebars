@@ -1,9 +1,9 @@
 <div>
-  {{#if user.first_name}}
-    <p>Bienvenido, {{user.first_name}} {{user.last_name}}!</p>
-    <p>Email: {{user.email}}</p>
+  {{#if user.fullname}}
+    <p>Bienvenido, {{user.fullname}}!</p>
+    <p>Pais: {{user.country}}</p>
 
-    {{#if user.admin}}
+    {{#if user.roll}}
       <p>Rol: Admin</p>
     {{else}}
       <p>Rol: Usuario</p>

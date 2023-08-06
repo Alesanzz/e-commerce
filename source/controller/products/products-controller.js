@@ -1,11 +1,12 @@
 //importando las funciones de la carpeta services
+import UserDTO from "../../dto/user-dto.js";
 import { productApiService } from "../../services/apis/products-api-service.js";
 
 export const productController = {
   getAllProducts: async function (req, res) {
     let user = {}
     if (req.session && req.session.user) {
-      user = req.session.user;
+      user = new UserDTO(req.session.user)
     }else{
       user = {}
     }

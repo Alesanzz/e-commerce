@@ -18,4 +18,5 @@ export const entorno = {
   clientId: process.env.CLIENTID,
   clientSecret: process.env.CLIENTSECRET,
   callbackUrl: process.env.CALLBACKURL,
+  persistence: process.env.PERSISTENCE,
 };

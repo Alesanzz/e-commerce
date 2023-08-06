@@ -57,6 +57,8 @@ export const userController = {
     req.session.user = {
       first_name: req.user.first_name,
       last_name: req.user.last_name,
+      age: req.user.age,
+      country: req.user.country,
       email: req.user.email,
       admin: req.user.admin,
     }

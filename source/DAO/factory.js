@@ -1,16 +1,23 @@
-import config from '../../config/config.js';
+import { entorno } from "../config/env-config.js";
 import mongoose from 'mongoose';
 
 export let Contacts;
 
-switch (config.persistence) {
-  case 'MONGO':
-    console.log('Mongo connect');
-    mongoose.connect('mongodb+srv://alejandrosanz:qAa1NHpEo37n4eUA@coder-cluster.qqkqtjc.mongodb.net/?retryWrites=true&w=majority');
+switch (entorno.persistence) {
+  case 'MONGODB':
+     try {
+        connectionUrl = entorno.mongoUrl;
+        await mongoose.connect(connectionUrl);
+        console.log("Plug to mongo 2!");
+        
+        const { default: ContactsMongo } = await import('./mongo/contacts.mongo.js');
+        Contacts = ContactsMongo;
 
-    const { default: ContactsMongo } = await import('./mongo/contacts.mongo.js');
-    Contacts = ContactsMongo;
-
+      } catch (e) {
+        console.log(e);
+        throw "can not connect to the database 2";
+      }
+   
     break;
   case 'MEMORY':
     console.log('Persistence with Memory');

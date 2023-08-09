@@ -52,14 +52,14 @@ tableP.addEventListener('click', event => {
 
 
 // actualizar la vista
-socket.on("all-the-products", (allProducts) => {
+socket.on("all-the-products", (allProductsObject) => {
   tableP.innerHTML = "";
   let contenido = "";
-  console.log(allProducts)
+
+  let allProducts = allProductsObject.docs
   for (let i = 0; i < allProducts.length; i++) {
     contenido += `
     <tr>
-    <th scope="row">${allProducts[i]._id}</th>
     <td>${allProducts[i].title}</td>
     <td>${allProducts[i].description}</td>
     <td>${allProducts[i].category}</td>

@@ -14,10 +14,8 @@
 </div>
 <hr />
 
-
 <div>
     <h1>Listado de los productos</h1>
-
   {{#each products}}
     <p>Nombre del producto: {{this.title}}</p>
     <p>Descripcion: {{this.description}}</p>
@@ -32,13 +30,13 @@
   {{/each}}
 </div>
   <hr />
+
 <div>
   Contador del primer producto mostrado: {{pagingCounter}}
   <br>
   Pagina actual: {{page}}
   <br>
   Numero de paginas: {{totalPages}}
-
   <hr />
 
   {{#if hasPrevPage}}

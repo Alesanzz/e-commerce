@@ -30,6 +30,7 @@ export const productController = {
           category: product.category,
           price: product.price,
           stock: product.stock,
+          thumbnail: product.thumbnail,
         })),
         pagingCounter: allProducts.pagingCounter,
         page: allProducts.page,

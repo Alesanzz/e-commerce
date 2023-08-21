@@ -13,7 +13,7 @@ server.use(sessionConfig());
 
 
 //importando dirname
-import { sourceDirname } from "./config/dirname.js";
+import { sourceDirname } from "./config/dirname-config.js";
 
 //configurando el uso de passport
 import passport from "passport";
@@ -75,7 +75,7 @@ server.get("*", (req, res) => {
 //--------------------------------------------------------------------------------------------------
 
 //para confirgurar el servidor socket hay que importar el archivo donde se encuentra toda la logica del socket server, luego guardar el servidor http en una variable y por ultimo ejecurtar el "servidor" de socket.io sobre nuestro servidor http
-import { connectSocket } from "./utils/socket-server.js";
+import { connectSocket } from "./config/socket-server-config.js";
 const httpServer = server.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });

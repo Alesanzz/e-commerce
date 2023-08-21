@@ -1,12 +1,12 @@
 import dotenv from "dotenv";
 
-if (process.argv[2] != "DEV" && process.argv[2] != "PROD") {
-  console.log("Se necesita especificar el entorno en que se va a trabajar");
+if (process.argv[2] != "MON" && process.argv[2] != "MEM") {
+  console.log("Porfavor especificar el entorno: - MOM para mongodb | - MEM para memory");
   process.exit();
 }
 
 dotenv.config({
-  path: process.argv[2] === "DEV" ? "./.env.development" : "./.env.production",
+  path: process.argv[2] === "MON" ? "./.env.mongodb" : "./.env.memory",
 });
 
 export const entorno = {

@@ -1,6 +1,6 @@
 import fs from "fs";
 import path from "path";
-import { __dirname } from "../../config/dirname.js";
+import { __dirname } from "../../config/dirname-config.js";
 import {
   verificationTypeOfProducts,
   verificationDataOfProducts,
@@ -11,7 +11,7 @@ class ProductManager {
     this.products = [];
     this.productsFilePath = path.resolve(
       __dirname,
-      "../DAO/filesystem/dataBase/products.json"
+      "../dao/filesystem/dataBase/products.json"
     );
 
     //comprobando si ya existe la base de datos o no existe

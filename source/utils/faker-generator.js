@@ -1,7 +1,7 @@
 //para crear datos en la base de datos con faker
 import { fakerES } from "@faker-js/faker";
-import { UsersModel } from "../DAO/models/users-model.js";
-import { ProductModel } from "../DAO/models/products-model.js";
+import { UsersModel } from "../dao/mongo/models/users-model.js";
+import { ProductModel } from "../dao/mongo/models/products-model.js";
 
 export const generateUsers = () => {};
 

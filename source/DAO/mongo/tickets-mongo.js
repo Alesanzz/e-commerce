@@ -1,29 +1,29 @@
-import TicketModel from './models/tickets-model.js';
+import TicketModel from "./models/tickets-model.js";
 
 class TicketMongoDAO {
-	async create(ticketData) {
-		return await TicketModel.create(ticketData);
-	}
+  async getAll() {
+    return await TicketModel.find();
+  }
 
-	async findByCode(code) {
-		return await TicketModel.findOne({code});
-	}
+  async getById(id) {
+    return await TicketModel.findById(id);
+  }
 
-	async getAll() {
-		return await TicketModel.find();
-	}
+  async findByCode(code) {
+    return await TicketModel.findOne({ code });
+  }
 
-	async getById(id) {
-		return await TicketModel.findById(id);
-	}
+  async create(ticketData) {
+    return await TicketModel.create(ticketData);
+  }
 
-	async update(id, ticketData) {
-		return await TicketModel.findByIdAndUpdate(id, ticketData, {new: true});
-	}
+  async update(id, ticketData) {
+    return await TicketModel.findByIdAndUpdate(id, ticketData, { new: true });
+  }
 
-	async delete(id) {
-		return await TicketModel.findByIdAndDelete(id);
-	}
+  async delete(id) {
+    return await TicketModel.findByIdAndDelete(id);
+  }
 }
 
 export default new TicketMongoDAO();

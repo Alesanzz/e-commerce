@@ -1,5 +1,5 @@
 //importando las funciones de la clase product manager
-import { DAOFactory } from '../../DAO/factory.js';
+import { DAOFactory } from '../../dao/factory.js';
 import { productService } from "../products/products-service.js";
 
 const cartDAO = await DAOFactory('carts');

@@ -1,5 +1,5 @@
 //@ts-check
-import { DAOFactory } from '../../DAO/factory.js';
+import { DAOFactory } from '../../dao/factory.js';
 
 const productDAO = await DAOFactory('products');
 

@@ -2,9 +2,9 @@ import fetch from 'node-fetch';
 import passport from "passport";
 import local from "passport-local";
 import GitHubStrategy from 'passport-github2';
-import { DAOFactory } from '../../DAO/factory.js';
+import { DAOFactory } from '../../dao/factory.js';
 
-import { createHashPassword, checkPassword } from "../../utils/bcrypt.js";
+import { createHashPassword, checkPassword } from "../../config/bcrypt-config.js";
 import { entorno } from "../../config/env-config.js";
 
 const LocalStrategy = local.Strategy;

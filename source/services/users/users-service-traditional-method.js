@@ -1,6 +1,6 @@
 //@ts-check
-import { DAOFactory } from '../../DAO/factory.js';
-import {createHashPassword, checkPassword} from "../../utils/bcrypt.js"
+import { DAOFactory } from '../../dao/factory.js';
+import {createHashPassword, checkPassword} from "../../config/bcrypt-config.js"
 
 const userDAO = await DAOFactory('user');
 

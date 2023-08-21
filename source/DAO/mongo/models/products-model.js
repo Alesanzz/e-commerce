@@ -15,6 +15,7 @@ const productSchema = new Schema({
 
 productSchema.plugin(mongoosePaginate);
 
-export const ProductModel = model("products" /* nombre de la coleccion */, productSchema);
+const ProductModel = model("products" /* nombre de la coleccion */, productSchema);
+export default ProductModel;
 
 /* La propiedad "index: true" es para crear un indice de ese esa propiedad y asi la base de datos lo pueda buscar mas rapido */

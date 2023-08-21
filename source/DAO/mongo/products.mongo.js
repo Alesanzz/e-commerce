@@ -1,25 +1,28 @@
-import ProductModel from './models/products.model.js';
+import ProductModel from "./models/products-model.js";
 
 class ProductMongoDAO {
-	async create(product) {
-		return await ProductModel.create(product);
-	}
+  async findAll() {
+    return await ProductModel.find();
+  }
 
-	async findAll() {
-		return await ProductModel.find();
-	}
+  async findOne(code) {
+    return await ProductModel.findOne({ _id: code });
+  }
 
-	async findByCode(code) {
-		return await ProductModel.findOne({code});
-	}
+  async create(product) {
+    return await ProductModel.create( product );
+  }
 
-	async update(code, product) {
-		return await ProductModel.findOneAndUpdate({code}, product, {new: true});
-	}
+  async updateOne(code, product) {
+    return await ProductModel.findOneAndUpdate({ _id: code }, product, {
+      new: true,
+    });
+  }
 
-	async delete(code) {
-		return await ProductModel.findOneAndDelete({code});
-	}
+  async deleteOne(code) {
+	console.log(code)
+    return await ProductModel.findOneAndDelete({ _id: code });
+  }
 }
 
 export default new ProductMongoDAO();

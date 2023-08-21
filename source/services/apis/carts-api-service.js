@@ -1,6 +1,6 @@
 //importando las funciones de la clase product manager
 import { CartModel } from "../../DAO/models/carts-model.js";
-import { ProductModel } from "../../DAO/models/products-model.js";
+//import { ProductModel } from "../../DAO/models/products-model.js";
 
 class CartApiService {
   async getCarts(limit, page, query, sort) {

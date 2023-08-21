@@ -1,6 +1,7 @@
+//@ts-check
 //importando las funciones de la carpeta services
 import UserDTO from "../../dto/user-dto.js";
-import { productApiService } from "../../services/apis/products-api-service.js";
+import { productService } from "../../services/products/products-service.js";
 
 export const productController = {
   getAllProducts: async function (req, res) {
@@ -13,7 +14,7 @@ export const productController = {
 
     try {
       let { limit, page, query, sort } = req.query;
-      const allProducts = await productApiService.getProducts(
+      const allProducts = await productService.getProducts(
         limit,
         page,
         query,
@@ -23,7 +24,7 @@ export const productController = {
       return res.status(200).render("products-views/products-list", {
         title: "Lista de productos",
         user: user,
-        products: allProducts.docs.map((product) => ({
+        products: allProducts.map((product) => ({
           id: product._id.toString(),
           title: product.title,
           description: product.description,
@@ -40,6 +41,7 @@ export const productController = {
         prevPage: allProducts.prevPage,
         nextPage: allProducts.nextPage,
       });
+      
     } catch (error) {
       return res.status(500).json({
         status: "error",

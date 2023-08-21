@@ -9,9 +9,7 @@ const messageSchema = new Schema({
 
 messageSchema.plugin(mongoosePaginate);
 
-export const MessageModel = model(
-  "messages" /* nombre de la colección donde se va a realizar el CRUD */,
-  messageSchema
-);
+const MessageModel = model("messages" /* nombre de la coleccion */,messageSchema);
+export default MessageModel;
 
 /* La propiedad "index: true" es para crear un indice de ese esa propiedad y asi la base de datos lo pueda buscar mas rapido */

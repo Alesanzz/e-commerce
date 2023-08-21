@@ -19,7 +19,5 @@ const cartSchema = new Schema({
 
 cartSchema.plugin(mongoosePaginate);
 
-export const CartModel = model(
-  "carts" /* nombre de la coleccion */,
-  cartSchema
-);
+const CartModel = model("carts" /* nombre de la coleccion */, cartSchema);
+export default CartModel;

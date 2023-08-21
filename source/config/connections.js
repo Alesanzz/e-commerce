@@ -1,11 +1,11 @@
 //@ts-check
 import mongoose from "mongoose";
 import { entorno } from "./env-config.js";
-const {mongoUrl} = entorno;
+const { mongoUrl } = entorno;
 
 export default class SingletonMongo {
   static #mongoInstance;
-  
+
   static async connectToMongo() {
     try {
       await mongoose.connect(String(mongoUrl));
@@ -28,6 +28,6 @@ export default class SingletonMongo {
   }
 
   static hasInstance() {
-    return !this.#mongoInstance;
+    return !!this.#mongoInstance;
   }
 } 

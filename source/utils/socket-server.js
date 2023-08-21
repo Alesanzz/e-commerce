@@ -1,6 +1,6 @@
 import { Server } from "socket.io";
 import { MessageModel } from '../DAO/models/messages-model.js';
-import { productApiService } from "../services/apis/products-api-service.js";
+import { productService } from "../services/products/products-service.js";
 
 export function connectSocket(httpServer) {
   const socketServer = new Server(httpServer);
@@ -24,21 +24,20 @@ export function connectSocket(httpServer) {
   socketServer.on("connection", (socket) => {
     socket.on("new-product-created", async (newProduct) => {
       try {
-        await productApiService.addProduct(newProduct);
+        await productService.addProduct(newProduct);
 
-        let allProducts = await productApiService.getProducts();
+        let allProducts = await productService.getProducts();
         socketServer.emit("all-the-products", allProducts);
       } catch (error) {
         console.log(error);
       }
     });
 
-    socket.on("delete-product", async (iidd) => {
+    socket.on("delete-product", async (_id) => {
       try {
-        await productApiService.deleteProduct(iidd);
+        await productService.deleteProduct(_id);
 
-        let allProducts = await productApiService.getProducts();
-        console.log("socket server del back", allProducts)
+        let allProducts = await productService.getProducts();
         socketServer.emit("all-the-products", allProducts);
       } catch (error) {
         console.log(error);

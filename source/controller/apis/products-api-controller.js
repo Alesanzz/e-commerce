@@ -1,12 +1,12 @@
 //@ts-check
 //importando las funciones de la carpeta services
-import { productApiService } from "../../services/apis/products-api-service.js";
+import { productService } from "../../services/products/products-service.js";
 
 export const productsApiController = {
   getAllProducts: async function (req, res) {
     try {
       let { limit, page, query, sort } = req.query;
-      const products = await productApiService.getProducts(
+      const products = await productService.getProducts(
         limit,
         page,
         query,
@@ -30,7 +30,7 @@ export const productsApiController = {
   showOneProduct: async function (req, res) {
     try {
       const id = req.params.id;
-      const product = await productApiService.getOneProduct(id);
+      const product = await productService.getOneProduct(id);
 
       return res.status(200).json({
         status: "Success",
@@ -49,8 +49,8 @@ export const productsApiController = {
   createOneProduct: async function (req, res) {
     try {
       const newInfo = req.body;
-      await productApiService.addProduct(newInfo);
-      const products = await productApiService.getAllProducts();
+      await productService.addProduct(newInfo);
+      const products = await productService.getAllProducts();
 
       return res.status(201).json({
         status: "Success",
@@ -70,9 +70,9 @@ export const productsApiController = {
     try {
       const id = req.params.id;
       const dataToUpdate = req.body;
-      await productApiService.updateProduct(id, dataToUpdate);
+      await productService.updateProduct(id, dataToUpdate);
 
-      const products = await productApiService.getAllProducts();
+      const products = await productService.getAllProducts();
       const index = products.findIndex((p) => p.id == id);
 
       return res.status(201).json({
@@ -92,17 +92,24 @@ export const productsApiController = {
   deleteOneProduct: async function (req, res) {
     try {
       const id = req.params.id;
-      await productApiService.deleteProduct(id);
-
-      return res.status(200).json({
-        status: "Success",
-        msg: "Se elimino el producto con el id " + id,
-        data: {},
-      });
+      const deletedProduct = await productService.deleteProduct(id);
+      if (deletedProduct) {
+        return res.status(200).json({
+          status: "Success",
+          msg: "Se elimino el producto con el id " + id,
+          data: {},
+        });
+      } else {
+        return res.status(404).json({
+          status: "Success",
+          msg: "product could not be deleted, the id is: " + id,
+          data: {},
+        });
+      }
     } catch (error) {
-      return res.status(404).json({
+      return res.status(500).json({
         status: "error",
-        msg: "product could not be deleted",
+        msg: "Internal server error",
         data: { error },
       });
     }

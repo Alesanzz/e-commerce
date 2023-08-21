@@ -1,15 +1,14 @@
 //@ts-check
 //importando las funciones de la carpeta services
-import { productApiService } from "../../services/apis/products-api-service.js";
+import { productService } from "../../services/products/products-service.js";
 
 export const productRealtimeController = {
   index: async function (req, res) {
     try {
       console.log("cliente conectado a la lista de productos");
-      //const products = await productApiService.getProducts();
 
       let { limit, page, query, sort } = req.query;
-      const products = await productApiService.getProducts(
+      const products = await productService.getProducts(
         limit,
         page,
         query,
@@ -20,7 +19,7 @@ export const productRealtimeController = {
         title: "Lista de productos",
         style: "realtime/products.css",
         
-        products: products.docs.map((product) => ({
+        products: products.map((product) => ({
           id: product._id.toString(),
           title: product.title,
           description: product.description,

@@ -7,33 +7,17 @@ import express from "express";
 const server = express();
 const port = entorno.port;
 
-//session y cookies
-import cookieParser from "cookie-parser";
-import session from "express-session";
+//requiriendo y definiendo el uso de session con mongodb, de forma que si se apaga el servidor, las session siguen existiendo - (el ttl: es el tiempo de duracion de la session)
+import { sessionConfig } from "./config/session-config.js";
+server.use(sessionConfig());
 
-//requiriendo y definiendo a mongoDB como base de datos del proyecto
-import { connectMongo } from "./config/connections.js";
-import MongoStore from "connect-mongo";
-connectMongo();
-//para guardar las session en la base de datos en mongodb, de forma que si se apaga el servidor, las session siguen existiendo - (el ttl: es el tiempo de duracion de la session)
-server.use(
-  session({
-    store: MongoStore.create({
-      mongoUrl: entorno.mongoUrl,
-      ttl: 86400 * 2,
-    }),
-    secret: "un-re-secreto",
-    resave: true,
-    saveUninitialized: true,
-  })
-);
 
 //importando dirname
 import { sourceDirname } from "./config/dirname.js";
 
 //configurando el uso de passport
 import passport from "passport";
-import { iniPassport } from "./config/passport-config.js";
+import { iniPassport } from "./services/users/users-service-passaport.js";
 
 iniPassport();
 server.use(passport.initialize());

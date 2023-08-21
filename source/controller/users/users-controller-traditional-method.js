@@ -1,5 +1,5 @@
 //importando las funciones de la carpeta services
-import { userService } from "../../services/users/users-service.js";
+import { userService } from "../../services/users/users-service-traditional-method.js";
 import {createHashPassword, checkPassword} from "../../utils/bcrypt.js"
 
 export const userController = {

@@ -15,6 +15,7 @@ const userSchema = new Schema({
 
 userSchema.plugin(mongoosePaginate);
 
-export const UserModel = model("users" /* nombre de la coleccion */, userSchema);
+const UserModel = model("users" /* nombre de la coleccion */, userSchema);
+export default UserModel;
 
 /* La propiedad "index: true" es para crear un indice de ese esa propiedad y asi la base de datos lo pueda buscar mas rapido */

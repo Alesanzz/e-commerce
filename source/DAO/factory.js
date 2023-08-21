@@ -1,30 +1,30 @@
+import SingletonMongo from '../config/connections.js';
 import { entorno } from "../config/env-config.js";
-import mongoose from 'mongoose';
 
-export let Contacts;
 
-switch (entorno.persistence) {
-  case 'MONGODB':
-     try {
-        connectionUrl = entorno.mongoUrl;
-        await mongoose.connect(connectionUrl);
-        console.log("Plug to mongo 2!");
-        
-        const { default: ContactsMongo } = await import('./mongo/contacts.mongo.js');
-        Contacts = ContactsMongo;
+//las lineas de abajo ahy que borrarla
+export let isMongoConnected = false;
 
-      } catch (e) {
-        console.log(e);
-        throw "can not connect to the database 2";
-      }
-   
-    break;
-  case 'MEMORY':
-    console.log('Persistence with Memory');
-    const { default: ContactsMemory } = await import('./memory/contacts.memory.js');
-    Contacts = ContactsMemory;
+export const DAOFactory = async entity => {
+  let DAO;
+  
+	switch (entorno.persistence) {
+		case 'MONGODB':
+			await SingletonMongo.getInstance();
 
-    break;
-  default:
-    break;
-}
+			DAO = await import(`./mongo/${entity}.mongo.js`);
+			break;
+
+		case 'MEMORY':
+			DAO = await import(`./memory/${entity}.memory.js`);
+			break;
+
+		case 'FS':
+			DAO = await import(`./fs/${entity}.fs.js`);
+			break;
+
+		default:
+			throw new Error('Persistence method not supported');
+	}
+	return DAO.default;
+};

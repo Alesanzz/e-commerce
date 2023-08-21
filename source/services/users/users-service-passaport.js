@@ -2,13 +2,16 @@ import fetch from 'node-fetch';
 import passport from "passport";
 import local from "passport-local";
 import GitHubStrategy from 'passport-github2';
-import { UserModel } from "../DAO/models/users-model.js";
-import { createHashPassword, checkPassword } from "../utils/bcrypt.js";
-import { entorno } from "./env-config.js";
+import { DAOFactory } from '../../DAO/factory.js';
+
+import { createHashPassword, checkPassword } from "../../utils/bcrypt.js";
+import { entorno } from "../../config/env-config.js";
 
 const LocalStrategy = local.Strategy;
 
-export function iniPassport() {
+export async function iniPassport() {
+  const userDAO = await DAOFactory('user');
+
   passport.use(
     "login",
     //en este modelo de passport, solo se trabaja con usuario y contraseña, es porque es que para adaptarlo a nuestro modelo, indicamos en la siguiente linea que el usernameField va a ser el email del esquima de nuestro modelo de usuarios.
@@ -16,7 +19,7 @@ export function iniPassport() {
       { usernameField: "email" },
       async (username, password, done) => {
         try {
-          const user = await UserModel.findOne({ email: username });
+          const user = await userDAO.findOne({ email: username });
           
           if (!user) {
             console.log("The username: " + username + " was not found");
@@ -45,14 +48,14 @@ export function iniPassport() {
       async (req, username, password, done) => {
         try {
           const infoOfBody = req.body;
-          let user = await UserModel.findOne({ email: username });
+          let user = await userDAO.findOne({ email: username });
           
           if (user) {
             console.log("The user already exist");
             return done(null, false);
           }
 
-          let newUser = await UserModel.create({
+          let newUser = await userDAO.create({
             first_name: infoOfBody.first_name,
             last_name: infoOfBody.last_name,
             age: infoOfBody.age,
@@ -99,9 +102,9 @@ export function iniPassport() {
           }
           profile.email = emailDetail.email;
 
-          let user = await UserModel.findOne({ email: profile.email });
+          let user = await userDAO.findOne({ email: profile.email });
           if (!user) {
-            let userCreated = await UserModel.create({
+            let userCreated = await userDAO.create({
               first_name: profile._json.first_name || profile._json.login || "no-first_name",
               last_name: "no-last_name",
               age: 1,
@@ -131,7 +134,7 @@ export function iniPassport() {
 
   //el siguiente metodo siempre es igual y nunca cambia
   passport.deserializeUser(async (id, done) => {
-    let user = await UserModel.findById(id);
+    let user = await userDAO.findById(id);
     done(null, user);
   });
 }

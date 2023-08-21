@@ -1,5 +1,4 @@
-//importando las funciones de la carpeta services
-import { createHashPassword, checkPassword } from "../../utils/bcrypt.js";
+
 
 export const userController = {
   register: async function (req, res) {

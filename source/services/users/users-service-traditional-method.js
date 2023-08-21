@@ -1,10 +1,12 @@
 //@ts-check
-import { UserModel } from "../../DAO/models/users-model.js";
+import { DAOFactory } from '../../DAO/factory.js';
 import {createHashPassword, checkPassword} from "../../utils/bcrypt.js"
+
+const userDAO = await DAOFactory('user');
 
 class UserService {
   async createNewUser(infoOfBody) {
-    const newUser = await UserModel.create({
+    const newUser = await userDAO.create({
       first_name: infoOfBody.first_name,
       last_name: infoOfBody.last_name,
       age: infoOfBody.age,
@@ -17,7 +19,7 @@ class UserService {
   }
 
   async findAUser(email) {
-    const userCheck = await UserModel.findOne({ email: email });
+    const userCheck = await userDAO.findOne({ email: email });
     
     return userCheck;
   }

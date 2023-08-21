@@ -15,7 +15,7 @@ routerApiCarts.post("/:id_cart/product/:id_product", cartsApiController.addProdu
 routerApiCarts.put("/:id_cart/products/:id_product", cartsApiController.updateProductQuantity)
 //elimina un producto del carrito de compras
 routerApiCarts.delete("/:id_cart/products/:id_product", cartsApiController.removeProductFromCart)
+//eliminar un carrito de compras
+routerApiCarts.delete("/:id/delete", cartsApiController.deleteOneCart)
 //vaciar por completo un carrito de compras
 routerApiCarts.delete("/:id_cart", cartsApiController.clearOneCart)
-//eliminar un carrito de compras
-routerApiCarts.delete("/:id", cartsApiController.deleteOneCart)

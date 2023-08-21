@@ -1,11 +1,10 @@
 //@ts-check
-import {DAOFactory} from '../../DAO/factory.js';
+import { DAOFactory } from '../../DAO/factory.js';
 
 const productDAO = await DAOFactory('products');
 
 class ProductService {
   async getProducts(limit, page, query, sort) {
-
     const filter = query ? { title: { $regex: query, $options: 'i' } } : {};
     const sortOption = sort == "asc" ? { price: 1 } : { price: -1 };
     
@@ -14,8 +13,8 @@ class ProductService {
       page: page || 1,
       sort: sortOption
     };
-    const products = await productDAO.findAll({filter, options});
 
+    const products = await productDAO.findAll({filter, options});
     return products;
   }
 

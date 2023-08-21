@@ -12,15 +12,15 @@ export const DAOFactory = async entity => {
 		case 'MONGODB':
 			await SingletonMongo.getInstance();
 
-			DAO = await import(`./mongo/${entity}.mongo.js`);
+			DAO = await import(`./mongo/${entity}-mongo.js`);
 			break;
 
 		case 'MEMORY':
-			DAO = await import(`./memory/${entity}.memory.js`);
+			DAO = await import(`./memory/${entity}-memory.js`);
 			break;
 
 		case 'FS':
-			DAO = await import(`./fs/${entity}.fs.js`);
+			DAO = await import(`./fs/${entity}-fs.js`);
 			break;
 
 		default:

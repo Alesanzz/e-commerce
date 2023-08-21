@@ -10,7 +10,7 @@ class ProductMongoDAO {
   }
 
   async create(product) {
-    return await ProductModel.create( product );
+    return await ProductModel.create(product);
   }
 
   async updateOne(code, product) {
@@ -20,7 +20,6 @@ class ProductMongoDAO {
   }
 
   async deleteOne(code) {
-	console.log(code)
     return await ProductModel.findOneAndDelete({ _id: code });
   }
 }

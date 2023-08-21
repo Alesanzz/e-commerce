@@ -1,4 +1,4 @@
-import TicketModel from './models/tickets.model.js';
+import TicketModel from './models/tickets-model.js';
 
 class TicketMongoDAO {
 	async create(ticketData) {

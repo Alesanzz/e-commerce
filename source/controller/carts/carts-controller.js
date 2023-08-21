@@ -1,11 +1,11 @@
 //importando las funciones de la carpeta services
-import { cartApiService } from "../../services/apis/carts-api-service.js";
+import { cartService } from "../../services/carts/carts-service.js";
 
 export const cartController = {
   showOneCart: async function (req, res) {
     try {
       const id = req.params.id_cart;
-      const cart = await cartApiService.getOneCart(id);
+      const cart = await cartService.getOneCart(id);
       const theCart = cart.products.map((prod) => prod.toJSON());
 
       return res.status(200).render("carts-views/carts-list", {

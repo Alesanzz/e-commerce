@@ -1,8 +1,10 @@
 //importando las funciones de la clase product manager
-import { CartModel } from "../../DAO/models/carts-model.js";
-//import { ProductModel } from "../../DAO/models/products-model.js";
+import { DAOFactory } from '../../DAO/factory.js';
+import { productService } from "../products/products-service.js";
 
-class CartApiService {
+const cartDAO = await DAOFactory('carts');
+ 
+class CartService {
   async getCarts(limit, page, query, sort) {
     const filter = query ? { title: { $regex: query, $options: "i" } } : {};
     const sortOption = sort == "asc" ? { price: 1 } : { price: -1 };
@@ -13,40 +15,41 @@ class CartApiService {
       sort: sortOption,
     };
 
-    const carts = await CartModel.paginate(filter, options);
+    const carts = await cartDAO.findAll({filter, options});
     return carts;
   }
 
   async getAllCarts() {
-    const carts = await CartModel.find({});
+    const carts = await cartDAO.findAll({});
     return carts;
   }
 
   async getOneCart(idCart) {
-    const cart = await CartModel.findOne({ _id: idCart }).populate("products.product");
+    const cart = await cartDAO.findOne(idCart)
     return cart;
   }
 
   async addCart() {
-    const newCart = await CartModel.create({});
+    const newCart = await cartDAO.create({});
     return newCart;
   }
 
   async addProductToCart(idCart, idProduct) {
     // Buscar el carrito en la base de datos
-    const cart = await CartModel.findOne({ _id: idCart });
+    const cart = await cartDAO.findOne(idCart);
 
     if (cart) {
+      console.log(cart.products)
       // Verificar si el producto ya existe en el carrito
       const product = cart.products.find(
-        (product) => product.product.toString() === idProduct
+        (product) => product.product._id.toString() === idProduct
       );
       if (product) {
         // El producto ya existe en el carrito, incrementar la cantidad
         product.quantity += 1;
       } else {
         // El producto no existe en el carrito, buscarlo en la base de datos de productos
-        const productToAdd = await ProductModel.findById(idProduct);
+        const productToAdd = await productService.getOneProduct(idProduct);
 
         if (productToAdd) {
           // Agregar el producto al carrito
@@ -63,12 +66,12 @@ class CartApiService {
 
   async updateProductQuantity(idCart, idProduct, quantity) {
     // Buscar el carrito en la base de datos
-    const cart = await CartModel.findOne({ _id: idCart });
+    const cart = await cartDAO.findOne(idCart);
   
     if (cart) {
       // Buscar el producto en el carrito
       const product = cart.products.find(
-        (product) => product.product.toString() === idProduct
+        (product) => product.product._id.toString() === idProduct
       );
         if (product) {
         // Actualizar la cantidad del producto en el carrito
@@ -81,12 +84,12 @@ class CartApiService {
   
   async removeProductFromCart(idCart, idProduct) {
     // Buscar el carrito en la base de datos
-    const cart = await CartModel.findOne({ _id: idCart });
+    const cart = await cartDAO.findOne(idCart);
 
     if (cart) {
       // Verificar si el producto existe en el carrito
       const productIndex = cart.products.findIndex(
-        (product) => product.product.toString() === idProduct
+        (product) => product.product._id.toString() === idProduct
       );
       if (productIndex !== -1) {
         // El producto existe en el carrito, eliminarlo
@@ -98,16 +101,16 @@ class CartApiService {
   }
 
   async clearCart(idCart) {
-    let cart = await CartModel.findOne({ _id: idCart });
+    let cart = await cartDAO.findOne(idCart);
     cart.products = [];
     cart = await cart.save();
     return cart;
   }
 
   async deleteCart(_id) {
-    const deleted = await CartModel.deleteOne({ _id: _id });
+    const deleted = await cartDAO.deleteOne(_id);
     return deleted;
   }
 }
 
-export const cartApiService = new CartApiService();
+export const cartService = new CartService();

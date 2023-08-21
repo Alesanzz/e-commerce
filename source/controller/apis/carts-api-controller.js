@@ -1,12 +1,12 @@
 //@ts-check
 //importando las funciones de la carpeta services
-import { cartApiService } from "../../services/apis/carts-api-service.js";
+import { cartService } from "../../services/carts/carts-service.js";
 
 export const cartsApiController = {
   getAllCarts: async function (req, res) {
     try {
       let { limit, page, query, sort } = req.query;
-      const carts = await cartApiService.getCarts(limit, page, query, sort);
+      const carts = await cartService.getCarts(limit, page, query, sort);
 
       return res.json({
         status: "Success",
@@ -25,7 +25,7 @@ export const cartsApiController = {
   showOneCart: async function (req, res) {
     try {
       const idCart = req.params.id_cart;
-      const cart = await cartApiService.getOneCart(idCart);
+      const cart = await cartService.getOneCart(idCart);
 
       return res.status(200).json({
         status: "Success",
@@ -43,8 +43,8 @@ export const cartsApiController = {
 
   createOneCart: async function (req, res) {
     try {
-      await cartApiService.addCart();
-      const carts = await cartApiService.getAllCarts();
+      await cartService.addCart();
+      const carts = await cartService.getAllCarts();
 
       return res.status(201).json({
         status: "Success",
@@ -64,9 +64,9 @@ export const cartsApiController = {
     try {
       const idCart = req.params.id_cart;
       const idProduct = req.params.id_product;
-      await cartApiService.addProductToCart(idCart, idProduct);
+      await cartService.addProductToCart(idCart, idProduct);
 
-      let cartUpdated = await cartApiService.getOneCart(idCart);
+      let cartUpdated = await cartService.getOneCart(idCart);
 
       return res.status(201).json({
         status: "Success",
@@ -87,9 +87,9 @@ export const cartsApiController = {
       const idCart = req.params.id_cart;
       const idProduct = req.params.id_product;
       const quantity = parseInt(req.body.quantity)
-      await cartApiService.updateProductQuantity(idCart, idProduct, quantity);
+      await cartService.updateProductQuantity(idCart, idProduct, quantity);
 
-      let cartUpdated = await cartApiService.getOneCart(idCart);
+      let cartUpdated = await cartService.getOneCart(idCart);
 
       return res.status(201).json({
         status: "Success",
@@ -109,9 +109,9 @@ export const cartsApiController = {
     try {
       const idCart = req.params.id_cart;
       const idProduct = req.params.id_product;
-      await cartApiService.removeProductFromCart(idCart, idProduct);
+      await cartService.removeProductFromCart(idCart, idProduct);
 
-      let cartUpdated = await cartApiService.getOneCart(idCart);
+      let cartUpdated = await cartService.getOneCart(idCart);
 
       return res.status(201).json({
         status: "Success",
@@ -130,7 +130,7 @@ export const cartsApiController = {
   clearOneCart: async function (req, res) {
     try {
       const id = req.params.id_cart;
-      const cart = await cartApiService.clearCart(id);
+      const cart = await cartService.clearCart(id);
 
       return res.status(200).json({
         status: "Success",
@@ -149,17 +149,24 @@ export const cartsApiController = {
   deleteOneCart: async function (req, res) {
     try {
       const id = req.params.id;
-      await cartApiService.deleteCart(id);
-
+      const deletedCart = await cartService.deleteCart(id);
+      if (deletedCart) {
       return res.status(200).json({
         status: "Success",
         msg: "Se elimino el carrito de compras con el id " + id,
         data: {},
       });
-    } catch (error) {
+    } else {
       return res.status(404).json({
+        status: "Success",
+        msg: "cart could not be deleted, the id is: " + id,
+        data: {},
+      });
+    }
+    } catch (error) {
+      return res.status(500).json({
         status: "error",
-        msg: "the cart could not be deleted",
+        msg: "Internal server error",
         data: { error },
       });
     }

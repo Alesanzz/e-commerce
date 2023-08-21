@@ -10,7 +10,7 @@ import { entorno } from "../../config/env-config.js";
 const LocalStrategy = local.Strategy;
 
 export async function iniPassport() {
-  const userDAO = await DAOFactory('user');
+  const userDAO = await DAOFactory('users');
 
   passport.use(
     "login",

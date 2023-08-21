@@ -1,12 +1,12 @@
 import MessageModel from './models/messages-model.js';
 
 class MessageMongoDAO {
-	async getAll() {
+	async findAll() {
 		return await MessageModel.find();
 	}
 
-	async create(messageData) {
-		return await MessageModel.create(messageData);
+	async create(newMessage) {
+		return await MessageModel.create(newMessage);
 	}
 }
 

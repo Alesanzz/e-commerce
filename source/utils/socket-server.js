@@ -1,6 +1,6 @@
 import { Server } from "socket.io";
-import { MessageModel } from '../DAO/models/messages-model.js';
 import { productService } from "../services/products/products-service.js";
+import { messagesService } from "../services/messages/messages-service.js";
 
 export function connectSocket(httpServer) {
   const socketServer = new Server(httpServer);
@@ -15,8 +15,8 @@ export function connectSocket(httpServer) {
 
   socketServer.on('connection', (socket) => {
     socket.on('msg_front_to_back', async (msg) => {
-      const msgCreated = await MessageModel.create(msg);
-      const msgs = await MessageModel.find({}); 
+      const msgCreated = await messagesService.createMessage(msg);
+      const msgs = await messagesService.getAllMessages(); 
       socketServer.emit('msg_back_to_front', msgs);
     });
   });

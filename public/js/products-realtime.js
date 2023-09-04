@@ -49,14 +49,11 @@ tableP.addEventListener('click', event => {
   }
 });
 
-
-
 // actualizar la vista
 socket.on("all-the-products", (allProductsObject) => {
   tableP.innerHTML = "";
   let contenido = "";
-
-  let allProducts = allProductsObject.docs
+  let allProducts = allProductsObject
   for (let i = 0; i < allProducts.length; i++) {
     contenido += `
     <tr>

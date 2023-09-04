@@ -132,22 +132,6 @@
   </div>
 </form>
 
-<div>
-  Contador del primer producto mostrado: {{pagingCounter}}
-  <br>
-  Pagina actual: {{page}}
-  <br>
-  Numero de paginas: {{totalPages}}
-  <hr />
-
-  {{#if hasPrevPage}}
-    <a style='text-decoration: none' href='http://localhost:8080/realtimeproducts/?page={{prevPage}}'> ⬅️ </a>
-  {{/if}}
-  {{page}}
-  {{#if hasNextPage}}
-    <a style='text-decoration: none' href='http://localhost:8080/realtimeproducts/?page={{nextPage}}'> ➡️</a>
-  {{/if}}
-</div>
 
 <script src="/socket.io/socket.io.js"></script>
 <script src="/js/products-realtime.js"></script>

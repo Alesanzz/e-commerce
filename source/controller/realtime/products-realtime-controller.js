@@ -29,13 +29,6 @@ export const productRealtimeController = {
           stock: product.stock,
           thumbnail: product.thumbnail,
         })),
-        pagingCounter: products.pagingCounter,
-        page: products.page,
-        totalPages: products.totalPages,
-        hasPrevPage: products.hasPrevPage,
-        hasNextPage: products.hasNextPage,
-        prevPage: products.prevPage,
-        nextPage: products.nextPage, 
       });
     } catch (error) {
       return res.status(500).json({

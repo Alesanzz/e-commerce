@@ -7,9 +7,10 @@
       <p>Rol: Admin</p>
     {{else}}
       <p>Rol: Usuario</p>
+    
     {{/if}}
-
-    <a href="/users/logout">Cerrar sesión</a>
+    <a href="http://localhost:8080/carts/{{user.cart}}">Ver carrito</a>
+    <a href="http://localhost:8080/users/logout">Cerrar sesión</a>
   {{/if}}
 </div>
 <hr />
@@ -23,10 +24,11 @@
     <p>Precio: {{this.price}}</p>
     <p>Stock actual: {{this.stock}}</p>
 
-  <form action="http://localhost:8080/api/carts/64964692298beae4cf6b22b1/product/{{this.id}}" method="POST">
+    <form action="http://localhost:8080/carts/{{../user.cart}}/product/{{this.id}}" method="POST">
       <button type="submit">Agregar al carrito</button>
     </form>
-    <hr />
+
+      <hr />
   {{/each}}
 </div>
   <hr />

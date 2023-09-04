@@ -130,5 +130,5 @@ dist
 .pnp.*
 
 # variebales de entorno
-.env.development
-.env.production
+.env.memory
+.env.mongodb

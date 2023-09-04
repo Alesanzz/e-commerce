@@ -3,13 +3,13 @@
 import UserDTO from "../../dto/user-dto.js";
 import { cartService } from "../../services/carts/carts-service.js";
 
-export const cartController = {
-  showOneCart: async function (req, res) {
-    let user = {}
+export const ticketsController = {
+  showOneTicket: async function (req, res) {
+    let user = {};
     if (req.session && req.session.user) {
-      user = new UserDTO(req.session.user)
-    }else{
-      user = {}
+      user = new UserDTO(req.session.user);
+    } else {
+      user = {};
     }
 
     try {
@@ -31,7 +31,7 @@ export const cartController = {
     }
   },
 
-  addProductToACart: async function (req, res) {
+  createTicket: async function (req, res) {
     try {
       const idCart = req.params.id_cart;
       const idProduct = req.params.id_product;
@@ -44,39 +44,6 @@ export const cartController = {
       return res.status(404).json({
         status: "error",
         msg: "cart or the product could not be found",
-        data: { error },
-      });
-    }
-  },
-
-  removeProductFromCart: async function (req, res) {
-    try {
-      const idCart = req.params.id_cart;
-      const idProduct = req.params.id_product;
-      await cartService.removeProductFromCart(idCart, idProduct);
-
-      let cartUpdated = await cartService.getOneCart(idCart);
-
-      return res.status(201).redirect(`/carts/${idCart}`);
-    } catch (error) {
-      return res.status(404).json({
-        status: "error",
-        msg: "cart or the product could not be found",
-        data: { error },
-      });
-    }
-  },
-
-  clearOneCart: async function (req, res) {
-    try {
-      const id = req.params.id_cart;
-      const cart = await cartService.clearCart(id);
-
-      return res.status(201).redirect("/products");
-    } catch (error) {
-      return res.status(404).json({
-        status: "error",
-        msg: "the cart could not be cleared",
         data: { error },
       });
     }

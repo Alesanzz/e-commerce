@@ -3,6 +3,7 @@ import passport from "passport";
 import local from "passport-local";
 import GitHubStrategy from 'passport-github2';
 import { DAOFactory } from '../../dao/factory.js';
+import { cartService } from "../carts/carts-service.js";
 
 import { createHashPassword, checkPassword } from "../../config/bcrypt-config.js";
 import { entorno } from "../../config/env-config.js";
@@ -55,6 +56,8 @@ export async function iniPassport() {
             return done(null, false);
           }
 
+          let newCart = await cartService.addCart()
+
           let newUser = await userDAO.create({
             first_name: infoOfBody.first_name,
             last_name: infoOfBody.last_name,
@@ -62,6 +65,7 @@ export async function iniPassport() {
             country: infoOfBody.country,
             email: infoOfBody.email,
             password: createHashPassword(password),
+            cart: newCart.id
           });
           console.log("User registration succesful");
           return done(null, newUser);
@@ -85,7 +89,6 @@ export async function iniPassport() {
         callbackURL: entorno.callbackUrl,
       },
       async (accesToken, _, profile, done) => {
-        //console.log(profile);
         try {
           const res = await fetch('https://api.github.com/user/emails', {
             headers: {
@@ -104,6 +107,8 @@ export async function iniPassport() {
 
           let user = await userDAO.findOne({ email: profile.email });
           if (!user) {
+            let newCart = await cartService.addCart()
+
             let userCreated = await userDAO.create({
               first_name: profile._json.first_name || profile._json.login || "no-first_name",
               last_name: "no-last_name",
@@ -111,6 +116,7 @@ export async function iniPassport() {
               country: "no-country",
               email: profile.email,
               password: "no-password",
+              cart: newCart.id
             });
             console.log('User Registration succesful');
             return done(null, userCreated);

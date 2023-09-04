@@ -1,6 +1,7 @@
 <div>
     <h1>Detalle del carrito de compras</h1>
-    <h4>ID del carrito de compras: <h4>
+    <h6>Id del carro de compras: {{user.cart}}</h6>
+<hr />
 
     {{#each cart}}
       <h6 class='productTitle'>{{this.product.title}}</h6>
@@ -10,5 +11,25 @@
         <li>Precio: <span>{{this.product.price}}$</span></li>
         <li>Cantidad: <span>{{this.quantity}}</span></li>
       </ul>
+
+      <form action="http://localhost:8080/carts/{{../user.cart}}/products/{{this.product._id}}?_method=DELETE" method="POST">
+      <input type="hidden" name="_method" value="DELETE">
+      <button type="submit">Eliminar este producto del carrito</button>
+
+      </form>
+
     {{/each}}
 </div>
+
+<hr />
+  <form action="http://localhost:8080/carts/clean/{{user.cart}}?_method=DELETE" method="POST">
+    <input type="hidden" name="_method" value="DELETE">
+    <button type="submit">Limpiar carrito de compras</button>
+
+  </form>
+
+  <form action="http://localhost:8080/tickets/{{user.cart}}/purchase" method="POST">
+      <button type="submit">Comprar carrito de compras</button>
+  </form>
+
+<a href="http://localhost:8080/products">Regresar a la lista de productos</a>

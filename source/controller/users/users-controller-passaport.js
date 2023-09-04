@@ -1,5 +1,3 @@
-
-
 export const userController = {
   register: async function (req, res) {
     try {
@@ -45,22 +43,23 @@ export const userController = {
 
   access: async function (req, res) {
     try {
-    const infoOfBody = req.body;
-    if (!infoOfBody.email || !infoOfBody.password) {
-      return res.status(400).render("users-views/error-page", {
-        status: "error",
-        msg: "faltan completar datos",
-        data: { error },
-      });
-    }
-    req.session.user = {
-      first_name: req.user.first_name,
-      last_name: req.user.last_name,
-      age: req.user.age,
-      country: req.user.country,
-      email: req.user.email,
-      admin: req.user.admin,
-    }
+      const infoOfBody = req.body;
+      if (!infoOfBody.email || !infoOfBody.password) {
+        return res.status(400).render("users-views/error-page", {
+          status: "error",
+          msg: "faltan completar datos",
+          data: { error },
+        });
+      }
+      req.session.user = {
+        first_name: req.user.first_name,
+        last_name: req.user.last_name,
+        age: req.user.age,
+        country: req.user.country,
+        email: req.user.email,
+        admin: req.user.admin,
+        cart: req.user.cart,
+      };
 
       return res.status(200).redirect("/products");
     } catch (error) {
@@ -87,7 +86,8 @@ export const userController = {
         last_name: req.user.last_name,
         email: req.user.email,
         admin: req.user.admin,
-      }
+        cart: req.user.cart,
+      };
 
       return res.status(200).redirect("/products");
     } catch (error) {

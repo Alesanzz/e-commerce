@@ -1,6 +1,7 @@
 //importando las funciones de la clase product manager
 import { DAOFactory } from '../../dao/factory.js';
 import { productService } from "../products/products-service.js";
+import { ticketService } from "../tickets/tickets-service.js";
 
 const cartDAO = await DAOFactory('carts');
  
@@ -39,7 +40,6 @@ class CartService {
     const cart = await cartDAO.findOne(idCart);
 
     if (cart) {
-      console.log(cart.products)
       // Verificar si el producto ya existe en el carrito
       const product = cart.products.find(
         (product) => product.product._id.toString() === idProduct

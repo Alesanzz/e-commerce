@@ -26,6 +26,10 @@ server.use(passport.session());
 //para configurar archivos como publicos
 server.use(express.static("public"));
 
+//para configurar method-override para manejar solicitudes DELETE 
+import methodOverride from 'method-override';
+server.use(methodOverride('_method'));
+
 //para configurar el motor de handlebars (las 4 lineas)
 import handlebars from "express-handlebars";
 server.engine("handlebars", handlebars.engine());
@@ -52,11 +56,13 @@ server.use("/api/sessions", routerApiSessions);
 import { routerProducts } from "./routes/products/products-routes.js";
 import { routerCarts } from "./routes/carts/carts-routes.js";
 import { routerUsers } from "./routes/users/users-routes.js";
+import { routerTickets } from "./routes/tickets/tickets-routes.js";
 
 //endpoint de views
 server.use("/products", routerProducts);
 server.use("/carts", routerCarts);
 server.use("/users", routerUsers);
+server.use("/tickets", routerTickets)
 
 //importando las rutas de los views en realtime (servidor socket.io)
 import { routerRealTimeProducts } from "./routes/realtimes/products-realtime-routes.js";

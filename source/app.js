@@ -57,12 +57,14 @@ import { routerProducts } from "./routes/products/products-routes.js";
 import { routerCarts } from "./routes/carts/carts-routes.js";
 import { routerUsers } from "./routes/users/users-routes.js";
 import { routerTickets } from "./routes/tickets/tickets-routes.js";
+import { routerMocking } from "./routes/mocking/mocking-routes.js";
 
 //endpoint de views
 server.use("/products", routerProducts);
 server.use("/carts", routerCarts);
 server.use("/users", routerUsers);
 server.use("/tickets", routerTickets)
+server.use("/mocking", routerMocking)
 
 //importando las rutas de los views en realtime (servidor socket.io)
 import { routerRealTimeProducts } from "./routes/realtimes/products-realtime-routes.js";

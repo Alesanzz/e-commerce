@@ -11,3 +11,6 @@ routerCarts.post("/:id_cart/product/:id_product", cartController.addProductToACa
 routerCarts.delete("/:id_cart/products/:id_product", cartController.removeProductFromCart)
 //vaciar por completo un carrito de compras
 routerCarts.delete("/clean/:id_cart", cartController.clearOneCart)
+
+//concretar la compra del carrito de compras
+routerCarts.post("/:id_cart/purchase", cartController.purchaseCart)

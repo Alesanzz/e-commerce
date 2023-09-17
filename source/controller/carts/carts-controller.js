@@ -81,4 +81,21 @@ export const cartController = {
       });
     }
   },
+
+  purchaseCart: async function (req, res) {
+    try {
+      const idCart = req.params.id_cart;
+      const email = req.session.user.email;
+
+      const result = await cartService.finalizePurchase(idCart, email);
+
+      return res.status(201).redirect("/products");
+    } catch (error) {
+      return res.status(404).json({
+        status: "error",
+        msg: "the ticket could not be found",
+        data: { error },
+      });
+    }
+  },
 };

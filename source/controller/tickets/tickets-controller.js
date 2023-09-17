@@ -30,22 +30,4 @@ export const ticketsController = {
       });
     }
   },
-
-  createTicket: async function (req, res) {
-    try {
-      const idCart = req.params.id_cart;
-      const idProduct = req.params.id_product;
-      await cartService.addProductToCart(idCart, idProduct);
-
-      let cartUpdated = await cartService.getOneCart(idCart);
-
-      return res.status(201).redirect("/products");
-    } catch (error) {
-      return res.status(404).json({
-        status: "error",
-        msg: "cart or the product could not be found",
-        data: { error },
-      });
-    }
-  },
 };

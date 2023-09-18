@@ -88,3 +88,7 @@ const httpServer = server.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
 connectSocket(httpServer);
+
+//middleware para controlar y manejar mejor los errores del servidor
+import errorHandler from './middlewares/error-middleware.js';
+server.use(errorHandler);

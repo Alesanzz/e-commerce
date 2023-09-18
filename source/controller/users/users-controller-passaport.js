@@ -1,3 +1,7 @@
+//@ts-check
+import CustomError from '../../services/errors/custom-error.js';
+import EErrors from '../../services/errors/enums.js';
+
 export const userController = {
   register: async function (req, res) {
     try {

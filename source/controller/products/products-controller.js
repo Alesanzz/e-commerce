@@ -1,5 +1,6 @@
 //@ts-check
-//importando las funciones de la carpeta services
+import CustomError from '../../services/errors/custom-error.js';
+import EErrors from '../../services/errors/enums.js';
 import UserDTO from "../../dto/user-dto.js";
 import { productService } from "../../services/products/products-service.js";
 

@@ -1,10 +1,12 @@
 //@ts-check
-//importando las funciones de la carpeta services
-import UserDTO from "../../dto/user-dto.js";
+import CustomError from "../../services/errors/custom-error.js";
+import EErrors from "../../services/errors/enums.js";
+import { logger } from "../../config/logger.config.js";
 import { cartService } from "../../services/carts/carts-service.js";
+import UserDTO from "../../dto/user-dto.js";
 
 export const cartController = {
-  showOneCart: async function (req, res) {
+  showOneCart: async function (req, res, next) {
     let user = {}
     if (req.session && req.session.user) {
       user = new UserDTO(req.session.user)
@@ -23,15 +25,20 @@ export const cartController = {
         cart: theCart,
       });
     } catch (error) {
-      return res.status(500).json({
-        status: "error",
-        msg: "something went wrongggg",
-        data: { error },
-      });
-    }
+      logger.error("Error viewing the cart by ID: " + error.message);
+
+			return next(
+				CustomError.createError({
+					name: 'GetCartByIdError',
+					cause: error,
+					message: 'Error viewing cart by ID',
+					code: EErrors.DATABASE_ERROR,
+				}),
+			);
+		}
   },
 
-  addProductToACart: async function (req, res) {
+  addProductToACart: async function (req, res, next) {
     try {
       const idCart = req.params.id_cart;
       const idProduct = req.params.id_product;
@@ -41,15 +48,20 @@ export const cartController = {
 
       return res.status(201).redirect("/products");
     } catch (error) {
-      return res.status(404).json({
-        status: "error",
-        msg: "cart or the product could not be found",
-        data: { error },
-      });
-    }
+			logger.error('Error adding product to cart: ' + error.message);
+
+			return next(
+				CustomError.createError({
+					name: 'AddProductToCartError',
+					cause: error,
+					message: 'Error adding product to cart',
+					code: EErrors.DATABASE_ERROR,
+				}),
+			);
+		}
   },
 
-  removeProductFromCart: async function (req, res) {
+  removeProductFromCart: async function (req, res, next) {
     try {
       const idCart = req.params.id_cart;
       const idProduct = req.params.id_product;
@@ -59,30 +71,40 @@ export const cartController = {
 
       return res.status(201).redirect(`/carts/${idCart}`);
     } catch (error) {
-      return res.status(404).json({
-        status: "error",
-        msg: "cart or the product could not be found",
-        data: { error },
-      });
-    }
+			logger.error('Error removing product from cart: ' + error.message);
+
+			return next(
+				CustomError.createError({
+					name: 'DeleteProductFromCartError',
+					cause: error,
+					message: 'Error removing product from cart',
+					code: EErrors.DATABASE_ERROR,
+				}),
+			);
+		}
   },
 
-  clearOneCart: async function (req, res) {
+  clearOneCart: async function (req, res, next) {
     try {
       const id = req.params.id_cart;
       const cart = await cartService.clearCart(id);
 
       return res.status(201).redirect("/products");
     } catch (error) {
-      return res.status(404).json({
-        status: "error",
-        msg: "the cart could not be cleared",
-        data: { error },
-      });
-    }
+      logger.error('Error clearing cart: ' + error.message);
+
+			return next(
+				CustomError.createError({
+					name: 'ClearCartError',
+					cause: error,
+					message: 'Error clearing cart',
+					code: EErrors.DATABASE_ERROR,
+				}),
+			);
+		}
   },
 
-  purchaseCart: async function (req, res) {
+  purchaseCart: async function (req, res, next) {
     try {
       const idCart = req.params.id_cart;
       const email = req.session.user.email;
@@ -91,11 +113,16 @@ export const cartController = {
 
       return res.status(201).redirect("/products");
     } catch (error) {
-      return res.status(404).json({
-        status: "error",
-        msg: "the ticket could not be found",
-        data: { error },
-      });
-    }
-  },
+			logger.error('Error finalizing purchase: ' + error.message);
+
+			return next(
+				CustomError.createError({
+					name: 'FinalizePurchaseError',
+					cause: error,
+					message: 'Error finalizing purchase',
+					code: EErrors.DATABASE_ERROR,
+				}),
+			);
+		}
+	}
 };

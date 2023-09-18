@@ -1,11 +1,12 @@
 //@ts-check
 import CustomError from '../../services/errors/custom-error.js';
 import EErrors from '../../services/errors/enums.js';
-import UserDTO from "../../dto/user-dto.js";
+import { logger } from '../../config/logger.config.js';
 import { productService } from "../../services/products/products-service.js";
+import UserDTO from "../../dto/user-dto.js";
 
 export const productController = {
-  getAllProducts: async function (req, res) {
+  getAllProducts: async function (req, res, next) {
     let user = {}
     if (req.session && req.session.user) {
       user = new UserDTO(req.session.user)
@@ -44,11 +45,16 @@ export const productController = {
       });
       
     } catch (error) {
-      return res.status(500).json({
-        status: "error",
-        msg: "something went wrong",
-        data: { error },
-      });
+      logger.error('Error viewing all products: ' + error.message);
+
+      return next(
+				CustomError.createError({
+					name: 'ViewAllProductsError',
+					cause: error,
+					message: 'Error viewing all products',
+					code: EErrors.DATABASE_ERROR,
+				}),
+			);
     }
   },
 };

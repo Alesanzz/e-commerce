@@ -1,9 +1,11 @@
 //@ts-check
-//importando las funciones de la carpeta services
+import CustomError from "../../services/errors/custom-error.js";
+import EErrors from "../../services/errors/enums.js";
+import { logger } from "../../config/logger.config.js";
 import { productService } from "../../services/products/products-service.js";
 
 export const productRealtimeController = {
-  index: async function (req, res) {
+  index: async function (req, res, next) {
     try {
       console.log("cliente conectado a la lista de productos");
 
@@ -31,11 +33,16 @@ export const productRealtimeController = {
         })),
       });
     } catch (error) {
-      return res.status(500).json({
-        status: "error",
-        msg: "something went wrong",
-        data: { error },
-      });
+      logger.error("Error showing the product manager: " + error.message);
+
+      return next(
+        CustomError.createError({
+          name: "ProductManagerError",
+          cause: error,
+          message: "Error showing the product manager",
+          code: EErrors.DATABASE_ERROR,
+        })
+      );
     }
   },
 };

@@ -1,8 +1,11 @@
 //@ts-check
+import CustomError from "../../services/errors/custom-error.js";
+import EErrors from "../../services/errors/enums.js";
+import { logger } from "../../config/logger.config.js";
 import UserDTO from "../../dto/user-dto.js";
 
 export const sessionsApiController = {
-  show: async function (req, res) {
+  show: async function (req, res, next) {
     try {
       let user = req.session.user;
 
@@ -16,15 +19,20 @@ export const sessionsApiController = {
         return res.status(200).json({
           status: "Success",
           msg: "Mostrando los datos de la session",
-          data: new UserDTO (user),
+          data: new UserDTO(user),
         });
       }
     } catch (error) {
-      return res.status(500).json({
-        status: "Error",
-        msg: "Something went wrong",
-        data: { error },
-      });
+      logger.error("Error retrieving session data: " + error.message);
+
+      return next(
+        CustomError.createError({
+          name: "SessionDataError",
+          cause: error,
+          message: "Error retrieving session data",
+          code: EErrors.AUTHENTICATION_ERROR,
+        })
+      );
     }
   },
 };

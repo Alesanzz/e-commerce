@@ -1,9 +1,11 @@
 //@ts-check
-//importando las funciones de la carpeta services
+import CustomError from "../../services/errors/custom-error.js";
+import EErrors from "../../services/errors/enums.js";
+import { logger } from "../../config/logger.config.js";
 import { cartService } from "../../services/carts/carts-service.js";
 
 export const cartsApiController = {
-  getAllCarts: async function (req, res) {
+  getAllCarts: async function (req, res, next) {
     try {
       let { limit, page, query, sort } = req.query;
       const carts = await cartService.getCarts(limit, page, query, sort);
@@ -14,15 +16,20 @@ export const cartsApiController = {
         data: carts,
       });
     } catch (error) {
-      return res.status(500).json({
-        status: "error",
-        msg: "something went wrong",
-        data: { error },
-      });
-    }
+      logger.error("Error retrieving all carts: " + error.message);
+
+			return next(
+				CustomError.createError({
+					name: 'GetAllCartsError',
+					cause: error,
+					message: 'Error retrieving all carts',
+					code: EErrors.DATABASE_ERROR,
+				}),
+			);
+		}
   },
 
-  showOneCart: async function (req, res) {
+  showOneCart: async function (req, res, next) {
     try {
       const idCart = req.params.id_cart;
       const cart = await cartService.getOneCart(idCart);
@@ -33,15 +40,20 @@ export const cartsApiController = {
         data: cart,
       });
     } catch (error) {
-      return res.status(404).json({
-        status: "error",
-        msg: "cart could not be found",
-        data: { error },
-      });
-    }
+      logger.error("Error retrieving the cart by ID: " + error.message);
+
+			return next(
+				CustomError.createError({
+					name: 'GetCartByIdError',
+					cause: error,
+					message: 'Error retrieving cart by ID',
+					code: EErrors.DATABASE_ERROR,
+				}),
+			);
+		}
   },
 
-  createOneCart: async function (req, res) {
+  createOneCart: async function (req, res, next) {
     try {
       await cartService.addCart();
       const carts = await cartService.getAllCarts();
@@ -52,15 +64,20 @@ export const cartsApiController = {
         data: carts[carts.length - 1],
       });
     } catch (error) {
-      return res.status(404).json({
-        status: "error",
-        msg: "cart could not be created",
-        data: { error },
-      });
-    }
+			logger.error('Error creating cart: ' + error.message);
+
+			return next(
+				CustomError.createError({
+					name: 'CreateCartError',
+					cause: error,
+					message: 'Error creating cart',
+					code: EErrors.CART_VALIDATION_ERROR,
+				}),
+			);
+		}
   },
 
-  addProductToACart: async function (req, res) {
+  addProductToACart: async function (req, res, next) {
     try {
       const idCart = req.params.id_cart;
       const idProduct = req.params.id_product;
@@ -74,15 +91,20 @@ export const cartsApiController = {
         data: cartUpdated,
       });
     } catch (error) {
-      return res.status(404).json({
-        status: "error",
-        msg: "cart or the product could not be found",
-        data: { error },
-      });
-    }
+			logger.error('Error adding product to cart: ' + error.message);
+
+			return next(
+				CustomError.createError({
+					name: 'AddProductToCartError',
+					cause: error,
+					message: 'Error adding product to cart',
+					code: EErrors.DATABASE_ERROR,
+				}),
+			);
+		}
   },
 
-  updateProductQuantity: async function (req, res) {
+  updateProductQuantity: async function (req, res, next) {
     try {
       const idCart = req.params.id_cart;
       const idProduct = req.params.id_product;
@@ -97,15 +119,20 @@ export const cartsApiController = {
         data: cartUpdated,
       });
     } catch (error) {
-      return res.status(404).json({
-        status: "error",
-        msg: "cart or the product could not be updated",
-        data: { error },
-      });
-    }
+      logger.error('Error updating cart: ' + error.message);
+
+			return next(
+				CustomError.createError({
+					name: 'UpdateCartError',
+					cause: error,
+					message: 'Error updating cart',
+					code: EErrors.CART_VALIDATION_ERROR,
+				}),
+			);
+		}
   },
 
-  removeProductFromCart: async function (req, res) {
+  removeProductFromCart: async function (req, res, next) {
     try {
       const idCart = req.params.id_cart;
       const idProduct = req.params.id_product;
@@ -119,15 +146,20 @@ export const cartsApiController = {
         data: cartUpdated,
       });
     } catch (error) {
-      return res.status(404).json({
-        status: "error",
-        msg: "cart or the product could not be found",
-        data: { error },
-      });
-    }
+			logger.error('Error removing product from cart: ' + error.message);
+
+			return next(
+				CustomError.createError({
+					name: 'DeleteProductFromCartError',
+					cause: error,
+					message: 'Error removing product from cart',
+					code: EErrors.DATABASE_ERROR,
+				}),
+			);
+		}
   },
 
-  clearOneCart: async function (req, res) {
+  clearOneCart: async function (req, res, next) {
     try {
       const id = req.params.id_cart;
       const cart = await cartService.clearCart(id);
@@ -138,15 +170,20 @@ export const cartsApiController = {
         data: { cart },
       });
     } catch (error) {
-      return res.status(404).json({
-        status: "error",
-        msg: "the cart could not be cleared",
-        data: { error },
-      });
-    }
+      logger.error('Error clearing cart: ' + error.message);
+
+			return next(
+				CustomError.createError({
+					name: 'ClearCartError',
+					cause: error,
+					message: 'Error clearing cart',
+					code: EErrors.DATABASE_ERROR,
+				}),
+			);
+		}
   },
 
-  deleteOneCart: async function (req, res) {
+  deleteOneCart: async function (req, res, next) {
     try {
       const id = req.params.id;
       const deletedCart = await cartService.deleteCart(id);
@@ -164,11 +201,16 @@ export const cartsApiController = {
       });
     }
     } catch (error) {
-      return res.status(500).json({
-        status: "error",
-        msg: "Internal server error",
-        data: { error },
-      });
-    }
+      logger.error('Error deleting cart: ' + error.message);
+
+			return next(
+				CustomError.createError({
+					name: 'ClearCartError',
+					cause: error,
+					message: 'Error deleting cart',
+					code: EErrors.DATABASE_ERROR,
+				}),
+			);
+		}
   },
 };

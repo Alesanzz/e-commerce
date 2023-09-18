@@ -1,9 +1,11 @@
 //@ts-check
-//importando las funciones de la carpeta services
+import CustomError from "../../services/errors/custom-error.js";
+import EErrors from "../../services/errors/enums.js";
+import { logger } from "../../config/logger.config.js";
 import { productService } from "../../services/products/products-service.js";
 
 export const productsApiController = {
-  getAllProducts: async function (req, res) {
+  getAllProducts: async function (req, res, next) {
     try {
       let { limit, page, query, sort } = req.query;
       const products = await productService.getProducts(
@@ -19,15 +21,20 @@ export const productsApiController = {
         data: products,
       });
     } catch (error) {
-      return res.status(500).json({
-        status: "error",
-        msg: "something went wrong",
-        data: { error },
-      });
+      logger.error("Error retrieving all products: " + error.message);
+
+      return next(
+        CustomError.createError({
+          name: "GetAllProductsError",
+          cause: error,
+          message: "Error retrieving all products",
+          code: EErrors.DATABASE_ERROR,
+        })
+      );
     }
   },
 
-  showOneProduct: async function (req, res) {
+  showOneProduct: async function (req, res, next) {
     try {
       const id = req.params.id;
       const product = await productService.getOneProduct(id);
@@ -38,15 +45,20 @@ export const productsApiController = {
         data: product,
       });
     } catch (error) {
-      return res.status(404).json({
-        status: "error",
-        msg: "product could not be found",
-        data: { error },
-      });
+      logger.error("Error retrieving product by ID: " + error.message);
+
+      return next(
+        CustomError.createError({
+          name: "GetProductByIdError",
+          cause: error,
+          message: "Error retrieving product by ID",
+          code: EErrors.PRODUCT_NOT_FOUND,
+        })
+      );
     }
   },
 
-  createOneProduct: async function (req, res) {
+  createOneProduct: async function (req, res, next) {
     try {
       const newInfo = req.body;
       await productService.addProduct(newInfo);
@@ -58,15 +70,20 @@ export const productsApiController = {
         data: products[products.length - 1],
       });
     } catch (error) {
-      return res.status(404).json({
-        status: "error",
-        msg: "product could not be created",
-        data: { error },
-      });
+      logger.error("Error creating product: " + error.message);
+
+      return next(
+        CustomError.createError({
+          name: "CreateProductError",
+          cause: error,
+          message: "Error creating product",
+          code: EErrors.PRODUCT_VALIDATION_ERROR,
+        })
+      );
     }
   },
 
-  updateOneProduct: async function (req, res) {
+  updateOneProduct: async function (req, res, next) {
     try {
       const id = req.params.id;
       const dataToUpdate = req.body;
@@ -81,15 +98,20 @@ export const productsApiController = {
         data: products[index],
       });
     } catch (error) {
-      return res.status(404).json({
-        status: "error",
-        msg: "product could not be updated",
-        data: { error },
-      });
+      logger.error("Error updating product: " + error.message);
+
+      return next(
+        CustomError.createError({
+          name: "UpdateProductError",
+          cause: error,
+          message: "Error updating product",
+          code: EErrors.PRODUCT_VALIDATION_ERROR,
+        })
+      );
     }
   },
 
-  deleteOneProduct: async function (req, res) {
+  deleteOneProduct: async function (req, res, next) {
     try {
       const id = req.params.id;
       const deletedProduct = await productService.deleteProduct(id);
@@ -107,11 +129,16 @@ export const productsApiController = {
         });
       }
     } catch (error) {
-      return res.status(500).json({
-        status: "error",
-        msg: "Internal server error",
-        data: { error },
-      });
+      logger.error("Error deleting product: " + error.message);
+
+      return next(
+        CustomError.createError({
+          name: "DeleteProductError",
+          cause: error,
+          message: "Error deleting product",
+          code: EErrors.DATABASE_ERROR,
+        })
+      );
     }
   },
 };

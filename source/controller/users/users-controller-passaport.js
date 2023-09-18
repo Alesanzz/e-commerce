@@ -1,58 +1,74 @@
 //@ts-check
-import CustomError from '../../services/errors/custom-error.js';
-import EErrors from '../../services/errors/enums.js';
+import CustomError from "../../services/errors/custom-error.js";
+import EErrors from "../../services/errors/enums.js";
+import { logger } from "../../config/logger.config.js";
 
 export const userController = {
-  register: async function (req, res) {
+  register: async function (req, res, next) {
     try {
       return res.status(200).render("users-views/register-user", {
         title: "Registro de usuarios",
         style: "users/register.css",
       });
     } catch (error) {
-      return res.status(500).json({
-        status: "error",
-        msg: "the user could not be created",
-        data: { error },
-      });
-    }
+      logger.error("Error rendering register form: " + error.message);
+
+			return next(
+				CustomError.createError({
+					name: 'RenderRegisterError',
+					cause: error,
+					message: 'Error rendering register form',
+					code: EErrors.UNAUTHORIZED_ACTION,
+				}),
+			);
+		}
   },
 
-  save: async function (req, res) {
+  save: async function (req, res, next) {
     try {
       return res.status(200).redirect("/users/login");
     } catch (error) {
-      return res.status(500).json({
-        status: "error",
-        msg: "the user could not be created",
-        data: { error },
-      });
-    }
+      logger.error("Error during saving the new user: " + error.message);
+
+			return next(
+				CustomError.createError({
+					name: 'RegistrationSaveError',
+					cause: error,
+					message: 'Error during saving the new user',
+					code: EErrors.USER_VALIDATION_ERROR,
+				}),
+			);
+		}
   },
 
-  login: async function (req, res) {
+  login: async function (req, res, next) {
     try {
       return res.status(200).render("users-views/login-user", {
         title: "Ingreso al usuarios",
         style: "users/login.css",
       });
     } catch (error) {
-      return res.status(500).json({
-        status: "error",
-        msg: "the user could not be created",
-        data: { error },
-      });
-    }
+      logger.error("Error rendering login form: " + error.message);
+
+			return next(
+				CustomError.createError({
+					name: 'RenderLoginError',
+					cause: error,
+					message: 'Error rendering login form',
+					code: EErrors.UNAUTHORIZED_ACTION,
+				}),
+			);
+		}
   },
 
-  access: async function (req, res) {
+  access: async function (req, res, next) {
     try {
       const infoOfBody = req.body;
       if (!infoOfBody.email || !infoOfBody.password) {
         return res.status(400).render("users-views/error-page", {
           status: "error",
           msg: "faltan completar datos",
-          data: { error },
+          data: { },
         });
       }
       req.session.user = {
@@ -67,20 +83,25 @@ export const userController = {
 
       return res.status(200).redirect("/products");
     } catch (error) {
-      return res.status(400).render("users-views/error-page", {
-        status: "error",
-        msg: "El email o contraseña incorrecta",
-        data: { error },
-      });
-    }
+      logger.error("Error logging the user: " + error.message);
+
+			return next(
+				CustomError.createError({
+					name: 'LoginError',
+					cause: error,
+					message: 'Error logging the user',
+					code: EErrors.AUTHENTICATION_ERROR,
+				}),
+			);
+		}
   },
 
-  githubLogin: async function (req, res) {
+  githubLogin: async function (req, res, next) {
     if (!req.user) {
       return res.status(400).render("users-views/error-page", {
         status: "error",
         msg: "faltan completar datos",
-        data: { error },
+        data: { },
       });
     }
     console.log(req.user);
@@ -95,15 +116,20 @@ export const userController = {
 
       return res.status(200).redirect("/products");
     } catch (error) {
-      return res.status(400).render("users-views/error-page", {
-        status: "error",
-        msg: "El email o contraseña incorrecta",
-        data: { error },
-      });
-    }
+      logger.error("Error during GitHub authentication: " + error.message);
+
+			return next(
+				CustomError.createError({
+					name: 'GitHubAuthenticationError',
+					cause: error,
+					message: 'Error during GitHub authentication',
+					code: EErrors.AUTHENTICATION_ERROR,
+				}),
+			);
+		}
   },
 
-  logout: async function (req, res) {
+  logout: async function (req, res, next) {
     req.session.destroy((error) => {
       if (error) {
         return res.render("users-views/error-page", {
@@ -114,11 +140,11 @@ export const userController = {
     });
   },
 
-  error: async function (req, res) {
+  error: async function (req, res, next) {
     try {
       return res.status(200).render("users-views/error-page", {
         title: "Error in the user module",
-        msg: msg,
+        msg: "The is an error",
       });
     } catch (error) {
       return res.status(500).json({

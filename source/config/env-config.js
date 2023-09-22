@@ -20,4 +20,6 @@ export const entorno = {
   clientSecret: process.env.CLIENTSECRET,
   callbackUrl: process.env.CALLBACKURL,
   persistence: process.env.PERSISTENCE,
+  googleEmail: process.env.GOOGLE_EMAIL,
+  googlePassword: process.env.GOOGLE_PASS,
 };

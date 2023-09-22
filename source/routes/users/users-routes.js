@@ -5,6 +5,9 @@ import { userController } from "../../controller/users/users-controller-passapor
 
 export const routerUsers = express.Router();
 
+//ver el perfil
+routerUsers.get("/profile", userController.showProfile)
+
 //para registrar un nuevo usuario
 routerUsers.get("/register", userController.register)
 routerUsers.post("/register/create", passport.authenticate('register', { failureRedirect: '/users/auth/error' }), userController.save)
@@ -20,6 +23,12 @@ routerUsers.get("/githubcallback", passport.authenticate('github', { failureRedi
 //para desloguearse y eliminar la session
 routerUsers.get("/logout", userController.logout)
 
-//ruta dcuando hay un problema
+//rutas para recuperar la contraseña
+routerUsers.get("/forgot-password", userController.forgotPassword);
+routerUsers.post("/request-reset-password", userController.requestResetPassword);
+routerUsers.get("/reset-password", userController.resetPassword);
+routerUsers.post("/reset-password", userController.resetPasswordSave);
+
+//ruta para cuando hay un problema
 routerUsers.get("/auth/error", userController.error)
 

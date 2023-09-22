@@ -1,4 +1,5 @@
 //@ts-check
+import { logger } from "../../config/logger-config.js";
 import { fakerES } from "@faker-js/faker";
 import { DAOFactory } from "../../dao/factory.js";
 
@@ -22,7 +23,7 @@ class MockingService {
       }
       try {
         await userDAO.createMany(users);
-        console.log("Inserted ", users.length, " of users");
+        logger.info("Inserted ", users.length, " of users");
       } catch (error) {
         console.error("Error in the process of insert users: ", error);
       }
@@ -46,7 +47,7 @@ class MockingService {
       }
       try {
         await productDAO.createMany(products);
-        console.log("Inserted ", products.length, " of products");
+        logger.info("Inserted ", products.length, " of products");
       } catch (error) {
         console.error("Error in the process of insert products: ", error);
       }

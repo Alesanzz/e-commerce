@@ -5,12 +5,8 @@ class TicketMongoDAO {
     return await TicketModel.find();
   }
 
-  async getById(id) {
-    return await TicketModel.findById(id);
-  }
-
-  async findByCode(code) {
-    return await TicketModel.findOne({ code });
+  async findOne(code) {
+    return await TicketModel.findOne({ _id: code });
   }
 
   async create(ticketData) {

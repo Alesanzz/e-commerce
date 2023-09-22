@@ -1,7 +1,7 @@
 //@ts-check
 import CustomError from "../../services/errors/custom-error.js";
 import EErrors from "../../services/errors/enums.js";
-import { logger } from "../../config/logger.config.js";
+import { logger } from "../../config/logger-config.js";
 import UserDTO from "../../dto/user-dto.js";
 
 export const sessionsApiController = {

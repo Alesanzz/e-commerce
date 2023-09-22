@@ -1,4 +1,5 @@
 import { Server } from "socket.io";
+import { logger } from "./logger-config.js";
 import { productService } from "../services/products/products-service.js";
 import { messagesService } from "../services/messages/messages-service.js";
 
@@ -29,7 +30,7 @@ export function connectSocket(httpServer) {
         let allProducts = await productService.getProducts();
         socketServer.emit("all-the-products", allProducts);
       } catch (error) {
-        console.log(error);
+        logger.info(error);
       }
     });
 
@@ -40,7 +41,7 @@ export function connectSocket(httpServer) {
         let allProducts = await productService.getProducts();
         socketServer.emit("all-the-products", allProducts);
       } catch (error) {
-        console.log(error);
+        logger.info(error);
       }
     });
   });

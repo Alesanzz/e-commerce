@@ -1,5 +1,6 @@
 //@ts-check
 import mongoose from "mongoose";
+import { logger } from "./logger-config.js";
 import { entorno } from "./env-config.js";
 const { mongoUrl } = entorno;
 
@@ -9,11 +10,11 @@ export default class SingletonMongo {
   static async connectToMongo() {
     try {
       await mongoose.connect(String(mongoUrl));
-      console.log("Plug to mongo!");
+      logger.info("Plug to mongo!");
 
       return;
     } catch (error) {
-      console.log(error);
+      logger.info(error);
       throw "Can not connect to the database";
     }
   }

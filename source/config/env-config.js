@@ -1,7 +1,8 @@
 import dotenv from "dotenv";
+import { logger } from "./logger-config.js";
 
 if (process.argv[2] != "MON" && process.argv[2] != "MEM") {
-  console.log("Porfavor especificar el entorno: - MOM para mongodb | - MEM para memory");
+  logger.info("Porfavor especificar el entorno: - MOM para mongodb | - MEM para memory");
   process.exit();
 }
 

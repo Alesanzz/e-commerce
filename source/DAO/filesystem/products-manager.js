@@ -1,5 +1,6 @@
 import fs from "fs";
 import path from "path";
+import { logger } from "../../config/logger-config.js";
 import { __dirname } from "../../config/dirname-config.js";
 import {
   verificationTypeOfProducts,
@@ -74,7 +75,7 @@ class ProductManager {
       );
     }
     //si pasa la validaciones --->
-    console.log("Successful record of the product title: " + newProduct.title);
+    logger.info("Successful record of the product title: " + newProduct.title);
     this.products = [...this.products, newProduct];
 
     //En la linea justo de abajo, se utiliza para convertir los datos en formato de string, y se coloca el segundo parametro (null) y el tercer paremetro (numero de tabulaciones que se desea), para que el archivo json en la base de datos se vea de forma mas ordenado, estos dos parametros son opcionales.
@@ -115,7 +116,7 @@ class ProductManager {
           " already exist"
       );
     } else {
-      console.log(
+      logger.info(
         "Successful update of the product title: " + productToUpdate.title
       );
       this.products = [productToUpdate, ...notUpdated];
@@ -137,7 +138,7 @@ class ProductManager {
       //En la linea justo de abajo, se utiliza para convertir los datos en formato de string, y se coloca el segundo parametro (null) y el tercer paremetro (numero de tabulaciones que se desea), para que el archivo json en la base de datos se vea de forma mas ordenado, estos dos parametros son opcionales.
       const productAString = JSON.stringify(this.products, null, 2);
       fs.writeFileSync(this.productsFilePath, productAString);
-      return console.log("The id: " + id + " was deleted");
+      return logger.info("The id: " + id + " was deleted");
     } else {
       throw new Error("The id: " + id + " was not found");
     }

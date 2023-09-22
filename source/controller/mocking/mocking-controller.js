@@ -2,7 +2,7 @@
 //importando las funciones de la carpeta services
 import CustomError from '../../services/errors/custom-error.js';
 import EErrors from '../../services/errors/enums.js';
-import { logger } from '../../config/logger.config.js';
+import { logger } from '../../config/logger-config.js';
 import { mockingService } from "../../services/mocking/mocking-service.js";
 
 export const mockingController = {

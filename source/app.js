@@ -1,6 +1,8 @@
+import { logger } from "./config/logger-config.js";
+
 //configurando el entorno
 import { entorno } from "./config/env-config.js";
-console.log(entorno);
+logger.info(entorno);
 
 //requiriendo y configurando express
 import express from "express";
@@ -46,11 +48,13 @@ server.use(express.json());
 import { routerApiProducts } from "./routes/apis/products-routes.js";
 import { routerApiCarts } from "./routes/apis/carts-routes.js";
 import { routerApiSessions } from "./routes/apis/sessions-routes.js";
+import { routerErrors } from "./routes/errors/errors-routes.js";
 
 //endpoint tipo api (crudos en json)
 server.use("/api/products", routerApiProducts);
 server.use("/api/carts", routerApiCarts);
 server.use("/api/sessions", routerApiSessions);
+server.use("/loggertest", routerErrors)
 
 //importando las rutas de los views
 import { routerProducts } from "./routes/products/products-routes.js";
@@ -85,10 +89,10 @@ server.get("*", (req, res) => {
 //para confirgurar el servidor socket hay que importar el archivo donde se encuentra toda la logica del socket server, luego guardar el servidor http en una variable y por ultimo ejecurtar el "servidor" de socket.io sobre nuestro servidor http
 import { connectSocket } from "./config/socket-server-config.js";
 const httpServer = server.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
+  logger.info(`Server is running on port ${port}`);
 });
 connectSocket(httpServer);
 
 //middleware para controlar y manejar mejor los errores del servidor
-import errorHandler from './middlewares/error-middleware.js';
+import errorHandler from './middlewares/error-middleware.js'; 
 server.use(errorHandler);

@@ -2,7 +2,7 @@
 //importando las funciones de la carpeta services
 import CustomError from "../../services/errors/custom-error.js";
 import EErrors from "../../services/errors/enums.js";
-import { logger } from "../../config/logger.config.js";
+import { logger } from "../../config/logger-config.js";
 import { ticketService } from "../../services/tickets/tickets-service.js";
 
 export const ticketsController = {

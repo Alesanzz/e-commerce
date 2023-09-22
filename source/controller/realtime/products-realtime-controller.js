@@ -1,13 +1,13 @@
 //@ts-check
 import CustomError from "../../services/errors/custom-error.js";
 import EErrors from "../../services/errors/enums.js";
-import { logger } from "../../config/logger.config.js";
+import { logger } from "../../config/logger-config.js";
 import { productService } from "../../services/products/products-service.js";
 
 export const productRealtimeController = {
   index: async function (req, res, next) {
     try {
-      console.log("cliente conectado a la lista de productos");
+      logger.info("cliente conectado a la lista de productos");
 
       let { limit, page, query, sort } = req.query;
       const products = await productService.getProducts(

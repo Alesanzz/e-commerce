@@ -1,7 +1,7 @@
 //@ts-check
 import CustomError from "../../services/errors/custom-error.js";
 import EErrors from "../../services/errors/enums.js";
-import { logger } from "../../config/logger.config.js";
+import { logger } from "../../config/logger-config.js";
 
 export const userController = {
   register: async function (req, res, next) {
@@ -104,7 +104,7 @@ export const userController = {
         data: { },
       });
     }
-    console.log(req.user);
+    
     try {
       req.session.user = {
         first_name: req.user.first_name,

@@ -1,3 +1,4 @@
+import { logger } from "../../source/config/logger-config";
 const socket = io();
 
 const formProducts = document.getElementById("form-products");
@@ -44,7 +45,7 @@ const tableP = document.getElementById("tableP");
 tableP.addEventListener('click', event => {
   if (event.target.classList.contains('button-delete')) {
     const iidd = event.target.value;
-    console.log('Valor del botón presionado: ', iidd);
+    logger.info('Valor del botón presionado: ', iidd);
     socket.emit("delete-product", iidd);
   }
 });

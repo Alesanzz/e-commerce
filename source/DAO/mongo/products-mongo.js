@@ -13,6 +13,10 @@ class ProductMongoDAO {
     return await ProductModel.create(product);
   }
 
+  async createMany(product) {
+    return await ProductModel.insertMany(product);
+  }
+
   async updateOne(code, product) {
     return await ProductModel.findOneAndUpdate({ _id: code }, product, {
       new: true,

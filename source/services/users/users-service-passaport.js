@@ -1,4 +1,5 @@
 import fetch from 'node-fetch';
+import { logger } from '../../config/logger-config.js';
 import passport from "passport";
 import local from "passport-local";
 import GitHubStrategy from 'passport-github2';
@@ -23,11 +24,11 @@ export async function iniPassport() {
           const user = await userDAO.findOne({ email: username });
           
           if (!user) {
-            console.log("The username: " + username + " was not found");
+            logger.debug("The username: " + username + " was not found");
             return done(null, false);
           }
           if (!checkPassword(password, user.password)) {
-            console.log("Invalid password, check and try again");
+            logger.debug("Invalid password, check and try again");
             return done(null, false);
           }
           return done(null, user);
@@ -52,7 +53,7 @@ export async function iniPassport() {
           let user = await userDAO.findOne({ email: username });
           
           if (user) {
-            console.log("The user already exist");
+            logger.debug("The user already exist");
             return done(null, false);
           }
 
@@ -67,12 +68,12 @@ export async function iniPassport() {
             password: createHashPassword(password),
             cart: newCart.id
           });
-          console.log("User registration succesful");
+          logger.info("User registration succesful");
           return done(null, newUser);
 
         } catch (e) {
-          console.log("Error in the register process");
-          console.log(e);
+          logger.debug("Error in the register process");
+          logger.debug(e);
           return done(e);
         }
       }
@@ -118,15 +119,15 @@ export async function iniPassport() {
               password: "no-password",
               cart: newCart.id
             });
-            console.log('User Registration succesful');
+            logger.info('User Registration succesful');
             return done(null, userCreated);
           } else {
-            console.log('User already exists');
+            logger.debug('User already exists');
             return done(null, user);
           }
         } catch (e) {
-          console.log('Error en auth github');
-          console.log(e);
+          logger.debug('Error en auth github');
+          logger.debug(e);
           return done(e);
         }
       }

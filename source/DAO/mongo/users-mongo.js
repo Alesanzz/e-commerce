@@ -17,6 +17,10 @@ class UserMongoDAO {
     return await UserModel.create(user);
   }
 
+  async createMany(user) {
+    return await UserModel.insertMany(user);
+  }
+
   async update(id, user) {
     return await UserModel.findByIdAndUpdate(id, user, { new: true });
   }

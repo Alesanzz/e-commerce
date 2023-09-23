@@ -130,8 +130,8 @@ dist
 .pnp.*
 
 # variebales de entorno
-.env.memory
-.env.mongodb
+.env_memory
+.env_mongodb
 
 # errores del servidor
 errors.log

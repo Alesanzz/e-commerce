@@ -9,6 +9,9 @@ const userSchema = new Schema({
   country: { type: String, required: true, minlength: 2, maxlength: 40 },
   email: { type: String, required: true, unique: true, minlength: 3, maxlength: 40, index: true },
   password: { type: String, required: true},
+  passwordToken: {type: String, required: false},
+	passwordTokenExpires: {type: Date, required: false},
+
   admin: { type: Boolean, required: false, default: false },
   cart: { type: String, required: false },
 }); 

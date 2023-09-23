@@ -6,7 +6,7 @@ class UserMongoDAO {
   }
 
   async findById(id) {
-    return await UserModel.findById(id);
+    return await UserModel.findById({ _id: id });
   }
 
   async findOne(query) {
@@ -22,11 +22,13 @@ class UserMongoDAO {
   }
 
   async update(id, user) {
-    return await UserModel.findByIdAndUpdate(id, user, { new: true });
+    return await UserModel.findOneAndUpdate({ _id: id }, user, {
+      new: true,
+    });
   }
 
-  async delete(id) {
-    return await UserModel.findByIdAndDelete(id);
+  async delete(code) {
+    return await UserModel.findOneAndDelete({ _id: code });
   }
 }
 

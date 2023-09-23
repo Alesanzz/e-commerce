@@ -7,7 +7,12 @@
 <p>Nombre completo: {{user.fullname}}</p>
 <p>Email: {{user.email}}</p>
 <p>Edad: {{user.age}}</p>
-<p>Rol: {{user.roll}}</p>
+{{#if user.roll}}
+      <p>Rol: Admin</p>
+    {{else}}
+      <p>Rol: Usuario</p>
+    
+{{/if}}
 </div>
 
 <hr />

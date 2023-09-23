@@ -1,6 +1,7 @@
 //@ts-check
 import crypto from "crypto"
 import { DAOFactory } from '../../dao/factory.js';
+import { createHashPassword, checkPassword } from "../../config/bcrypt-config.js";
 
 const userDAO = await DAOFactory('users');
 
@@ -38,7 +39,6 @@ class UserService {
 		if (!user) {
 			throw new Error('Invalid or expired reset token');
 		}
-
 		return true;
 	}
  
@@ -47,19 +47,14 @@ class UserService {
 		if (!user) {
 			throw new Error('User not found');
 		}
-		if (isValidPassword(newPassword, user.password)) {
-			throw new Error(
-				'New password cannot be the same as the current password',
-			);
-		}
 
-		const hashedPassword = createHash(newPassword);
+		const hashedPassword = createHashPassword(newPassword);
 		await userDAO.update(
-			{email},
+			{_id: user._id},
 			{
 				password: hashedPassword,
-				resetPasswordToken: undefined,
-				resetPasswordExpires: undefined,
+				passwordToken: undefined,
+				passwordTokenExpires: undefined,
 			},
 		);
 	}

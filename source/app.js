@@ -2,7 +2,7 @@ import { logger } from "./config/logger-config.js";
 
 //configurando el entorno
 import { entorno } from "./config/env-config.js";
-logger.info(entorno);
+//logger.info(entorno);
 
 //requiriendo y configurando express
 import express from "express";

@@ -6,7 +6,7 @@ import { entorno } from "./env-config.js";
 
 //para guardar las session en la base de datos en mongodb, de forma que si se apaga el servidor, las session siguen existiendo - (el ttl: es el tiempo de duracion de la session)
 export const sessionConfig = () => {
-	logger.info('SingletonMongo has instance:', SingletonMongo.hasInstance());
+	logger.info('SingletonMongo has instance: ' + SingletonMongo.hasInstance());
 	if (SingletonMongo.hasInstance()) {
 		return session({
 			store: MongoStore.create({

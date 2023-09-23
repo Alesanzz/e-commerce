@@ -27,7 +27,7 @@ routerUsers.get("/logout", userController.logout)
 routerUsers.get("/forgot-password", userController.forgotPassword);
 routerUsers.post("/request-reset-password", userController.requestResetPassword);
 routerUsers.get("/reset-password", userController.resetPassword);
-routerUsers.post("/reset-password", userController.resetPasswordSave);
+routerUsers.post("/reset-password-done", userController.resetPasswordSave);
 
 //ruta para cuando hay un problema
 routerUsers.get("/auth/error", userController.error)

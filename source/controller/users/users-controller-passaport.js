@@ -202,11 +202,8 @@ export const userController = {
 
 			const token = await userService.generateToken(email);
 			logger.debug(`Token: ${token}`);
-
-      //EESSSSSSSSSSTOOOOOOOOOOOOO HAY QUE ARREGLARLO... POR LO QUE RECUERDO DEBERIA VER LA GRABACION, PORQUE HAY QUE CONFIGURAR ALGO EN EL MAIL PERSONAL PARA QUE SE PERMITA ESTO DE ENVIAR MAILS
-
-      //------------------------ AAAAAAAAAAAAAAAAAAAAAA-----------
- 
+			
+			//transportador
 			const transporter = nodemailer.createTransport({
 				service: 'gmail',
 				port: 587,
@@ -214,31 +211,44 @@ export const userController = {
 					user: entorno.googleEmail,
 					pass: entorno.googlePassword,
 				},
+				//desactivar la validación del certificado (ojo esto NO es seguro para entornos de produccion)
+				tls: {
+					rejectUnauthorized: false, 
+				  },
 			});
 
-			const mailOptions = {
+			const message = {
 				from: entorno.googleEmail,
 				to: email,
-				subject: 'Password Reset',
+				subject: 'Cambio de contraseña',
 				html: `<html>
 				<head>
-					<title>Reset Password</title>
+					<title>Cambio de contraseña</title>
 				</head>
 				<body>
-					<h1>Hello,</h1>
-					<p>You are receiving this email because you (or someone else) have requested the reset of the password for your account.</p>
-					<p>Please click on the following link, or paste it into your browser to complete the process:</p>
-					<a href="http://localhost:${entorno.port}/api/users/reset-password?token=${token}&email=${email}">Reset Password</a>
-					<p>This link will expire in one hour.</p>
-					<p>If you did not request this, please ignore this email and your password will remain unchanged.</p>
+					<h1>Estimado cliente,</h1>
+					<p>Esperamos que estés teniendo una gran experiencia en nombre de la empresa, y es por eso que a veces es necesario restablecer tu contraseña para mantener tu cuenta segura. No te preocupes, estamos aquí para ayudarte!</p>
+
+					<p>Para restablecer tu contraseña, simplemente sigue estos pasos sencillos:</p>
+
+					<p>1. Haz clic <a href="http://localhost:${entorno.port}/users/reset-password?token=${token}&email=${email}">aqui</a> o copia el enlace de restablecimiento de contraseña y pégalo en tu navegador web.</p>
+					
+
+					<p>2. Te recordamos que el enlace tiene una vida de 1 hora, pero si lo sigues serás redirigido a una página segura donde podrás crear una nueva contraseña para tu cuenta.</p>
+					<p>3. Asegúrate de que tu nueva contraseña sea segura y única, con al menos 8 caracteres, incluyendo letras mayúsculas, minúsculas, números y caracteres especiales.</p>
+					<p>4. Solo confirma tu nueva contraseña y listo, tu contraseña estará actualizada y podrás acceder a tu cuenta con seguridad..</p>
+
+					<p>Si no solicitaste el restablecimiento de contraseña o tienes alguna pregunta, por favor contáctanos de inmediato. Estamos aquí para ayudarte en cualquier momento.</p>
+					
+					<p>Saludos.</p>
 				</body>
 				</html>`,
 			};
 
-			await transporter.sendMail(mailOptions);
+			await transporter.sendMail(message);
 			logger.debug('Mail sent successfully');
 
-			res.status(200).send({message: 'Password reset link sent.'});
+			res.status(200).render("users-views/password-chage-start");
 		} catch (error) {
 			logger.debug('Error in requestPasswordReset: ', error);
 
@@ -247,33 +257,30 @@ export const userController = {
 	},
 
   resetPassword: async function (req, res, next) {
-    logger.debug('Entered renderResetPassword with query:', req.query);
-
-		const {token, email} = req.query;
-		try {
-			// Validate the token and email
-			await userService.validateResetToken(email, token);
-			// Render the reset password page
-			res.render('reset-password', {token, email});
-		} catch (error) {
-			if (error.message === 'Invalid or expired reset token') {
-				// Redirect to a view where the user can request a new reset email
-				return res.redirect('/api/users/forgot-password');
-			}
+    logger.debug(req.query);
+	const {email, token} = req.query;
+	try {
+		//primero se debe validar el token enviado, y determinar si es verdadero y se encuentra vigente
+		await userService.validateResetToken(email, token);
+		return res.render('users-views/reset-password', {token, email});
+	
+	} catch (error) {
+		if (error.message === 'Invalid or expired reset token') {
+			//se vuelve a redireccionar a la pagina del login para que el usuario vuelva a empezar
+			return res.redirect('/users/login');
+		}
 			next(error);
 		}
 	},
 
   resetPasswordSave: async function (req, res, next) {
-		logger.debug('Received body in resetPassword: ', req.body);
-
 		try {
 			const {email, token, newPassword} = req.body;
 
 			await userService.validateResetToken(email, token);
 			await userService.updatePassword(email, newPassword);
 
-			res.status(200).json({message: 'Password updated successfully.'});
+			res.status(200).render("users-views/password-save");
 		} catch (error) {
 			logger.error('Error in resetPassword: ', error);
 

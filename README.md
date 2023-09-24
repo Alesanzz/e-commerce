@@ -2,18 +2,7 @@
 E-Commerce Backend Project
 </h1> 
 
-<p align="justify">A socket server is a software component that allows network communication between multiple clients and a server using the socket programming interface. The main features of a socket server typically include:
-
-- Socket Creation: It creates a socket to listen for client connections.
-- Connection Handling: It accepts and manages incoming client connections.
-- Multithreading or Asynchronous Operations: It handles multiple client connections concurrently.
-- Request Processing: It processes client requests according to the defined protocol or application logic.
-- Data Serialization/Deserialization: It converts structured data for transmission over the network.
-- Event Handling: It responds to events such as data arrival or client disconnection.
-- Security: It ensures secure communication through encryption, authentication, and access control.
-- Scalability: It handles a large number of client connections and distributes load if needed.
-- Error Handling: It handles errors and provides appropriate responses to clients.
-- Logging and Monitoring: It logs server activity and monitors performance.</p>
+<p align="justify">This project serves as an educational illustration of a backend service designed for an e-commerce platform. It leverages technologies such as Node.js, Express, and MongoDB, along with other components from the MERN ecosystem, to establish a RESTful API for the management of products, shopping carts, and user authentication.</p>
 <br>
 
 <h2 align="center">

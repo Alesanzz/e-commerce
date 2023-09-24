@@ -1,5 +1,5 @@
 {
-  "name": "product_manager",
+  "name": "alejandro_sanz_education_proyect",
   "version": "1.0.0",
   "description": "",
   "main": "app.js",
@@ -10,7 +10,8 @@
   },
   "scripts": {
     "start": "node ./source/app.js",
-    "dev": "nodemon -e yaml,js,handlebars ./source/app.js"
+    "dev": "nodemon -e yaml,js,handlebars ./source/app.js",
+    "test": "mocha test/XXX.js"
   },
   "repository": {
     "type": "git",
@@ -24,7 +25,10 @@
   },
   "homepage": "https://github.com/Alesanzz/productManager#readme",
   "devDependencies": {
-    "nodemon": "^2.0.22"
+    "chai": "^4.3.8",
+    "mocha": "^10.2.0",
+    "nodemon": "^2.0.22",
+    "supertest": "^6.3.3"
   },
   "dependencies": {
     "@faker-js/faker": "^8.0.2",

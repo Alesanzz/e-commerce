@@ -53,8 +53,8 @@ class UserService {
 			{_id: user._id},
 			{
 				password: hashedPassword,
-				passwordToken: undefined,
-				passwordTokenExpires: undefined,
+				passwordToken: null,
+				passwordTokenExpires: null,
 			},
 		);
 	}

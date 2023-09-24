@@ -7,7 +7,7 @@ if (process.argv[2] != "MON" && process.argv[2] != "MEM") {
 }
 
 dotenv.config({
-  path: process.argv[2] === "MON" ? "./.env.mongodb" : "./.env.memory",
+  path: process.argv[2] === "MON" ? "./.env_mongodb" : "./.env_memory",
 });
 
 export const entorno = {

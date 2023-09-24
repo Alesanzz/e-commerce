@@ -1,0 +1,205 @@
+paths:
+  /api/products:
+    get:
+      summary: Get all products
+      tags:
+        - Products
+      responses:
+        "200":
+          description: Products received successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Product"
+
+    post:
+      summary: Create a new product
+      tags:
+        - Products
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/NewProductToCreate"
+            required:
+                - title
+                - description
+                - category
+                - price
+                - thumbnail
+                - code
+                - stock
+                - status
+      responses:
+        "201":
+          description: Product created successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Product"
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+        "500":
+          description: Internal Server Error
+
+  /api/products/{product_id}:
+    get:
+      summary: Receive a product by its ID
+      tags:
+        - Products
+      parameters:
+        - name: product_id
+          in: path
+          required: true
+          description: ID of the product to receive
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Product received successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Product"
+        "404":
+          description: Product not found
+        "500":
+          description: Internal Server Error
+
+    put:
+      summary: Update a product by its ID
+      tags:
+        - Products
+      parameters:
+        - name: product_id
+          in: path
+          required: true
+          description: ID of the product to update
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/NewProductToCreate"
+      responses:
+        "200":
+          description: Product updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/NewProductToCreate"
+        "404":
+          description: Product not found
+        "500":
+          description: Internal Server Error
+
+    delete:
+      summary: Delete a product by its ID
+      tags:
+        - Products
+      parameters:
+        - name: product_id
+          in: path
+          required: true
+          description: ID of the product to delete
+          schema:
+            type: string
+      responses:
+        "204":
+          description: Product deleted successfully
+        "404":
+          description: Product not found
+        "500":
+          description: Internal Server Error
+
+components:
+  schemas:
+    Product:
+      type: object
+      properties:
+        _id:
+          type: string
+          description: Auto-generated ID
+        title:
+          type: string
+          description: Product title
+        description:
+          type: string
+          description: Product description
+        category:
+          type: string
+          description: Product category
+        price:
+          type: number
+          description: Product price
+        thumbnail:
+          type: array
+          description: Product picture
+        code:
+          type: string
+          description: Product code
+        stock:
+          type: number
+          description: Product stock
+        status:
+          type: boolean
+          description: Product disponibility
+        __v:
+          type: number
+          description: Product auto-generated version number
+      example:
+        _id: "64cec7e64e757822cfb81799"
+        title: "Pequeño Algodón Raton"
+        description: "The Nagasaki Lander is the trademarked"
+        category: "Marroquinería"
+        price: 120
+        thumbnail: "https://picsum.photos/seed/rbuOal/640/480"
+        code: "%Y`m-"
+        stock: 10
+        status: true
+        __v: 1
+
+    NewProductToCreate:
+      type: object
+      properties:
+        title:
+          type: string
+          description: Product title
+        description:
+          type: string
+          description: Product description
+        category:
+          type: string
+          description: Product category
+        price:
+          type: number
+          description: Product price
+        thumbnail:
+          type: array
+          description: Product picture
+        code:
+          type: string
+          description: Product code
+        stock:
+          type: number
+          description: Product stock
+        status:
+          type: boolean
+          description: Product disponibility
+      example:
+        title: "Pequeño Algodón Raton"
+        description: "The Nagasaki Lander is the trademarked"
+        category: "Marroquinería"
+        price: 120
+        thumbnail: "https://picsum.photos/seed/rbuOal/640/480"
+        code: "%Y`m-"
+        stock: 10
+        status: true
+

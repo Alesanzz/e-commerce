@@ -13,24 +13,15 @@ const port = entorno.port;
 import { sessionConfig } from "./config/session-config.js";
 server.use(sessionConfig());
 
-
 //importando dirname
 import { sourceDirname } from "./config/dirname-config.js";
-
-//configurando el uso de passport
-import passport from "passport";
-import { iniPassport } from "./services/users/users-service-passaport.js";
-
-iniPassport();
-server.use(passport.initialize());
-server.use(passport.session());
 
 //para configurar archivos como publicos
 server.use(express.static("public"));
 
-//para configurar method-override para manejar solicitudes DELETE 
-import methodOverride from 'method-override';
-server.use(methodOverride('_method'));
+//para configurar method-override para manejar solicitudes DELETE
+import methodOverride from "method-override";
+server.use(methodOverride("_method"));
 
 //para configurar el motor de handlebars (las 4 lineas)
 import handlebars from "express-handlebars";
@@ -43,6 +34,20 @@ server.use(express.urlencoded({ extended: true }));
 //para configurar de que el servidor siempre responda devolviendo archivos en formato json
 server.use(express.json());
 
+//configurando el uso de passport
+import passport from "passport";
+import { iniPassport } from "./services/users/users-service-passaport.js";
+
+iniPassport();
+server.use(passport.initialize());
+server.use(passport.session());
+
+//configurando la documentacion del proyecto con swagger
+import { specs } from "./config/swagger-config.js";
+import swaggerUiExpress from "swagger-ui-express";
+server.use("/apidocs", swaggerUiExpress.serve, swaggerUiExpress.setup(specs));
+
+
 //--------------------------------------------------------------------------------------------------
 //importando las rutas de las apis
 import { routerApiProducts } from "./routes/apis/products-routes.js";
@@ -54,7 +59,7 @@ import { routerErrors } from "./routes/errors/errors-routes.js";
 server.use("/api/products", routerApiProducts);
 server.use("/api/carts", routerApiCarts);
 server.use("/api/sessions", routerApiSessions);
-server.use("/loggertest", routerErrors)
+server.use("/loggertest", routerErrors);
 
 //importando las rutas de los views
 import { routerProducts } from "./routes/products/products-routes.js";
@@ -67,8 +72,8 @@ import { routerMocking } from "./routes/mocking/mocking-routes.js";
 server.use("/products", routerProducts);
 server.use("/carts", routerCarts);
 server.use("/users", routerUsers);
-server.use("/tickets", routerTickets)
-server.use("/mocking", routerMocking)
+server.use("/tickets", routerTickets);
+server.use("/mocking", routerMocking);
 
 //importando las rutas de los views en realtime (servidor socket.io)
 import { routerRealTimeProducts } from "./routes/realtimes/products-realtime-routes.js";
@@ -94,5 +99,5 @@ const httpServer = server.listen(port, () => {
 connectSocket(httpServer);
 
 //middleware para controlar y manejar mejor los errores del servidor
-import errorHandler from './middlewares/error-middleware.js'; 
+import errorHandler from "./middlewares/error-middleware.js";
 server.use(errorHandler);

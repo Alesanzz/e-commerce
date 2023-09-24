@@ -1,0 +1,172 @@
+paths:
+  /api/carts:
+    get:
+      summary: Get all carts
+      tags:
+        - Carts
+      responses:
+        '200':
+          description: Carts received successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Cart'
+        '404':
+          description: No carts found
+        '500':
+          description: Internal server error
+
+    post:
+      summary: Create a new cart
+      tags:
+        - Carts
+      responses:
+        '201':
+          description: Cart created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Cart'
+        '400':
+          description: Bad request (invalid data)
+        '500':
+          description: Internal server error
+
+  /api/carts/{id_cart}:
+    get:
+      summary: Receive a cart by unique ID
+      tags:
+        - Carts
+      parameters:
+        - name: id_cart
+          in: path
+          required: true
+          description: ID of the cart to receive
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Cart received successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Cart'
+        '404':
+          description: Cart not found
+        '500':
+          description: Internal server error
+
+    delete:
+      summary: Empty a cart by removing all products
+      tags:
+        - Carts
+      parameters:
+        - name: id_cart
+          in: path
+          required: true
+          description: ID of the cart to empty
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Cart emptied successfully
+        '404':
+          description: Cart not found
+        '500':
+          description: Internal server error
+
+  /api/carts/{id_cart}/delete:
+    delete:
+      summary: Delete a cart by unique ID
+      tags:
+        - Carts
+      parameters:
+        - name: id_cart
+          in: path
+          required: true
+          description: ID of the cart to delete
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Cart deleted successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        '404':
+          description: Cart not found
+        '500':
+          description: Internal server error
+
+  /api/carts/{id_cart}/product/{id_product}:
+    post:
+      summary: Add a product to a cart
+      tags:
+        - Carts
+      parameters:
+        - name: id_cart
+          in: path
+          required: true
+          description: ID of the cart to which the product will be added
+          schema:
+            type: string
+        - name: id_product
+          in: path
+          required: true
+          description: ID of the product to add to the cart
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Product added to the cart successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Cart'
+        '404':
+          description: Cart or product not found
+        '500':
+          description: Internal server error
+
+components:
+  schemas:
+    Cart:
+      type: object
+      properties:
+        _id:
+          type: string
+          description: Auto-generated ID
+        products:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProductInCart'
+        __v:
+          type: integer
+          description: Cart auto-generated version number
+      example:
+        _id: '64f5312963800aedb776ca8b'
+        products: []
+        __v: 1
+
+    ProductInCart:
+      type: object
+      properties:
+        product:
+          type: string
+          description: Product ID
+        quantity:
+          type: integer
+          description: Quantity of the product in the cart
+        _id:
+          type: string
+          description: Auto-generated ID
+      example:
+        product: '67890'
+        quantity: 2
+        _id: '64cec7e64e757822cfb81798'

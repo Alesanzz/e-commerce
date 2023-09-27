@@ -11,7 +11,6 @@
   "scripts": {
     "start": "node ./source/app.js",
     "dev": "nodemon -e yaml,js,handlebars ./source/app.js",
-    "testauth": "mocha test/auth-test.js",
     "testcarts": "mocha test/carts-test.js",
     "testproducts": "mocha test/products-test.js"
   },

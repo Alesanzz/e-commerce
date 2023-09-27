@@ -69,7 +69,6 @@ describe("Test de API de carts", function () {
         .put(`/api/carts/${cartId}/products/${productId}`)
         .send({ quantity: productQuantity });
       const { status, ok, _body } = response;
-      console.log(status, ok, _body.data);
 
       expect(status).to.equal(201);
       //revisando si se modifico la cantidad del producto en el carrito de compras
@@ -88,7 +87,6 @@ describe("Test de API de carts", function () {
       const cartId = "64f5312963800aedb776ca8b";
       const response = await requester.delete(`/api/carts/${cartId}`).send();
       const { status, ok, _body } = response;
-      console.log(status, ok, _body.data.products);
 
       expect(status).to.equal(200);
       expect(_body.msg).to.equal(

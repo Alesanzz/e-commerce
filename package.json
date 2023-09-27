@@ -11,7 +11,9 @@
   "scripts": {
     "start": "node ./source/app.js",
     "dev": "nodemon -e yaml,js,handlebars ./source/app.js",
-    "test": "mocha test/XXX.js"
+    "testauth": "mocha test/auth-test.js",
+    "testcarts": "mocha test/carts-test.js",
+    "testproducts": "mocha test/products-test.js"
   },
   "repository": {
     "type": "git",

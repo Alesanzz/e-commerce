@@ -52,12 +52,14 @@ server.use("/apidocs", swaggerUiExpress.serve, swaggerUiExpress.setup(specs));
 //importando las rutas de las apis
 import { routerApiProducts } from "./routes/apis/products-routes.js";
 import { routerApiCarts } from "./routes/apis/carts-routes.js";
+import { routerApiUsers } from "./routes/apis/users-routes.js";
 import { routerApiSessions } from "./routes/apis/sessions-routes.js";
 import { routerErrors } from "./routes/errors/errors-routes.js";
 
 //endpoint tipo api (crudos en json)
 server.use("/api/products", routerApiProducts);
 server.use("/api/carts", routerApiCarts);
+server.use("/api/users", routerApiUsers);
 server.use("/api/sessions", routerApiSessions);
 server.use("/loggertest", routerErrors);
 

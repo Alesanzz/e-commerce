@@ -1,4 +1,3 @@
-import { logger } from "../../source/config/logger-config";
 const socket = io();
 
 const formProducts = document.getElementById("form-products");
@@ -10,8 +9,7 @@ const thumbnail = document.getElementById("form-thumbnail");
 const code = document.getElementById("form-code");
 const stock = document.getElementById("form-stock");
 
-
-const deleteButtons = document.querySelectorAll('.button-delete');
+const deleteButtons = document.querySelectorAll(".button-delete");
 
 // crear un producto
 formProducts.addEventListener("submit", (e) => {
@@ -32,32 +30,33 @@ formProducts.addEventListener("submit", (e) => {
   //segundo parametro = el objeto que se envia al back
   socket.emit("new-product-created", newProduct);
   (title.value = ""),
-  (description.value = ""),
-  (category.value = ""),
-  (price.value = ""),
-  (thumbnail.value = ""),
-  (code.value = ""),
-  (stock.value = "");
+    (description.value = ""),
+    (category.value = ""),
+    (price.value = ""),
+    (thumbnail.value = ""),
+    (code.value = ""),
+    (stock.value = "");
 });
 
 // eliminar un producto
 const tableP = document.getElementById("tableP");
-tableP.addEventListener('click', event => {
-  if (event.target.classList.contains('button-delete')) {
+tableP.addEventListener("click", (event) => {
+  if (event.target.classList.contains("button-delete")) {
     const iidd = event.target.value;
-    logger.info('Valor del botón presionado: ', iidd);
+    console.log("Valor del botón presionado: ", iidd);
     socket.emit("delete-product", iidd);
   }
 });
 
 // actualizar la vista
-socket.on("all-the-products", (allProductsObject) => {
+socket.on("all-the-products", (allProducts) => {
   tableP.innerHTML = "";
   let contenido = "";
-  let allProducts = allProductsObject
+
   for (let i = 0; i < allProducts.length; i++) {
     contenido += `
     <tr>
+    <th scope="row">${allProducts[i].title}</th>
     <td>${allProducts[i].title}</td>
     <td>${allProducts[i].description}</td>
     <td>${allProducts[i].category}</td>
@@ -70,7 +69,7 @@ socket.on("all-the-products", (allProductsObject) => {
       style="width: 50px; min-height:100%; max-height: 50px;"/>
     </td>
     <td>
-      <button class="button-delete" type="button" value="${allProducts[i]._id}">Borrar</button>
+      <button class="button-delete" type="button" value="${allProducts[i]._id.toString()}">Borrar</button>
     </td>
     </tr> 
     `;

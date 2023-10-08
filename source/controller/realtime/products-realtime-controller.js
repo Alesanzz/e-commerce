@@ -9,13 +9,7 @@ export const productRealtimeController = {
     try {
       logger.info("cliente conectado a la lista de productos");
 
-      let { limit, page, query, sort } = req.query;
-      const products = await productService.getProducts(
-        limit,
-        page,
-        query,
-        sort
-      );
+      const products = await productService.getAllProducts();
 
       return res.render("realtime-views/real-time-products", {
         title: "Lista de productos",

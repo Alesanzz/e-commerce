@@ -1,112 +1,68 @@
-body {
-    font-family: Arial, sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
-  }
-  
-  #container {
-    display: flex;
-    width: 100%;
-  }
-  
-  /* Estilo para el contenedor principal */
-  #product-list {
-    flex: 1;
-  }
-  
-  /* Estilo para la tabla de productos */
-  .table {
-    width: 100%;
-    border-collapse: collapse;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  }
-  
-  .table th,
-  .table td {
-    border: 1px solid #ccc;
-    padding: 12px;
-    text-align: center;
-  }
-  
-  .table th {
-    background-color: #f5f5f5;
-  }
-  
-  /* Estilo para las filas de productos alternas */
-  .table tbody tr:nth-child(odd) {
-    background-color: #f9f9f9;
-  }
-  
-  /* Estilo para el formulario */
-  #form-container {
-    width: 35%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-left: 10px;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    position: sticky;
-    top: 0; /* Asegura que el formulario se mantenga en la parte superior */
-  }
-  
-  #form-products {
-    width: 100%;
-  }
-  
-  #form-products label {
-    font-weight: bold;
-    color: #333;
-  }
-  
-  #form-products input[type="text"],
-  #form-products input[type="number"] {
-    margin-bottom: 16px;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    width: 100%;
-  }
-  
-  #form-products input[type="submit"] {
-    padding: 12px;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    width: 100%;
-  }
-  
-  #form-products input[type="submit"]:hover {
-    background-color: #0056b3;
-  }
-  
-  /* Estilo para las imágenes de los productos */
-  #tableP img {
-    width: 50px;
-    height: 50px;
-    object-fit: cover;
-    border-radius: 50%;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
-  }
-  
-  /* Estilo para el botón de borrar */
-  .button-delete {
-    background-color: #dc3545;
-    color: #fff;
-    border: none;
-    padding: 8px 12px;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  
-  .button-delete:hover {
-    background-color: #c82333;
-  }
-  
+/* Estilos para el contenedor principal */
+#product-list {
+  width: 65%;
+  float: left;
+}
+
+#form-container {
+  width: 35%;
+  float: right;
+}
+
+/* Estilos para la tabla de productos */
+.table-light {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+.table-light th,
+.table-light td {
+  padding: 10px;
+  text-align: left;
+  border-bottom: 1px solid #ccc;
+}
+
+.table-light th {
+  background-color: #f0f0f0;
+}
+
+/* Estilos para el formulario */
+#form-products {
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  max-width: 100%;
+}
+
+/* Estilos para los campos de entrada en el formulario */
+input[type="text"],
+input[type="number"] {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 100%;
+  margin-bottom: 16px;
+}
+
+/* Estilos para el botón de envío en el formulario */
+.button-submit {
+  padding: 12px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  width: 100%;
+}
+
+/* Estilos para la imagen de producto en la tabla */
+img {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 50%;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+}

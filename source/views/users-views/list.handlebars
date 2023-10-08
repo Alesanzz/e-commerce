@@ -1,0 +1,35 @@
+<div>
+    <h1>Listado de los usuarios</h1>
+  {{#each user}}
+    <p>Nombre: {{this.fullname}}</p>
+    <p>Email: {{this.email}}</p>
+    <p>Edad: {{this.age}}</p>
+    <p>Pais: {{this.country}}</p>
+    <p>Roll: {{this.roll}}</p>
+    <p>Carrito de compras nro: {{this.cart}}</p>
+
+    <form action="http://localhost:8080/carts/{{../user.cart}}/product/{{this.id}}" method="POST">
+      <button type="submit">Agregar al carrito</button>
+    </form>
+
+      <hr />
+  {{/each}}
+</div>
+  <hr />
+
+<div>
+  Contador del primer producto mostrado: {{pagingCounter}}
+  <br>
+  Pagina actual: {{page}}
+  <br>
+  Numero de paginas: {{totalPages}}
+  <hr />
+
+  {{#if hasPrevPage}}
+    <a style='text-decoration: none' href='http://localhost:8080/users/list/?page={{prevPage}}'> ⬅️ </a>
+  {{/if}}
+  {{page}}
+  {{#if hasNextPage}}
+    <a style='text-decoration: none' href='http://localhost:8080/users/list/?page={{nextPage}}'> ➡️</a>
+  {{/if}}
+</div>

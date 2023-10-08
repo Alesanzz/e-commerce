@@ -69,7 +69,6 @@ describe("Test de API de products", function () {
         .send(newData);
       const { status, ok, _body } = response;
 
-      console.log(_body);
       expect(status).to.equal(201);
       expect(_body.status).to.equal(`Success`);
     });

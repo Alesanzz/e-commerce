@@ -27,7 +27,7 @@ export function connectSocket(httpServer) {
       try {
         await productService.addProduct(newProduct);
 
-        let allProducts = await productService.getProducts();
+        let allProducts = await productService.getAllProducts();
         socketServer.emit("all-the-products", allProducts);
       } catch (error) {
         logger.info(error);
@@ -38,7 +38,7 @@ export function connectSocket(httpServer) {
       try {
         await productService.deleteProduct(_id);
 
-        let allProducts = await productService.getProducts();
+        let allProducts = await productService.getAllProducts();
         socketServer.emit("all-the-products", allProducts);
       } catch (error) {
         logger.info(error);

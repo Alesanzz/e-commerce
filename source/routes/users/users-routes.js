@@ -5,6 +5,9 @@ import { userController } from "../../controller/users/users-controller-passapor
 
 export const routerUsers = express.Router();
 
+//ver listado de usuarios solo para administradores
+routerUsers.get("/list", userController.list)
+
 //ver el perfil
 routerUsers.get("/profile", userController.showProfile)
 

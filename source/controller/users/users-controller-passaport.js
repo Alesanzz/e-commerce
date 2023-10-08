@@ -8,6 +8,42 @@ import EErrors from "../../services/errors/enums.js";
 import UserDTO from "../../dto/user-dto.js";
 
 export const userController = {
+  list: async function (req, res, next) {
+    try {
+      let { limit, page, query, sort } = req.query;
+      const dataUsers = await userService.getUsers(
+        limit,
+        page,
+        query,
+        sort
+      );
+      let users = dataUsers.docs.map( user => new UserDTO(user) )
+
+      return res.status(200).render("users-views/list", {
+        title: "Listado de usuarios",
+        user: users,
+        pagingCounter: dataUsers.pagingCounter,
+        page: dataUsers.page,
+        totalPages: dataUsers.totalPages,
+        hasPrevPage: dataUsers.hasPrevPage,
+        hasNextPage: dataUsers.hasNextPage,
+        prevPage: dataUsers.prevPage,
+        nextPage: dataUsers.nextPage,
+      });
+    } catch (error) {
+      logger.error("Error retrieving all users: " + error.message);
+
+      return next(
+        CustomError.createError({
+          name: "GetAllUsersError",
+          cause: error,
+          message: "Error retrieving all users",
+          code: EErrors.DATABASE_ERROR,
+        })
+      );
+    }
+  },
+
   showProfile: async function (req, res, next) {
     let user = {};
     if (req.session && req.session.user) {

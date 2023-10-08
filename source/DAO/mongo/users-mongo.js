@@ -5,6 +5,10 @@ class UserMongoDAO {
     return await UserModel.find();
   }
 
+  async findSome(filter, options) {
+    return await UserModel.paginate(filter, options);
+  }
+
   async findById(id) {
     return await UserModel.findById({ _id: id });
   }

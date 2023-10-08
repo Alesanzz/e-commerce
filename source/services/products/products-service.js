@@ -14,7 +14,7 @@ class ProductService {
       sort: sortOption
     };
 
-    const products = await productDAO.findAll({filter, options});
+    const products = await productDAO.findSome(filter, options);
     return products;
   }
 

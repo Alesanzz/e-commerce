@@ -17,8 +17,8 @@ export const productController = {
     try {
       let { limit, page, query, sort } = req.query;
       const allProducts = await productService.getProducts(
-        limit,
-        page,
+        Number(limit),
+        Number(page),
         query,
         sort
       );
@@ -26,7 +26,7 @@ export const productController = {
       return res.status(200).render("products-views/products-list", {
         title: "Lista de productos",
         user: user,
-        products: allProducts.map((product) => ({
+        products: allProducts.docs.map((product) => ({
           id: product._id.toString(),
           title: product.title,
           description: product.description,

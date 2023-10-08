@@ -65,13 +65,13 @@ class CartService {
   }
 
   async updateCart(cartId, products) {
-		try {
-			return await cartDAO.updateOne(cartId, {products});
-		} catch (error) {
-			console.error(error);
-			throw error;
-		}
-	}
+    try {
+      return await cartDAO.updateOne(cartId, { products });
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
+  }
 
   async updateProductQuantity(idCart, idProduct, quantity) {
     // Buscar el carrito en la base de datos
@@ -122,48 +122,51 @@ class CartService {
   }
 
   async finalizePurchase(cartId, email) {
-		try {
-			const cart = await this.getOneCart(cartId);
-			let totalAmount = 0;
-			let unprocessedProducts = [];
-      let productsForTheTicket = []
+    try {
+      const cart = await this.getOneCart(cartId);
+      let totalAmount = 0;
+      let unprocessedProducts = [];
+      let productsForTheTicket = [];
 
-			for (let item of cart.products) {
-				const product = await productService.getOneProduct(item.product);
-        productsForTheTicket.push({product: item.product._id, quantity: item.quantity})
+      for (let item of cart.products) {
+        const product = await productService.getOneProduct(item.product);
+        productsForTheTicket.push({
+          product: item.product._id,
+          quantity: item.quantity,
+        });
 
-				if (product.stock >= item.quantity) {
-					totalAmount += product.price * item.quantity;
-					product.stock -= item.quantity;
-					await productService.updateProduct(product._id, product);
-				} else {
-					unprocessedProducts.push(item.product);
-				}
-			}
+        if (product.stock >= item.quantity) {
+          totalAmount += product.price * item.quantity;
+          product.stock -= item.quantity;
+          await productService.updateProduct(product._id, product);
+        } else {
+          unprocessedProducts.push(item.product);
+        }
+      }
 
-			const ticketData = {
-				purchaser: email,
+      const ticketData = {
+        purchaser: email,
         cartId: cartId,
         products: productsForTheTicket,
-				amount: totalAmount,
-			};
+        amount: totalAmount,
+      };
 
-			const ticket = await ticketService.createTicket(ticketData);
+      const ticket = await ticketService.createTicket(ticketData);
 
-			cart.products = cart.products.filter(item =>
-				unprocessedProducts.includes(item.product),
-			);
-			await this.updateCart(cartId, cart.products);
+      cart.products = cart.products.filter((item) =>
+        unprocessedProducts.includes(item.product)
+      );
+      await this.updateCart(cartId, cart.products);
 
-			return {
-				ticket,
-				unprocessedProducts,
-			};
-		} catch (error) {
-			console.error(error);
-			throw error;
-		}
-	}
+      return {
+        ticket,
+        unprocessedProducts,
+      };
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
+  }
 }
 
 export const cartService = new CartService();

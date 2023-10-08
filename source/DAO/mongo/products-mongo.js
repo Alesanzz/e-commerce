@@ -5,6 +5,10 @@ class ProductMongoDAO {
     return await ProductModel.find();
   }
 
+  async findSome(filter, options) {
+    return await ProductModel.paginate(filter, options);
+  }
+
   async findOne(code) {
     return await ProductModel.findOne({ _id: code });
   }

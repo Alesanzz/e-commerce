@@ -8,8 +8,8 @@
     <p>Roll: {{this.roll}}</p>
     <p>Carrito de compras nro: {{this.cart}}</p>
 
-    <form action="http://localhost:8080/carts/{{../user.cart}}/product/{{this.id}}" method="POST">
-      <button type="submit">Agregar al carrito</button>
+    <form action="http://localhost:8080/users/list/{{this.id}}?_method=DELETE" method="POST">
+      <button type="submit">Eliminar usuario</button>
     </form>
 
       <hr />
@@ -18,7 +18,7 @@
   <hr />
 
 <div>
-  Contador del primer producto mostrado: {{pagingCounter}}
+  Contador del primer usuario mostrado: {{pagingCounter}}
   <br>
   Pagina actual: {{page}}
   <br>

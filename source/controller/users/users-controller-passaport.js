@@ -11,13 +11,8 @@ export const userController = {
   list: async function (req, res, next) {
     try {
       let { limit, page, query, sort } = req.query;
-      const dataUsers = await userService.getUsers(
-        limit,
-        page,
-        query,
-        sort
-      );
-      let users = dataUsers.docs.map( user => new UserDTO(user) )
+      const dataUsers = await userService.getUsers(limit, page, query, sort);
+      let users = dataUsers.docs.map((user) => new UserDTO(user));
 
       return res.status(200).render("users-views/list", {
         title: "Listado de usuarios",
@@ -140,6 +135,7 @@ export const userController = {
         });
       }
       req.session.user = {
+        id: req.user._id.ToString(),
         first_name: req.user.first_name,
         last_name: req.user.last_name,
         age: req.user.age,
@@ -319,6 +315,26 @@ export const userController = {
         status: "error",
         error: error.message,
       });
+    }
+  },
+
+  deleteUser: async function (req, res, next) {
+    try {
+      const id = req.params.id;
+      await userService.deleteUser(id);
+
+      res.status(200).redirect("/users/list");
+    } catch (error) {
+      logger.error("Error deleting the user id: " + error.message);
+
+      return next(
+        CustomError.createError({
+          name: "DeletingUser",
+          cause: error,
+          message: "Error deleting a user",
+          code: EErrors.USER_NOT_FOUND,
+        })
+      );
     }
   },
 

@@ -77,6 +77,11 @@ class UserService {
       }
     );
   }
+
+  async deleteUser(_id) {
+    const deleted = await userDAO.delete(_id);
+    return deleted
+  }
 }
 
 export const userService = new UserService();

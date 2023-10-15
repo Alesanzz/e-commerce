@@ -3,17 +3,17 @@ import { logger } from '../../config/logger-config.js';
 import passport from "passport";
 import local from "passport-local";
 import GitHubStrategy from 'passport-github2';
-import { DAOFactory } from '../../dao/factory.js';
+import { DAOFactory } from "../../dao/factory.js";
 import { cartService } from "../carts/carts-service.js";
 
 import { createHashPassword, checkPassword } from "../../config/bcrypt-config.js";
 import { entorno } from "../../config/env-config.js";
 
+const userDAO = await DAOFactory("users");
+
 const LocalStrategy = local.Strategy;
 
 export async function iniPassport() {
-  const userDAO = await DAOFactory('users');
-
   passport.use(
     "login",
     //en este modelo de passport, solo se trabaja con usuario y contraseña, es porque es que para adaptarlo a nuestro modelo, indicamos en la siguiente linea que el usernameField va a ser el email del esquima de nuestro modelo de usuarios.

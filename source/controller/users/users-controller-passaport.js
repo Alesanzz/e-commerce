@@ -39,6 +39,26 @@ export const userController = {
     }
   },
 
+  changeRoll: async function (req, res, next) {
+    try {
+      const id = req.params.id;
+      await userService.changeRoll(id);
+
+      res.status(200).redirect("/users/list");
+    } catch (error) {
+      logger.error("Error changing the roll of the user: " + error.message);
+
+      return next(
+        CustomError.createError({
+          name: "DeletingUser",
+          cause: error,
+          message: "Error changing the roll of the user",
+          code: EErrors.USER_NOT_FOUND,
+        })
+      );
+    }
+  },
+
   showProfile: async function (req, res, next) {
     let user = {};
     if (req.session && req.session.user) {
@@ -134,8 +154,9 @@ export const userController = {
           data: {},
         });
       }
+
       req.session.user = {
-        id: req.user._id.ToString(),
+        id: req.user._id,
         first_name: req.user.first_name,
         last_name: req.user.last_name,
         age: req.user.age,
@@ -171,8 +192,11 @@ export const userController = {
 
     try {
       req.session.user = {
+        id: req.user._id,
         first_name: req.user.first_name,
         last_name: req.user.last_name,
+        age: req.user.age,
+        country: req.user.country,
         email: req.user.email,
         admin: req.user.admin,
         cart: req.user.cart,

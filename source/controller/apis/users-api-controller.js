@@ -14,9 +14,8 @@ export const usersApiController = {
         page,
         query,
         sort
-      );
-      let viewUsers = users.map( user => new UserDTO(user) )
-      
+        );
+      let viewUsers = users.docs.map( user => new UserDTO(user) )
       return res.status(200).json({
         status: "Success",
         msg: "Mostrando todos los usuarios encontrados con exito",

@@ -1,7 +1,10 @@
 //@ts-check
 import crypto from "crypto";
 import { DAOFactory } from "../../dao/factory.js";
-import {createHashPassword, checkPassword } from "../../config/bcrypt-config.js";
+import {
+  createHashPassword,
+  checkPassword,
+} from "../../config/bcrypt-config.js";
 
 const userDAO = await DAOFactory("users");
 
@@ -78,9 +81,20 @@ class UserService {
     );
   }
 
+  async changeRoll(id) {
+    const user = await userDAO.findById( id );
+    if (user.admin == false) {
+      await userDAO.update({ _id: user._id }, { admin: true });
+    } else if (user.admin == true) {
+      await userDAO.update({ _id: user._id }, { admin: false });
+    } else {
+      throw new Error("User not found");
+    }
+  }
+
   async deleteUser(_id) {
     const deleted = await userDAO.delete(_id);
-    return deleted
+    return deleted;
   }
 }
 

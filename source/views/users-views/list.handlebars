@@ -4,9 +4,12 @@
     <p>Nombre: {{this.fullname}}</p>
     <p>Email: {{this.email}}</p>
     <p>Edad: {{this.age}}</p>
-    <p>Pais: {{this.country}}</p>
     <p>Roll: {{this.roll}}</p>
     <p>Carrito de compras nro: {{this.cart}}</p>
+
+    <form action="http://localhost:8080/users/list/change-rol/{{this.id}}" method="POST">
+      <button type="submit">Cambiar el roll del usuario</button>
+    </form>
 
     <form action="http://localhost:8080/users/list/{{this.id}}?_method=DELETE" method="POST">
       <button type="submit">Eliminar usuario</button>

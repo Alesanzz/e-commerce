@@ -3,11 +3,7 @@ import passport from 'passport';
 import { userController } from "../../controller/users/users-controller-passaport.js";
 import { checkRolAdmin } from "../../middlewares/auth-users/check-rol-admin.js"
 
-
 export const routerUsers = express.Router();
-
-//ver listado de usuarios solo para administradores
-routerUsers.get("/list", checkRolAdmin, userController.list)
 
 //ver el perfil
 routerUsers.get("/profile", userController.showProfile)
@@ -33,6 +29,10 @@ routerUsers.post("/request-reset-password", userController.requestResetPassword)
 routerUsers.get("/reset-password", userController.resetPassword);
 routerUsers.post("/reset-password-done", userController.resetPasswordSave);
 
+//ver listado de usuarios solo para administradores
+routerUsers.get("/list", checkRolAdmin, userController.list)
+//para cambiar el roll de un usuario
+routerUsers.post("/list/change-rol/:id", checkRolAdmin, userController.changeRoll)
 //ruta para cuando hay que eliminar un usuario solo para administradores
 routerUsers.delete("/list/:id", checkRolAdmin, userController.deleteUser)
 

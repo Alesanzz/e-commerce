@@ -1,0 +1,21 @@
+[
+  {
+    "idCart": 1,
+    "products": []
+  },
+  {
+    "idCart": 2,
+    "products": [
+      {
+        "idProduct": 12,
+        "nameOfTheProduct": "telefono",
+        "quantity": 3
+      },
+      {
+        "idProduct": 10,
+        "nameOfTheProduct": "jogger",
+        "quantity": 7
+      }
+    ]
+  }
+]

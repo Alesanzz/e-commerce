@@ -1,0 +1,134 @@
+[
+  {
+    "id": 1,
+    "title": "jarra de agua",
+    "description": "de un litro",
+    "category": "articulo de cocina",
+    "price": 240,
+    "thumbnail": "/images/realtimes/www.png",
+    "code": "mxm",
+    "stock": 818,
+    "status": true
+  },
+  {
+    "id": 2,
+    "title": "cuaderno",
+    "description": "de rayas azules",
+    "category": "producto el colegio",
+    "price": 110,
+    "thumbnail": "/images/realtimes/www.png",
+    "code": "x1o",
+    "stock": 218,
+    "status": true
+  },
+  {
+    "id": 3,
+    "title": "camisa",
+    "description": "color azul / talla grande",
+    "category": "articulos de hogar",
+    "price": 250,
+    "thumbnail": "/images/realtimes/www.png",
+    "code": "asd",
+    "stock": 175,
+    "status": true
+  },
+  {
+    "id": 4,
+    "title": "short",
+    "description": "color blanco / talla mediano",
+    "category": "articulos de hogar",
+    "price": 200,
+    "thumbnail": "/images/realtimes/www.png",
+    "code": "wer",
+    "stock": 199,
+    "status": true
+  },
+  {
+    "id": 5,
+    "title": "zapatos",
+    "description": "color verde / talla grande",
+    "category": "articulos de hogar",
+    "price": 190,
+    "thumbnail": "/images/realtimes/www.png",
+    "code": "rty",
+    "stock": 120,
+    "status": true
+  },
+  {
+    "id": 6,
+    "title": "gorra",
+    "description": "color plateado / talla mediana",
+    "category": "articulos de hogar",
+    "price": 115,
+    "thumbnail": "/images/realtimes/www.png",
+    "code": "xcv",
+    "stock": 200,
+    "status": true
+  },
+  {
+    "id": 7,
+    "title": "reloj",
+    "description": "color dorado / talla chico",
+    "category": "articulos de hogar",
+    "price": 400,
+    "thumbnail": "/images/realtimes/www.png",
+    "code": "mnb",
+    "stock": 220,
+    "status": true
+  },
+  {
+    "id": 8,
+    "title": "pulcera",
+    "description": "color variada / talla unica",
+    "category": "articulos de hogar",
+    "price": 100,
+    "thumbnail": "/images/realtimes/www.png",
+    "code": "dfg",
+    "stock": 120,
+    "status": true
+  },
+  {
+    "id": 9,
+    "title": "guardacamisa",
+    "description": "color beige / talla extra grande",
+    "category": "articulos de hogar",
+    "price": 210,
+    "thumbnail": "/images/realtimes/www.png",
+    "code": "lkj",
+    "stock": 270,
+    "status": true
+  },
+  {
+    "id": 10,
+    "title": "jogger",
+    "description": "color marron / talla extra chico",
+    "category": "articulos de hogar",
+    "price": 290,
+    "thumbnail": "/images/realtimes/www.png",
+    "code": "iuy",
+    "stock": 200,
+    "status": true
+  },
+  {
+    "id": 11,
+    "title": "blue jean",
+    "description": "color azul marino / talla mediano",
+    "category": "articulos de hogar",
+    "price": 190,
+    "thumbnail": "/images/realtimes/www.png",
+    "code": "ghd",
+    "stock": 260,
+    "status": true
+  },
+  {
+    "id": 12,
+    "title": "telefono",
+    "description": "iphone 13",
+    "category": "producto nuevo",
+    "price": 99,
+    "thumbnail": "/images/realtimes/www.png",
+    "code": "jfh",
+    "stock": 99,
+    "status": true
+  }
+]
